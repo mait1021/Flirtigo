@@ -18,6 +18,8 @@ router.get("/", async (req, res) => {
   }
 });
 
+//sign Up
+
 router.get("/signUp_Intro", async (req, res) => {
   console.log("page hit");
   res.render("signup_Intro");
@@ -45,6 +47,10 @@ router.post("/addUser", async (req, res) => {
   var password = req.body.password;
   var registerStep = req.body.registerStep;
 
+  if (User.findOne({ email: req.body.email })) {
+    alert("we have the same user");
+  }
+
   var newUser = new User();
   newUser.first_name = first_name;
   newUser.email = email;
@@ -52,38 +58,81 @@ router.post("/addUser", async (req, res) => {
   newUser.registerStep = registerStep;
   await newUser.save();
 
-  res.redirect("register_age");
+  res.redirect(`/register_age?email=${newUser.email}`);
 });
 
 router.get("/register_age", async (req, res) => {
   console.log("page hit");
-  res.render("register_age");
+
+  res.render("register_age", { email: req.query.email });
 });
 
 router.post("/addAge", async (req, res) => {
   console.log("add");
   console.log(req.body.birthday);
-  let age = req.body.birthday;
-  var newUser = new User();
-  newUser.age = age;
-  await newUser.save();
-  res.redirect("register_address");
+  console.log(req.body.email);
+
+  User.findOne({ email: req.body.email }, function (err, user) {
+    user.age = req.body.birthday;
+    user.registerStep = req.body.registerStep;
+    user.save(function (err) {
+      if (err) {
+        console.error("ERROR!");
+      }
+    });
+  });
+  res.redirect(`register_address?email=${req.body.email}`);
 });
 
 router.get("/register_address", async (req, res) => {
   console.log("page hit");
 
-  res.render("register_address");
+  res.render("register_address", { email: req.query.email });
+});
+
+router.post("/addAddress", async (req, res) => {
+  console.log("add");
+  console.log(req.body);
+  User.findOne({ email: req.body.email }, function (err, user) {
+    user.street = req.body.street;
+    user.city = req.body.city;
+    user.province = req.body.province;
+    user.zip = req.body.zip;
+    user.country = req.body.country;
+    user.registerStep = req.body.registerStep;
+    user.save(function (err) {
+      if (err) {
+        console.error("ERROR!");
+      }
+    });
+  });
+  res.redirect(`register_orientation?email=${req.body.email}`);
 });
 
 router.get("/register_orientation", async (req, res) => {
   console.log("page hit");
-  res.render("register_orientation");
+  res.render("register_orientation", { email: req.query.email });
+});
+
+router.post("/addOrientation", async (req, res) => {
+  console.log("add");
+  console.log(req.body);
+  User.findOne({ email: req.body.email }, function (err, user) {
+    user.gender = req.body.gender;
+    user.toSee = req.body.toSee;
+    user.registerStep = req.body.registerStep;
+    user.save(function (err) {
+      if (err) {
+        console.error("ERROR!");
+      }
+    });
+  });
+  res.redirect(`register_photo?email=${req.body.email}`);
 });
 
 router.get("/register_photo", async (req, res) => {
   console.log("page hit");
-  res.render("register_photo");
+  res.render("register_photo", { email: req.query.email });
 });
 
 router.get("/signIn", async (req, res) => {
@@ -91,16 +140,23 @@ router.get("/signIn", async (req, res) => {
   res.render("signIn");
 });
 
+//sign In
+
 router.post("/signIn", async (req, res) => {
   console.log("page hit");
   var email = req.body.email;
   var password = req.body.password;
   const user = await User.findOne({ email: email, password: password });
   if (user) {
-    res.redirect("/");
+    res.redirect("/main");
   } else {
     throw new Error("No");
   }
+});
+
+router.get("/main", async (req, res) => {
+  console.log("page hit");
+  res.render("main");
 });
 
 // router.get("/populateData", async (req, res) => {

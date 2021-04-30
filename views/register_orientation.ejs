@@ -14,30 +14,30 @@
 
     <div class="intro-container">
 
-      <form action="addUser" method="post">
+      <form action="addOrientation" method="post">
         <h2>I identify as...</h2>
           <div class="content-wrapper">
             <label class="orientation">Straight
-              <input type="radio" name="sex">
+              <input type="radio" name="gender" value="straight">
               <span class="checkmark"></span>
             </label>
 
             <label class="orientation">Gay
-              <input type="radio" name="sex">
+              <input type="radio" name="gender" value ="gay">
               <span class="checkmark"></span>
             </label>
 
             <label class="orientation">Queer
-              <input type="radio" name="sex">
+              <input type="radio" name="gender" value="queer">
               <span class="checkmark"></span>
             </label>
             <label class="orientation">Asexual
-              <input type="radio" name="sex">
+              <input type="radio" name="gender" value="Asexual">
               <span class="checkmark"></span>
             </label>
 
             <label class="orientation">Bisexual
-              <input type="radio" name="sex">
+              <input type="radio" name="gender" value="Bisexual">
               <span class="checkmark"></span>
             </label>
 
@@ -46,23 +46,23 @@
           <h2>I want to see...</h2>
           <div class="content-wrapper">
             <label class="orientation">Women
-              <input type="radio" name="toSee">
+              <input type="radio" name="toSee" value="women">
               <span class="checkmark"></span>
             </label>
             <label class="orientation">Men
-              <input type="radio" name="toSee">
+              <input type="radio" name="toSee" value="men">
               <span class="checkmark"></span>
             </label>
             <label class="orientation">Everyone
-              <input type="radio" name="toSee">
+              <input type="radio" name="toSee" value="everyone">
               <span class="checkmark"></span>
             </label>
           </div>
 
         
-        <input type="hidden" name="registerStep" value="4">
-
-        <a class="nextBtn" href="/register_photo">Next</a>
+          <input type="hidden" name="email" value="<%= email %>">
+          <input type="hidden" name="registerStep" value="4">
+          <button class="nextBtn">Next</button>
 
       </form> 
     </div>

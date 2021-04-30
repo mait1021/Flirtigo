@@ -1,5 +1,4 @@
 function initImageUpload(box) {
-  console.log("change");
   let uploadField = box.querySelector(".image-upload");
 
   uploadField.addEventListener("change", getFile);
@@ -21,8 +20,9 @@ function initImageUpload(box) {
   }
 
   function checkType(file) {
+    let imageType = /image.*/;
     if (!file) {
-      throw "Kein Bild gewählt";
+      throw "No file";
     } else {
       previewImage(file);
     }
@@ -36,5 +36,3 @@ for (let i = 0; i < boxes.length; i++) {
   let box = boxes[i];
   initImageUpload(box);
 }
-
-/// drop-effect

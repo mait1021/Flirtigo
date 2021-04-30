@@ -16,23 +16,23 @@
 
       <h1>Address</h1>
 
-      <form action="addUser" method="post">
+      <form action="addAddress" method="post">
 
         <div class="content-wrapper">
-          <input type="street" id="autocomplete" placeholder="Street">
+          <input type="street" id="autocomplete" placeholder="Street" name="street">
   
-          <input type="city" id="inputCity" placeholder="City">
+          <input type="city" id="inputCity" placeholder="City" name="city">
   
-          <input type="province" id="inputState" placeholder="Province">
+          <input type="province" id="inputState" placeholder="Province" name="province">
   
-          <input type="zip" id="inputZip" placeholder="Zip">
+          <input type="zip" id="inputZip" placeholder="Zip" name="zip">
   
-          <input type="county" id="inputCounty" placeholder="County">
+          <input type="county" id="inputCounty" placeholder="County" name="country">
         </div>
         
+        <input type="hidden" name="email" value="<%= email %>">
         <input type="hidden" name="registerStep" value="4">
-
-        <a class="nextBtn" href="/register_orientation">Next</a>
+        <button class="nextBtn">Next</button>
 
       </form> 
     </div>

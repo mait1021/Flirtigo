@@ -6,23 +6,32 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"> </script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    
   </head>
   <body>
+    <script type="text/javascript"> 
+    //<![CDATA[ 
+      $(function() { $("#login").validate(); });
+      //]]> 
+    </script>
+
     <%- include('_nav_bar.ejs') %>
 
     <div class="intro-container">
 
       <h1>What's your name?</h1>
 
-      <form action="addUser" method="post">
+      <form id="login" action="addUser" method="post">
 
         <div class="content-wrapper">
-          <input name="first_name" class="input" type="text" placeholder="First Name">
+          <input name="first_name" class="input" type="text" placeholder="First Name" minlength="2">
         </div>
 
         <div class="content-wrapper">
-          <input name="email" class="input" type="email" placeholder="Email"><br>
-          <input name="password" class="input" type="password" placeholder="Password">
+          <input name="email" class="input" type="email" placeholder="Email"  data-rule-required="true" data-rule-email="true" data-msg-required="Please enter your email address" data-msg-email="Please enter a valid email address"><br>
+          <input name="password" class="input" type="password" placeholder="Password" minlength="5">
           <!-- <input name="pass" class="input" type="password" placeholder="Re-enter Password"> -->
           <input type="hidden" name="registerStep" value="2">
         </div>
