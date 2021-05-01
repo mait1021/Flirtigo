@@ -19,6 +19,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(__dirname + "/public"));
 app.use('/public/images/', express.static('./public/images'));
+
 app.use('/',router);
 
 app.listen(port, () => {

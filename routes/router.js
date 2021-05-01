@@ -1,22 +1,23 @@
 const router = require("express").Router();
 const database = include("databaseConnection");
 const User = include("models/user");
+const { response } = require("express");
 const Joi = require("joi");
+//multer
+var multer = require('multer');
+ 
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, './public/images')
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.originalname + '-' + Date.now())
+//     }
+// });
+ 
+// const upload = multer({ storage: storage })
 
-router.get("/", async (req, res) => {
-  console.log("page hit");
-  try {
-    const result = await User.find({})
-      .select("first_name last_name email id")
-      .exec();
-    console.log(result);
-    res.render("index", { allUsers: result });
-  } catch (ex) {
-    res.render("error", { message: "Error" });
-    console.log("Error");
-    console.log(ex);
-  }
-});
+
 
 router.get("/signUp_Intro", async (req, res) => {
   console.log("page hit");
@@ -40,12 +41,12 @@ router.get("/register", async (req, res) => {
 
 router.post("/addUser", async (req, res) => {
   console.log("page hit");
-  var first_name = req.body.first_name;
-  var email = req.body.email;
-  var password = req.body.password;
-  var registerStep = req.body.registerStep;
+  first_name = req.body.first_name;
+  email = req.body.email;
+  password = req.body.password;
+  registerStep = req.body.registerStep;
 
-  var newUser = new User();
+  newUser = new User();
   newUser.first_name = first_name;
   newUser.email = email;
   newUser.password = password;
@@ -64,7 +65,7 @@ router.post("/addAge", async (req, res) => {
   console.log("add");
   console.log(req.body.birthday);
   let age = req.body.birthday;
-  var newUser = new User();
+  newUser = new User();
   newUser.age = age;
   await newUser.save();
   res.redirect("register_address");
@@ -93,8 +94,8 @@ router.get("/signIn", async (req, res) => {
 
 router.post("/signIn", async (req, res) => {
   console.log("page hit");
-  var email = req.body.email;
-  var password = req.body.password;
+  email = req.body.email;
+  password = req.body.password;
   const user = await User.findOne({ email: email, password: password });
   if (user) {
     res.redirect("/");
@@ -102,6 +103,7 @@ router.post("/signIn", async (req, res) => {
     throw new Error("No");
   }
 });
+
 
 // router.get("/populateData", async (req, res) => {
 //   console.log("populate Data");
@@ -158,5 +160,146 @@ router.post("/signIn", async (req, res) => {
 //     console.log(ex);
 //   }
 // });
+
+
+
+//edit photo page
+
+
+
+// router.post("/edit_photo", upload.single("photo_one"), async (req, res, next) =>{
+//   const file = req.file    
+//   if (!file) {      
+//   const error = new Error('Please upload a file') 
+//   error.httpStatusCode = 400      
+//   return next("hey error")    
+//   }                  
+//   const imagepost= new User({        
+//   user: file.path      
+//   });
+        
+  // const savedimage= await imagepost.save()      
+  // res.json(savedimage)      
+  // })
+
+  router.get("/edit_photo", async (req, res) => {
+    // Get the userid from the cookie
+    const id = "608b865950b478994db1c580"
+    // get the user from the database using the id
+    const user = await User.findById(id).exec();
+ 
+    console.log("page hit");
+     res.render("edit_photo", {user: user});
+  });
+  
+
+
+  router.post("/edit_photo", async (req, res) => {
+    // Get the userid from the cookie
+    const id = "608b865950b478994db1c580"
+    // Get the new data from req.body
+    const photo_one = req.body.photo_one
+    const photobio = req.body.photobio
+
+
+    // Mongoose find user and update 
+    // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+    await User.findByIdAndUpdate(id, {photo_one: req.body.photo_one, photobio: req.body.photobio}).exec()
+    // res.redirect to the profile page 
+    res.send({photo_one, photobio})
+  })
+
+//--------edit address page
+
+router.get("/edit_address", async (req, res) => {
+  // Get the userid from the cookie
+  const id = "608b865950b478994db1c580"
+  // get the user from the database using the id
+  const user = await User.findById(id).exec();
+  console.log("page hit");
+  res.render("edit_address", {user: user});
+});
+
+
+router.post("/edit_address", async (req, res) => {
+  // Get the userid from the cookie
+  const id = "608b865950b478994db1c580"
+  // Get the new data from req.body
+  const street = req.body.street
+  const city = req.body.city
+  const province = req.body.province
+  const zip = req.body.zip
+  const country = req.body.country
+
+  // Mongoose find user and update 
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(id, {street:req.body.street, city:req.body.city, province:req.body.province, zip:req.body.zip, country:req.body.country}).exec()
+  // res.redirect to the profile page 
+  res.send({street, city, province, zip, country})
+})
+
+
+
+//---------edit orientation
+router.get("/edit_orientation", async (req, res) => {
+  // Get the userid from the cookie
+  const id = "608b865950b478994db1c580"
+  // get the user from the database using the id
+  const user = await User.findById(id).exec();
+  console.log("page hit");
+  res.render("edit_orientation", {user: user});
+});
+
+
+
+router.post("/edit_orientation", async (req, res) => {
+  // Get the userid from the cookie
+  const id = "608b865950b478994db1c580"
+  // Get the new data from req.body
+  const toSee = req.body.toSee
+  const sex = req.body.sex
+
+  // Mongoose find user and update 
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(id, {toSee: req.body.toSee, sex: req.body.sex}).exec()
+  // res.redirect to the profile page 
+  res.send({toSee, sex})
+})
+
+
+//---------edit work/education
+router.get("/edit_work", async (req, res) => {
+  // Get the userid from the cookie
+  const id = "608b865950b478994db1c580"
+  // get the user from the database using the id
+  const user = await User.findById(id).exec();
+  console.log("page hit");
+  res.render("edit_work", {user: user});
+});
+
+
+router.post("/edit_work", async (req, res) => {
+  // Get the userid from the cookie
+  const id = "608b865950b478994db1c580"
+  // Get the new data from req.body
+  const job = req.body.job
+  const education = req.body.education
+  const hobbies = req.body.hobbies
+
+  // Mongoose find user and update 
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(id, {job:req.body.job, education:req.body.education, hobbies:req.body.hobbies}).exec()
+  // res.redirect to the profile page 
+  res.send({job, education, hobbies})
+})
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
