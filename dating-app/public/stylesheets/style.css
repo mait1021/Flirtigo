@@ -1,5 +1,5 @@
 body {
-  background-color: #f8f9fa !important;
+  background-color: #f8f9fa;
   /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
 }
 
@@ -50,7 +50,7 @@ p {
 .navbar,
 .footer {
   color: #fdda7f;
-  background-color: #2b2d40 !important;
+  background-color: #2b2d40;
 }
 .footer {
   position: fixed;
@@ -80,7 +80,7 @@ p {
   border-style: solid;
 }
 .btn-horoscope-icon {
-  margin: 0px !important;
+  margin: 0px;
 }
 
 .personal-chars {
@@ -111,7 +111,7 @@ p {
   background-color: #2b2d40;
 }
 .noUi-pips-horizontal {
-  height: 30px !important;
+  height: 30px;
 }
 .details-container {
   font-family: 'Poppins', sans-serif;

@@ -1,9 +1,25 @@
-var express = require("express");
+const router = require("express").Router();
 const ProfilesModel = require("../models/profiles");
-var router = express.Router();
-var filtersRouter = require("./edit");
-var editRouter = require("./filters");
+const database = include("databaseConnection");
+const Joi = require("joi");
 
+/* EDIT */
+/* GET users listing. */
+router.get("/edit", function (req, res, next) {
+  res.render("filters");
+});
+
+
+/* FILTERS */
+/* GET home page. */
+router.get("/filters", function (req, res, next) {
+  const userId = res.profileid;
+  console.log("user id from edit" + userId);
+  res.render("editinfo", { profileid: userId });
+});
+
+
+/* PROFILE */
 /* GET home page. */
 const users = [
   {
@@ -32,8 +48,6 @@ const getUserid = (req, res, next) => {
   next();
 };
 
-router.use("/:id/filters", getUserid, filtersRouter);
-router.use("/:id/edit", getUserid, editRouter);
 
 //redirecting to first person profile by default
 router.get("/", (req, res, next) => {
@@ -54,6 +68,17 @@ router.post("/", (req, res, next) => {
   ProfilesModel.insertMany(users).then((data) => {
     console.log("Inserted successfully");
     res.json(data);
+  });
+});
+
+
+
+/* UPDATE */
+/* GET users listing. */
+router.post("/update", function (req, res, next) {
+  const { profileid, minage, maxage, distance, characteristics: character } = req.body;
+  ProfilesModel.updateOne({ profileid: profileid }, { minage, maxage, distance, character }).then((err, data) => {
+    res.redirect("/" + profileid);
   });
 });
 
