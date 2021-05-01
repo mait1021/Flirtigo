@@ -37,33 +37,36 @@ router.get("/signUp_Intro_3", async (req, res) => {
 
 router.get("/register", async (req, res) => {
   console.log("page hit");
+  res.locals.message = req.flash();
   res.render("register");
 });
 
-router.post("/addUser", async (req, res) => {
+router.post("/addUser", async (req, res, next) => {
   console.log("page hit");
   var first_name = req.body.first_name;
   var email = req.body.email;
   var password = req.body.password;
   var registerStep = req.body.registerStep;
 
-  if (User.findOne({ email: req.body.email })) {
-    alert("we have the same user");
+  const isUser = await User.exists({ email: req.body.email });
+
+  if (isUser) {
+    console.log("error?");
+    req.flash("error", "Email is already used.");
+    res.redirect("/register");
+  } else {
+    var newUser = new User();
+    newUser.first_name = first_name;
+    newUser.email = email;
+    newUser.password = password;
+    newUser.registerStep = registerStep;
+    await newUser.save();
+    res.redirect(`/register_age?email=${newUser.email}`);
   }
-
-  var newUser = new User();
-  newUser.first_name = first_name;
-  newUser.email = email;
-  newUser.password = password;
-  newUser.registerStep = registerStep;
-  await newUser.save();
-
-  res.redirect(`/register_age?email=${newUser.email}`);
 });
 
 router.get("/register_age", async (req, res) => {
   console.log("page hit");
-
   res.render("register_age", { email: req.query.email });
 });
 
@@ -86,7 +89,6 @@ router.post("/addAge", async (req, res) => {
 
 router.get("/register_address", async (req, res) => {
   console.log("page hit");
-
   res.render("register_address", { email: req.query.email });
 });
 
@@ -157,6 +159,12 @@ router.post("/signIn", async (req, res) => {
 router.get("/main", async (req, res) => {
   console.log("page hit");
   res.render("main");
+});
+
+//Filter
+
+router.get("/filters", function (req, res, next) {
+  res.render("settings/filters");
 });
 
 // router.get("/populateData", async (req, res) => {

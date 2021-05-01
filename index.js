@@ -1,26 +1,40 @@
-//Define the include function for absolute file name
-global.base_dir = __dirname;
-global.abs_path = function(path) {
-	return base_dir + path;
-}
-global.include = function(file) {
-	return require(abs_path('/' + file));
-}
+var session = require("express-session");
+var cookieParser = require("cookie-parser");
+var flash = require("connect-flash");
 
-const express = require('express');
-const router = include('routes/router');
+global.base_dir = __dirname;
+global.abs_path = function (path) {
+  return base_dir + path;
+};
+global.include = function (file) {
+  return require(abs_path("/" + file));
+};
+
+const express = require("express");
+const router = include("routes/router");
 
 const port = process.env.PORT || 3000;
 
-
 const app = express();
-app.set('view engine', 'ejs');
 
-app.use(express.urlencoded({extended: false}));
+app.use(cookieParser("secret"));
+app.use(
+  session({
+    secret: "secret",
+    cookie: { maxAge: 60000 },
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(flash());
+
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
-app.use('/public/images/', express.static('./public/images'));
-app.use('/',router);
+app.use("/public/images/", express.static("./public/images"));
+app.use("/", router);
 
 app.listen(port, () => {
-	console.log("Node application listening on port "+port);
-}); 
+  console.log("Node application listening on port " + port);
+});
