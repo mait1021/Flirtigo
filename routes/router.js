@@ -235,8 +235,8 @@ router.get("/user", async (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log({ obj: obj });
-      res.render("user", { obj: obj });
+      console.log({ user: obj });
+      res.render("user", { user: obj });
     }
   });
 });
