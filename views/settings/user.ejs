@@ -16,13 +16,13 @@
 
     <div class="profile-container">
       <div class="img-container-profile mt-2">
-        <img class="profile-image" 
-        src= '/upload/0a8b583a05e5d2854f7e03c625bb5a18'  alt="user image" />
+        <img class="img img-fluid rounded-circle profile-image" 
+        src= <%= '/upload/' + obj.photo %>  alt="user image" />
       </div>  
 
       <div class="profile-detail">
-        <h2><strong> Hailey, 25 </strong></h2>
-        <p><strong> haahah </strong></p>
+        <h2><strong> <%= obj.first_name %> , <%= obj.age %>  </strong></h2>
+        <p><strong> <%= obj.email %> </strong></p>
       </div>
       <div class="btn-container">        
         <a class="btn-profile btn-rounded" href="">Filters</a>
