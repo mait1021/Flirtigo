@@ -257,3 +257,120 @@ body {
   font-size: 20px;
   margin: 15px;
 }
+
+/* User profile */
+
+.profile-container {
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.profile-image {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: solid 1px black;
+}
+
+.profile-detail h2 {
+  margin: 0px;
+}
+
+.profile-detail p {
+  margin: 0px 0px 30px 0px;
+}
+
+.btn-container a,
+.btn-container button {
+  font-weight: bold;
+  border-width: 5px;
+  border-style: solid;
+  padding: 5px 40px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.btn-profile {
+  background-color: #2b2d42;
+  color: white;
+  border-color: #8d99ae41;
+  display: block;
+  margin: 15px auto;
+  width: fit-content;
+  text-decoration: none;
+}
+
+.btn-logout {
+  margin: 30px 0px;
+  background-color: #ff3f2d;
+  border-color: #8d99ae41;
+  color: white;
+  min-width: 150px;
+}
+.btn-rounded {
+  border-radius: 30px;
+}
+
+/* footer */
+
+.footer {
+  color: #fdda7f;
+  background-color: #2b2d40;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+.footer .btn-footer {
+  margin: 15px 0px;
+  background-color: #fdda7f;
+  border-color: #2b2d424f;
+  font-weight: bold;
+}
+
+.footer .btn {
+  padding: 0px 10px;
+  border-width: 5px;
+  border-style: solid;
+}
+
+.btn-horoscope-icon {
+  margin: 0px;
+  border-radius: 50%;
+}
+
+/* ??? */
+
+.personal-chars {
+  font-size: 20px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.personal-chars input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.age-container,
+.distance-container {
+  margin-top: 20px;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  vertical-align: middle;
+}
+.noUi-touch-area {
+  background-color: #c4c4c4;
+}
+.noUi-connects {
+  background-color: #2b2d40;
+}
+.noUi-pips-horizontal {
+  height: 30px;
+}

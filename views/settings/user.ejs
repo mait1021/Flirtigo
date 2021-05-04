@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="main.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"> </script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+  </head>
+
+
+
+  <body>
+    <%- include('_nav_bar.ejs') %>
+
+
+    <div class="profile-container">
+      <div class="img-container-profile mt-2">
+        <img class="profile-image" 
+        src= '/upload/0a8b583a05e5d2854f7e03c625bb5a18'  alt="user image" />
+      </div>  
+
+      <div class="profile-detail">
+        <h2><strong> Hailey, 25 </strong></h2>
+        <p><strong> haahah </strong></p>
+      </div>
+      <div class="btn-container">        
+        <a class="btn-profile btn-rounded" href="">Filters</a>
+        <a class="btn-profile btn-rounded" href="">Edit Info</a>
+        <a class="btn-profile btn-rounded" href="">FAQ</a>
+      
+        <div class="logout-container">
+          <button class="btn-rounded btn-danger btn-logout">Logout</button>
+        </div> 
+    </div>
+
+    <%- include('_footer.ejs') %>
+  </body>
+</html>

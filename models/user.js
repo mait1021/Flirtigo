@@ -6,7 +6,8 @@ const userSchema = new Schema(
     email: { type: String, required: true },
     password: { type: String, required: false },
     registerStep: { type: Number, required: true },
-    age: { type: String, required: false },
+    age: { type: Number, required: false },
+    birthday: { type: String, required: false },
     street: { type: String, required: false },
     city: { type: String, required: false },
     province: { type: String, required: false },
@@ -14,7 +15,7 @@ const userSchema = new Schema(
     country: { type: String, required: false },
     gender: { type: String, required: false },
     toSee: { type: String, required: false },
-    photo: { type: String, required: false },
+    photo: { type: Array, required: false },
   },
   { collection: "users", timestamps: true }
 );

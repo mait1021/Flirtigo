@@ -12,7 +12,7 @@ global.include = function (file) {
 
 const express = require("express");
 const router = include("routes/router");
-
+const path = require("path");
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -22,17 +22,31 @@ app.use(
   session({
     secret: "secret",
     cookie: { maxAge: 60000 },
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
   })
 );
 
-app.use(flash());
+// app.use(
+//   session({
+//     secret: "2C44-4D44-WppQ38S",
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
 
+app.use(flash());
+app.set("views", [
+  path.join(__dirname, "views"),
+  path.join(__dirname, "views/register/"),
+  path.join(__dirname, "views/settings/"),
+]);
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
 app.use("/public/images/", express.static("./public/images"));
+app.use("/upload/", express.static("./upload"));
+
 app.use("/", router);
 
 app.listen(port, () => {

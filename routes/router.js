@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const database = include("databaseConnection");
 const User = include("models/user");
-const Joi = require("joi");
+const { isRef } = require("joi");
+var multer = require("multer");
 
 router.get("/", async (req, res) => {
   console.log("page hit");
@@ -10,6 +11,7 @@ router.get("/", async (req, res) => {
       .select("first_name last_name email id")
       .exec();
     console.log(result);
+    console.log(req.session.user);
     res.render("index", { allUsers: result });
   } catch (ex) {
     res.render("error", { message: "Error" });
@@ -67,24 +69,34 @@ router.post("/addUser", async (req, res, next) => {
 
 router.get("/register_age", async (req, res) => {
   console.log("page hit");
+  res.locals.message = req.flash();
   res.render("register_age", { email: req.query.email });
 });
 
 router.post("/addAge", async (req, res) => {
   console.log("add");
-  console.log(req.body.birthday);
   console.log(req.body.email);
+  let age = Math.floor(
+    (new Date() - new Date(req.body.birthday).getTime()) / 3.15576e10
+  );
 
-  User.findOne({ email: req.body.email }, function (err, user) {
-    user.age = req.body.birthday;
-    user.registerStep = req.body.registerStep;
-    user.save(function (err) {
-      if (err) {
-        console.error("ERROR!");
-      }
+  if (age < 18) {
+    console.log("error?");
+    req.flash("error", "Sorry, You must be 18+.");
+    res.redirect("/register_age");
+  } else {
+    User.findOne({ email: req.body.email }, function (err, user) {
+      user.age = age;
+      user.birthday = req.body.birthday;
+      user.registerStep = req.body.registerStep;
+      user.save(function (err) {
+        if (err) {
+          console.error("ERROR!");
+        }
+      });
     });
-  });
-  res.redirect(`register_address?email=${req.body.email}`);
+    res.redirect(`register_address?email=${req.body.email}`);
+  }
 });
 
 router.get("/register_address", async (req, res) => {
@@ -142,6 +154,34 @@ router.get("/signIn", async (req, res) => {
   res.render("signIn");
 });
 
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "data/images");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + ".jpg");
+//   },
+// });
+
+var upload = multer({ dest: "./upload/" });
+//save file in upload folder
+
+router.post("/addPhoto", upload.array("photo", 200), function (req, res) {
+  User.findOne({ email: req.body.email }, function (err, user) {
+    for (let i = 0; i < req.files.length; i++) {
+      user.photo = req.files[i].filename;
+      res.render("signIn");
+    }
+    user.save(function (err) {
+      if (err) {
+        console.error("ERROR!");
+      }
+    });
+  });
+  console.log(req.files);
+  console.log(req.files[0].filename);
+});
+
 //sign In
 
 router.post("/signIn", async (req, res) => {
@@ -150,6 +190,7 @@ router.post("/signIn", async (req, res) => {
   var password = req.body.password;
   const user = await User.findOne({ email: email, password: password });
   if (user) {
+    req.session.user = req.body.email;
     res.redirect("/main");
   } else {
     throw new Error("No");
@@ -157,14 +198,47 @@ router.post("/signIn", async (req, res) => {
 });
 
 router.get("/main", async (req, res) => {
+  console.log(req.session);
   console.log("page hit");
   res.render("main");
 });
 
-//Filter
+//User profile
 
-router.get("/filters", function (req, res, next) {
-  res.render("settings/filters");
+// router.get("/user", async (req, res) => {
+//   console.log(req.session);
+//   console.log("page hit");
+//   res.render("user");
+// });
+
+// router.get("/user", async (req, res) => {
+//   console.log(req.session);
+//   const user = await User.findOne(
+//     { email: req.session.user },
+//     function (err, obj) {
+//       console.log("user information" + obj);
+
+//     }
+//   );
+//   if (user) {
+//     console.log(user.name);
+//     console.log("page hit");
+//     res.render("user", {
+//       name: req.name,
+//     });
+//   }
+// });
+
+router.get("/user", async (req, res) => {
+  console.log(req.session);
+  User.findOne({ email: req.session.user }, function (err, obj) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log({ obj: obj });
+      res.render("user", { obj: obj });
+    }
+  });
 });
 
 // router.get("/populateData", async (req, res) => {
