@@ -11,11 +11,12 @@ global.include = function (file) {
 };
 
 const express = require("express");
+const app = express();
 const router = include("routes/router");
 const path = require("path");
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
 const port = process.env.PORT || 3000;
-
-const app = express();
 
 app.use(cookieParser("secret"));
 app.use(
@@ -32,6 +33,7 @@ app.set("views", [
   path.join(__dirname, "views"),
   path.join(__dirname, "views/register/"),
   path.join(__dirname, "views/settings/"),
+  path.join(__dirname, "views/chat/"),
 ]);
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
@@ -41,6 +43,46 @@ app.use("/upload/", express.static("./upload"));
 
 app.use("/", router);
 
-app.listen(port, () => {
+io.on("connection", (socket) => {
+  console.log("A user just connected");
+
+  // socket.emit("newMessage", {
+  //   from: "Mike",
+  //   text: "Hey Whats up",
+  // });
+
+  socket.emit("newMessage", {
+    from: "Admin",
+    text: "Welcome to the chat app!",
+    createdAt: new Date().getTime(),
+  });
+
+  socket.broadcast.emit("newMessage", {
+    from: "Admin",
+    text: "New user joined!",
+    createdAt: new Date().getTime(),
+  });
+
+  socket.on("createMessage", (message) => {
+    console.log("Create Message", message);
+    io.emit("newMessage", {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime(),
+    });
+
+    // socket.broadcast.emit("newMessage", {
+    //   from: message.from,
+    //   text: message.text,
+    //   createdAt: new Date().getTime(),
+    // });
+  });
+
+  socket.on("disconnect", () => {
+    console.log("A user just disconnected");
+  });
+});
+
+server.listen(port, () => {
   console.log("Node application listening on port " + port);
 });

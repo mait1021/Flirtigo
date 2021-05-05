@@ -205,30 +205,6 @@ router.get("/main", async (req, res) => {
 
 //User profile
 
-// router.get("/user", async (req, res) => {
-//   console.log(req.session);
-//   console.log("page hit");
-//   res.render("user");
-// });
-
-// router.get("/user", async (req, res) => {
-//   console.log(req.session);
-//   const user = await User.findOne(
-//     { email: req.session.user },
-//     function (err, obj) {
-//       console.log("user information" + obj);
-
-//     }
-//   );
-//   if (user) {
-//     console.log(user.name);
-//     console.log("page hit");
-//     res.render("user", {
-//       name: req.name,
-//     });
-//   }
-// });
-
 router.get("/user", async (req, res) => {
   console.log(req.session);
   User.findOne({ email: req.session.user }, function (err, obj) {
@@ -241,6 +217,29 @@ router.get("/user", async (req, res) => {
   });
 });
 
+//chat
+
+router.get("/chat_main", async (req, res) => {
+  console.log(req.session);
+  User.findOne({ email: req.session.user }, function (err, obj) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log({ user: obj });
+      res.render("chat_main", { user: obj });
+    }
+  });
+});
+
+router.put("/chat_main", function (req, res) {
+  /* 
+    do stuff to update the foo resource 
+    ...
+   */
+
+  // now broadcast the updated foo..
+  req.io.sockets.emit("update", foo);
+});
 // router.get("/populateData", async (req, res) => {
 //   console.log("populate Data");
 //   try {
