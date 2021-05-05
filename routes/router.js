@@ -458,11 +458,15 @@ router.post("/edit_work", async (req, res) => {
 
 
 // footer:
-router.get("/swipeHub", async (req, res) => {
+router.get("/sandra", async (req, res) => {
   console.log("page hit");
-  res.render("swipeHub");
+  res.render("sandra");
 });
 
+router.get("/janet", async (req, res) => {
+  console.log("page hit");
+  res.render("janet");
+});
 
 
 router.get("/_footer", async (req, res) => {
@@ -470,6 +474,9 @@ router.get("/_footer", async (req, res) => {
   res.render("_footer");
 });
 
-
+router.get("/_footer2", async (req, res) => {
+  console.log("page hit");
+  res.render("_footer2");
+});
 
 module.exports = router;
