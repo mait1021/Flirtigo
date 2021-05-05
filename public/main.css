@@ -319,10 +319,12 @@ body {
   background-color: #2b2d40;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   display: flex;
   justify-content: space-evenly;
+  max-width: 480px;
+  width: 100%;
 }
 .footer .btn-footer {
   margin: 15px 0px;
@@ -373,4 +375,21 @@ body {
 }
 .noUi-pips-horizontal {
   height: 30px;
+}
+
+/* Chat Room */
+
+.msgsend-container {
+  position: fixed;
+  bottom: 65px;
+  background-color: #8d99ae;
+  padding: 20px 20px 25px 20px;
+  width: 100%;
+  margin: auto;
+  max-width: 440px;
+  text-align: center;
+}
+
+.msgsend-container input {
+  width: 60%;
 }

@@ -1,6 +1,7 @@
-var session = require("express-session");
-var cookieParser = require("cookie-parser");
-var flash = require("connect-flash");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const flash = require("connect-flash");
+const moment = require("moment");
 
 global.base_dir = __dirname;
 global.abs_path = function (path) {
@@ -54,13 +55,13 @@ io.on("connection", (socket) => {
   socket.emit("newMessage", {
     from: "Admin",
     text: "Welcome to the chat app!",
-    createdAt: new Date().getTime(),
+    createdAt: moment().valueOf(),
   });
 
   socket.broadcast.emit("newMessage", {
     from: "Admin",
     text: "New user joined!",
-    createdAt: new Date().getTime(),
+    createdAt: moment().valueOf(),
   });
 
   socket.on("createMessage", (message) => {
@@ -68,14 +69,8 @@ io.on("connection", (socket) => {
     io.emit("newMessage", {
       from: message.from,
       text: message.text,
-      createdAt: new Date().getTime(),
+      createdAt: moment().valueOf(),
     });
-
-    // socket.broadcast.emit("newMessage", {
-    //   from: message.from,
-    //   text: message.text,
-    //   createdAt: new Date().getTime(),
-    // });
   });
 
   socket.on("disconnect", () => {
