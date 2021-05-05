@@ -6,12 +6,18 @@ const userSchema = new Schema(
     email: { type: String, required: true },
     password: { type: String, required: false },
     registerStep: { type: Number, required: true },
+<<<<<<< HEAD
     age: { type: String, required: false },
+=======
+    age: { type: Number, required: false },
+    birthday: { type: String, required: false },
+>>>>>>> 23f3a505bee563d2d62ec941896516337de2a9eb
     street: { type: String, required: false },
     city: { type: String, required: false },
     province: { type: String, required: false },
     zip: { type: String, required: false },
     country: { type: String, required: false },
+<<<<<<< HEAD
     sex: { type: String, required: false },
     toSee: { type: String, required: false },
     photobio: {type: String, required: false},
@@ -26,6 +32,13 @@ const userSchema = new Schema(
     hobbies:{ type: String, required: false },
 },
 { collection: "users", timestamps: true }
+=======
+    gender: { type: String, required: false },
+    toSee: { type: String, required: false },
+    photo: { type: Array, required: false },
+  },
+  { collection: "users", timestamps: true }
+>>>>>>> 23f3a505bee563d2d62ec941896516337de2a9eb
 );
 const User = mongoose.model("User", userSchema);
 module.exports = User;

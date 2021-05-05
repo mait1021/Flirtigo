@@ -87,6 +87,8 @@ body {
 
 .content-wrapper input {
   font-family: "Poppins", sans-serif;
+  display: block;
+  margin: auto;
 }
 
 /* The container */
@@ -168,6 +170,8 @@ body {
 }
 
 [type="file"] {
+  width: 0.1px;
+  height: 0.1px;
   opacity: 0;
   overflow: hidden;
   position: absolute;
@@ -231,6 +235,9 @@ body {
   margin: 2px;
 }
 
+.js--no-default::after {
+  display: none;
+}
 .intro-container textarea {
   width: 100%;
   height: 130px;
@@ -251,77 +258,61 @@ body {
   margin: 15px;
 }
 
-/* edit profile  part */
-.confirmBtn{
-  border: 6px solid  #8D99AE;
-  width: 186px;
-  padding: 10px;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  display: block;
+/* User profile */
+
+.profile-container {
+  margin-bottom: 10px;
   text-align: center;
-  margin: 20px auto;
-  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+.profile-image {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: solid 1px black;
+}
+
+.profile-detail h2 {
+  margin: 0px;
+}
+
+.profile-detail p {
+  margin: 0px 0px 30px 0px;
+}
+
+.btn-container a,
+.btn-container button {
+  font-weight: bold;
+  border-width: 5px;
+  border-style: solid;
+  padding: 5px 40px;
+  font-weight: bold;
   font-size: 18px;
+}
+
+.btn-profile {
+  background-color: #2b2d42;
+  color: white;
+  border-color: #8d99ae41;
+  display: block;
+  margin: 15px auto;
+  width: fit-content;
   text-decoration: none;
-  background-color: #2B2D42;
-  border-radius: 50px;
 }
 
-
-/* footer */
-/*
- .profile_footer{
-  background-color: #2b2d40;
-  position: relative;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
-  bottom: 0;
-  width: 100%; 
-  height: 10vh;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 3fr 1fr 3fr;
-  
+.btn-logout {
+  margin: 30px 0px;
+  background-color: #ff3f2d;
+  border-color: #8d99ae41;
+  color: white;
+  min-width: 150px;
 }
-
-
-.footer_btn {
-   background-color: #fdda7f;
-   border-radius: 50px;
-   border: 6px solid rgb(187, 166, 117);
-   margin:auto;
-   width:50%;
-   height: 50%;
-   font-weight: bold;
-   align-items: center;
-   display: inline-flex;
-   justify-content: space-around;
-   font-size: 40px;
-   font-size-adjust: .5;
-
-}
- 
-
-.Centre_button{
- margin:auto;
-} 
-
-.Centre_button img{
-   object-fit: contain;
-   height:10vh;
-} 
- 
-*/
-
- .btn-rounded {
+.btn-rounded {
   border-radius: 30px;
 }
-.container h3 {
-  font-family: "Shrikhand", cursive;
-  font-size: 30px;
-  text-align: center;
-}
+
+/* footer */
 
 .footer {
   color: #fdda7f;
@@ -332,12 +323,11 @@ body {
   bottom: 0;
   display: flex;
   justify-content: space-evenly;
-  margin-top: 40px;
 }
 .footer .btn-footer {
   margin: 15px 0px;
   background-color: #fdda7f;
-  border-color: #2b2d424f; 
+  border-color: #2b2d424f;
   font-weight: bold;
 }
 
@@ -347,53 +337,40 @@ body {
   border-style: solid;
 }
 
-.btn {
-  border-width: 5px;
-  border-style: solid;
-}
-.btn-horoscope-icon img{
-  object-fit: contain;
-  height:10vh;
-  background-color: #2b2d40;
-  margin:0;
-}
-
-.btn-horoscope-icon{
-  background-color: #2b2d40;
-  
-}
-
-
-/* profile */
-
-.intro-container-profile{
-  text-align: center;
-  background-color:  #fdda7f ;
-}
-
-
-.dot {
-  height: 6px;
-  width: 6px;
+.btn-horoscope-icon {
+  margin: 0px;
   border-radius: 50%;
-  background-color: white;
-  margin: 0 3px;
-  display: inline-block;
-  ;
 }
 
-#active {
-  background-color: #FE4F68;
+/* ??? */
+
+.personal-chars {
+  font-size: 20px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.personal-chars input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
-.image-wrapper img{
-  width:275px;
-  height:343px;
-  margin-top: 10px;
+.age-container,
+.distance-container {
+  margin-top: 20px;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  vertical-align: middle;
 }
-
-
-.info{
-border-top: 5px solid #fdda7f;
-border-radius: 5px;
+.noUi-touch-area {
+  background-color: #c4c4c4;
+}
+.noUi-connects {
+  background-color: #2b2d40;
+}
+.noUi-pips-horizontal {
+  height: 30px;
 }
