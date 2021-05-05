@@ -267,3 +267,133 @@ body {
   background-color: #2B2D42;
   border-radius: 50px;
 }
+
+
+/* footer */
+/*
+ .profile_footer{
+  background-color: #2b2d40;
+  position: relative;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  bottom: 0;
+  width: 100%; 
+  height: 10vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+  
+}
+
+
+.footer_btn {
+   background-color: #fdda7f;
+   border-radius: 50px;
+   border: 6px solid rgb(187, 166, 117);
+   margin:auto;
+   width:50%;
+   height: 50%;
+   font-weight: bold;
+   align-items: center;
+   display: inline-flex;
+   justify-content: space-around;
+   font-size: 40px;
+   font-size-adjust: .5;
+
+}
+ 
+
+.Centre_button{
+ margin:auto;
+} 
+
+.Centre_button img{
+   object-fit: contain;
+   height:10vh;
+} 
+ 
+*/
+
+ .btn-rounded {
+  border-radius: 30px;
+}
+.container h3 {
+  font-family: "Shrikhand", cursive;
+  font-size: 30px;
+  text-align: center;
+}
+
+.footer {
+  color: #fdda7f;
+  background-color: #2b2d40;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 40px;
+}
+.footer .btn-footer {
+  margin: 15px 0px;
+  background-color: #fdda7f;
+  border-color: #2b2d424f; 
+  font-weight: bold;
+}
+
+.footer .btn {
+  padding: 0px 10px;
+  border-width: 5px;
+  border-style: solid;
+}
+
+.btn {
+  border-width: 5px;
+  border-style: solid;
+}
+.btn-horoscope-icon img{
+  object-fit: contain;
+  height:10vh;
+  background-color: #2b2d40;
+  margin:0;
+}
+
+.btn-horoscope-icon{
+  background-color: #2b2d40;
+  
+}
+
+
+/* profile */
+
+.intro-container-profile{
+  text-align: center;
+  background-color:  #fdda7f ;
+}
+
+
+.dot {
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background-color: white;
+  margin: 0 3px;
+  display: inline-block;
+  ;
+}
+
+#active {
+  background-color: #FE4F68;
+}
+
+.image-wrapper img{
+  width:275px;
+  height:343px;
+  margin-top: 10px;
+}
+
+
+.info{
+border-top: 5px solid #fdda7f;
+border-radius: 5px;
+}

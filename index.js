@@ -10,7 +10,7 @@ global.include = function(file) {
 const express = require('express');
 const router = include('routes/router');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 
 const app = express();
@@ -21,6 +21,11 @@ app.use(express.static(__dirname + "/public"));
 app.use('/public/images/', express.static('./public/images'));
 
 app.use('/',router);
+
+//new added for session
+
+// app.use(express.session({secret: "some secret key"}));
+//ends here
 
 app.listen(port, () => {
 	console.log("Node application listening on port "+port);

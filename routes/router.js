@@ -89,6 +89,8 @@ router.get("/register_photo", async (req, res) => {
 
 router.get("/signIn", async (req, res) => {
   console.log("page hit");
+  //added for session
+  req.session.name = req.params.user;
   res.render("signIn");
 });
 
@@ -211,32 +213,57 @@ router.post("/signIn", async (req, res) => {
 
 //--------edit address page
 
-router.get("/edit_address", async (req, res) => {
-  // Get the userid from the cookie
-  const id = "608b865950b478994db1c580"
-  // get the user from the database using the id
-  const user = await User.findById(id).exec();
-  console.log("page hit");
-  res.render("edit_address", {user: user});
+// router.get("/edit_address", async (req, res) => {
+//   // Get the userid from the cookie
+//   const id = "608b865950b478994db1c580"
+  
+//   // get the user from the database using the id
+//   const user = await User.findById(id).exec();
+//   console.log("page hit");
+//   res.render("edit_address", {user: user});
+// });
+
+//adding sessions
+router.get("edit_address", async (req, res) => {
+  const {id} = req.params;
+  const task = await Task.findById(id);
+  res.render('edit', {
+    task
+  })
 });
 
-
-router.post("/edit_address", async (req, res) => {
-  // Get the userid from the cookie
-  const id = "608b865950b478994db1c580"
-  // Get the new data from req.body
+router.put('edit_address', async (req, res) =>{
+ 
   const street = req.body.street
   const city = req.body.city
   const province = req.body.province
   const zip = req.body.zip
   const country = req.body.country
+  User.findByIdAndUpdate(
+    {_id: req.params.id},
+    {street:req.body.street, city:req.body.city, province:req.body.province, zip:req.body.zip, country:req.body.country}
+    ).exec()
 
-  // Mongoose find user and update 
-  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
-  await User.findByIdAndUpdate(id, {street:req.body.street, city:req.body.city, province:req.body.province, zip:req.body.zip, country:req.body.country}).exec()
-  // res.redirect to the profile page 
-  res.send({street, city, province, zip, country})
+  res.redirect('/user/'+ res.params.id);
+
 })
+
+// router.post("/edit_address", async (req, res) => {
+//   // Get the userid from the cookie
+//   const id = "608b865950b478994db1c580"
+//   // Get the new data from req.body
+//   const street = req.body.street
+//   const city = req.body.city
+//   const province = req.body.province
+//   const zip = req.body.zip
+//   const country = req.body.country
+
+//   // Mongoose find user and update 
+//   // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+//   await User.findByIdAndUpdate(id, {street:req.body.street, city:req.body.city, province:req.body.province, zip:req.body.zip, country:req.body.country}).exec()
+//   // res.redirect to the profile page 
+//   res.send({street, city, province, zip, country})
+// })
 
 
 
@@ -295,10 +322,18 @@ router.post("/edit_work", async (req, res) => {
 
 
 
+// footer:
+router.get("/swipeHub", async (req, res) => {
+  console.log("page hit");
+  res.render("swipeHub");
+});
 
 
 
-
+router.get("/_footer", async (req, res) => {
+  console.log("page hit");
+  res.render("_footer");
+});
 
 
 
