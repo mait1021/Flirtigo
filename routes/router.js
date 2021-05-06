@@ -210,7 +210,7 @@ router.get("/main", async (req, res) => {
 
 router.get("/user", async (req, res) => {
   console.log(req.session);
-  rating.findOne({ email: req.session.user }, function (err, obj) {
+  User.findOne({ email: req.session.user }, function (err, obj) {
     if (err) {
       console.log(err);
     } else {
