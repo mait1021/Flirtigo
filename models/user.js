@@ -18,6 +18,7 @@ const userSchema = new Schema(
     minage: { type: Number, required: false },
     maxage: { type: Number, required: false },
     distance: { type: Number, required: false },
+
     photo: { type: Array, required: false },
   },
   { collection: "users", timestamps: true }

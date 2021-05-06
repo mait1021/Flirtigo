@@ -7,7 +7,9 @@ var multer = require("multer");
 router.get("/", async (req, res) => {
   console.log("page hit");
   try {
-    const result = await User.find({}).select("first_name last_name email id").exec();
+    const result = await User.find({})
+      .select("first_name last_name email id")
+      .exec();
     console.log(result);
     console.log(req.session.user);
     res.render("index", { allUsers: result });
@@ -74,7 +76,8 @@ router.get("/register_age", async (req, res) => {
 router.post("/addAge", async (req, res) => {
   console.log("add");
   console.log(req.body.email);
-  let age = Math.floor((new Date() - new Date(req.body.birthday).getTime()) / 3.15576e10);
+  let age = Math.floor(
+    (new Date() - new Date(req.body.birthday).getTime()) / 3.15576e10);
 
   if (age < 18) {
     console.log("error?");
@@ -284,6 +287,20 @@ router.get("/user", async (req, res) => {
     } else {
       console.log({ user: obj });
       res.render("user", { user: obj });
+    }
+  });
+});
+
+//chat
+
+router.get("/chat_room", async (req, res) => {
+  console.log(req.session);
+  User.findOne({ email: req.session.user }, function (err, obj) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log({ user: obj });
+      res.render("chat_room", { user: obj });
     }
   });
 });
