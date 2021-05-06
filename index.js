@@ -37,6 +37,8 @@ app.set("views", [
   path.join(__dirname, "views/chat/"),
 ]);
 app.set("view engine", "ejs");
+app.set("socketio", io);
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
 app.use("/public/images/", express.static("./public/images"));
@@ -47,36 +49,56 @@ app.use("/", router);
 io.on("connection", (socket) => {
   console.log("A user just connected");
 
-  // socket.emit("newMessage", {
-  //   from: "Mike",
-  //   text: "Hey Whats up",
-  // });
-
-  socket.emit("newMessage", {
+  socket.emit("publicMessage", {
     from: "Admin",
     text: "Welcome to the chat app!",
     createdAt: moment().valueOf(),
   });
 
-  socket.broadcast.emit("newMessage", {
-    from: "Admin",
-    text: "New user joined!",
-    createdAt: moment().valueOf(),
-  });
-
-  socket.on("createMessage", (message) => {
-    console.log("Create Message", message);
-    io.emit("newMessage", {
-      from: message.from,
-      text: message.text,
-      createdAt: moment().valueOf(),
-    });
-  });
+  // socket.on("createMessage", (message) => {
+  //   console.log("Create Message", message);
+  //   io.emit("newMessage", {
+  //     from: message.from,
+  //     text: message.text,
+  //     createdAt: moment().valueOf(),
+  //   });
+  // });
 
   socket.on("disconnect", () => {
+    socket.leave(socket.rooms);
     console.log("A user just disconnected");
   });
 });
+
+// io.on("connection", (socket) => {
+//   console.log("A user just connected");
+//   console.log(socket.id);
+
+//   socket.emit("publicMessage", {
+//     from: "Admin",
+//     text: "Welcome to the chat app!",
+//     createdAt: moment().valueOf(),
+//   });
+
+//   socket.broadcast.emit("newMessage", {
+//     from: "Admin",
+//     text: "New user joined!",
+//     createdAt: moment().valueOf(),
+//   });
+
+//   socket.on("createMessage", (message) => {
+//     console.log("Create Message", message);
+//     io.emit("newMessage", {
+//       from: message.from,
+//       text: message.text,
+//       createdAt: moment().valueOf(),
+//     });
+//   });
+
+//   socket.on("disconnect", () => {
+//     console.log("A user just disconnected");
+//   });
+// });
 
 server.listen(port, () => {
   console.log("Node application listening on port " + port);

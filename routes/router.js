@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const database = include("databaseConnection");
 const User = include("models/user");
-const { isRef } = require("joi");
+const Rating = include("models/rating");
 var multer = require("multer");
+const moment = require("moment");
 
 router.get("/", async (req, res) => {
   console.log("page hit");
@@ -191,7 +192,9 @@ router.post("/signIn", async (req, res) => {
   const user = await User.findOne({ email: email, password: password });
   if (user) {
     req.session.user = req.body.email;
-    res.redirect("/main");
+    req.session.username = user.first_name;
+    req.session.userId = user.id;
+    res.redirect("/chat_main");
   } else {
     throw new Error("No");
   }
@@ -207,7 +210,7 @@ router.get("/main", async (req, res) => {
 
 router.get("/user", async (req, res) => {
   console.log(req.session);
-  User.findOne({ email: req.session.user }, function (err, obj) {
+  rating.findOne({ email: req.session.user }, function (err, obj) {
     if (err) {
       console.log(err);
     } else {
@@ -219,8 +222,58 @@ router.get("/user", async (req, res) => {
 
 //chat
 
+router.get("/chat_main", async (req, res) => {
+  let userList = [];
+  Rating.find({ _user: req.session.userId }, function (err, obj) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log({ user: obj });
+      userList = obj.map((match) => match._secondUser);
+      console.log(userList);
+
+      User.find()
+        .where("_id")
+        .in(userList)
+        .exec((err, data) => {
+          if (err) {
+            console.log("no");
+          } else {
+            console.log({ newUser: data, user: obj });
+            res.render("chat_main", { newUser: data, user: obj });
+          }
+        });
+    }
+  });
+});
+
 router.get("/chat_room", async (req, res) => {
-  console.log(req.session);
+  // console.log(req.session.chat);
+  const io = req.app.get("socketio");
+
+  io.on("connection", (socket) => {
+    console.log("A user just connected");
+    console.log(req.session);
+
+    // socket.leave(socket.rooms);
+    socket.join("room 23");
+
+    console.log(socket.rooms); // Set { <socket.id>, "room 237" }
+
+    socket.on("createMessage", (message) => {
+      console.log("Create Message", message);
+      io.emit("newMessage", {
+        from: message.from,
+        text: message.text,
+        createdAt: moment().valueOf(),
+      });
+    });
+    socket.on("disconnect", () => {
+      // socket.leave("room 23");
+      console.log("A user just disconnected from room 23");
+    });
+  });
+
   User.findOne({ email: req.session.user }, function (err, obj) {
     if (err) {
       console.log(err);
@@ -230,5 +283,42 @@ router.get("/chat_room", async (req, res) => {
     }
   });
 });
+
+// router.get("/chat", async (req, res) => {
+//   // console.log(req.session.chat);
+//   const io2 = req.app.get("socketio");
+
+//   io2.on("connection", (socket) => {
+//     console.log("A user just connected");
+
+//     // socket.leave(socket.rooms);
+//     socket.join("room 237");
+
+//     console.log(socket.rooms); // Set { <socket.id>, "room 237" }
+
+//     io2.to("room 237").emit("a new user has joined the room 237"); // broadcast to everyone in the room
+//     // socket.on("createMessage", (message) => {
+//     //   console.log("Create Message", message);
+//     //   io.emit("newMessage", {
+//     //     from: message.from,
+//     //     text: message.text,
+//     //     createdAt: moment().valueOf(),
+//     //   });
+//     // });
+//     socket.on("disconnect", () => {
+//       // socket.leave("room 237");
+//       console.log("A user just disconnected from room 237");
+//     });
+//   });
+
+//   User.findOne({ email: req.session.user }, function (err, obj) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log({ user: obj });
+//       res.render("chat", { user: obj });
+//     }
+//   });
+// });
 
 module.exports = router;
