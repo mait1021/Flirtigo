@@ -479,4 +479,27 @@ router.get("/_footer2", async (req, res) => {
   res.render("_footer2");
 });
 
+router.get("/loadingScreen", async (req, res) => {
+  console.log("page hit");
+  res.render("loadingScreen");
+});
+
+// different omikuji result page
+router.get("/omikuji1", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji1");
+});
+router.get("/omikuji2", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji2");
+});
+router.get("/omikuji3", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji3");
+});
+router.get("/omikuji4", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji4");
+});
+
 module.exports = router;

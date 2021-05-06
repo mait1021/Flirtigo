@@ -597,3 +597,44 @@ body{
   font-size: 6vw;
   color:white;
 }
+
+
+/* loading screen */
+.loadScreen-body{
+  background-color: #2b2d42;
+}
+
+.loadscreen-wrapper{
+  border: 20px solid #fdda7f;
+  border-radius: 10px;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  padding: 30px;
+  margin: 50px 30px;
+  font-size: large;
+}
+
+/* omikuji page */
+.match{
+  text-align: center;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+
+.compBox{
+  background-color: white;
+  max-height: 90vh;
+  width: 80%;
+  text-align: center; 
+  margin: auto;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
+  position: relative;
+  margin-bottom: 20px;
+
+}
+#compatibility-text{
+font-size: 1.2em;
+/* line-height: 30px; */
+}
