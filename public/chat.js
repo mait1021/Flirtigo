@@ -1,5 +1,10 @@
 let socket = io();
 
+function scrollToBottom() {
+  let messages = document.querySelector(".chats").lastElementChild;
+  messages.scrollIntoView();
+}
+
 socket.on("connect", () => {
   console.log("Connected to server.");
 });
@@ -8,23 +13,27 @@ socket.on("disconnect", () => {
   console.log("Connected to server.");
 });
 
+socket.on("publicMessage", function (message) {
+  console.log("publicMessage", message);
+  $(".chats").prepend(`<span class = "public chat">${message.text}</span>`);
+  scrollToBottom();
+});
+
 socket.on("newMessage", function (message) {
   console.log("newMessage", message);
   const formattedTime = moment(message.createdAt).format("LT");
-  let li = document.createElement("div");
-  li.innerText = `${message.from} ${formattedTime}: ${message.text}`;
-
-  document.querySelector("body").appendChild(li);
+  $(".chats").append(`<span class = "u1 chat">${message.text}</span>`);
+  scrollToBottom();
 });
 
-document.querySelector("#submit-btn").addEventListener("click", function (e) {
+$("#submit-btn").click(function (e) {
   e.preventDefault();
   //prevent reload
-
   socket.emit(
     "createMessage",
     {
-      from: "User",
+      from: "user",
+      // from: document.querySelector('input[name="user"]').value,
       // need to grab user name
       text: document.querySelector('input[name="message"]').value,
     },

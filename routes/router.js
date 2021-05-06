@@ -2,7 +2,10 @@ const router = require("express").Router();
 const database = include("databaseConnection");
 const User = include("models/user");
 const { isRef, disallow } = require("joi");
+const Rating = include("models/rating"); 
 var multer = require("multer");
+const moment = require("moment");
+
 
 router.get("/", async (req, res) => {
   console.log("page hit");
@@ -77,7 +80,8 @@ router.post("/addAge", async (req, res) => {
   console.log("add");
   console.log(req.body.email);
   let age = Math.floor(
-    (new Date() - new Date(req.body.birthday).getTime()) / 3.15576e10);
+    (new Date() - new Date(req.body.birthday).getTime()) / 3.15576e10
+    );
 
   if (age < 18) {
     console.log("error?");
@@ -190,7 +194,9 @@ router.post("/signIn", async (req, res) => {
   const user = await User.findOne({ email: email, password: password });
   if (user) {
     req.session.user = req.body.email;
-    res.redirect("/main");
+    req.session.username = user.first_name;
+    req.session.userId = user.id;
+    res.redirect("/chat_main");
   } else {
     throw new Error("No");
   }
@@ -293,8 +299,58 @@ router.get("/user", async (req, res) => {
 
 //chat
 
+router.get("/chat_main", async (req, res) => {
+  let userList = [];
+  Rating.find({ _user: req.session.userId }, function (err, obj) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log({ user: obj });
+      userList = obj.map((match) => match._secondUser);
+      console.log(userList);
+
+      User.find()
+        .where("_id")
+        .in(userList)
+        .exec((err, data) => {
+          if (err) {
+            console.log("no");
+          } else {
+            console.log({ newUser: data, user: obj });
+            res.render("chat_main", { newUser: data, user: obj });
+          }
+        });
+    }
+  });
+});
+
 router.get("/chat_room", async (req, res) => {
-  console.log(req.session);
+  // console.log(req.session.chat);
+  const io = req.app.get("socketio");
+
+  io.on("connection", (socket) => {
+    console.log("A user just connected");
+    console.log(req.session);
+
+    // socket.leave(socket.rooms);
+    socket.join("room 23");
+
+    console.log(socket.rooms); // Set { <socket.id>, "room 237" }
+
+    socket.on("createMessage", (message) => {
+      console.log("Create Message", message);
+      io.emit("newMessage", {
+        from: message.from,
+        text: message.text,
+        createdAt: moment().valueOf(),
+      });
+    });
+    socket.on("disconnect", () => {
+      // socket.leave("room 23");
+      console.log("A user just disconnected from room 23");
+    });
+  });
+
   User.findOne({ email: req.session.user }, function (err, obj) {
     if (err) {
       console.log(err);
@@ -305,60 +361,41 @@ router.get("/chat_room", async (req, res) => {
   });
 });
 
-// router.get("/populateData", async (req, res) => {
-//   console.log("populate Data");
-//   try {
-//     let pet1 = new Pet({
-//       name: "Fido",
-//     });
-//     let pet2 = new Pet({
-//       name: "Rex",
-//     });
-//     await pet1.save();
-//     //pet1.id contains the newly created pet's id
-//     console.log(pet1.id);
-//     await pet2.save();
-//     //pet2.id contains the newly created pet's id
-//     console.log(pet2.id);
-//     let user = new User({
-//       first_name: "Me",
-//       last_name: "Awesome",
-//       email: "a@b.ca",
-//       password_hash: "thisisnotreallyahash",
-//       password_salt: "notagreatsalt",
-//       pets: [pet1.id, pet2.id],
-//     });
-//     await user.save();
-//     //user.id contains the newly created user's id
-//     console.log(user.id);
-//     res.redirect("/");
-//   } catch (ex) {
-//     res.render("error", { message: "Error" });
-//     console.log("Error");
-//     console.log(ex);
-//   }
-// });
+// router.get("/chat", async (req, res) => {
+//   // console.log(req.session.chat);
+//   const io2 = req.app.get("socketio");
 
-// router.get("/showPets", async (req, res) => {
-//   console.log("page hit");
-//   try {
-//     const schema = Joi.string().max(25).required();
-//     const validationResult = schema.validate(req.query.id);
-//     if (validationResult.error != null) {
-//       console.log(validationResult.error);
-//       throw validationResult.error;
+//   io2.on("connection", (socket) => {
+//     console.log("A user just connected");
+
+//     // socket.leave(socket.rooms);
+//     socket.join("room 237");
+
+//     console.log(socket.rooms); // Set { <socket.id>, "room 237" }
+
+//     io2.to("room 237").emit("a new user has joined the room 237"); // broadcast to everyone in the room
+//     // socket.on("createMessage", (message) => {
+//     //   console.log("Create Message", message);
+//     //   io.emit("newMessage", {
+//     //     from: message.from,
+//     //     text: message.text,
+//     //     createdAt: moment().valueOf(),
+//     //   });
+//     // });
+//     socket.on("disconnect", () => {
+//       // socket.leave("room 237");
+//       console.log("A user just disconnected from room 237");
+//     });
+//   });
+
+//   User.findOne({ email: req.session.user }, function (err, obj) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log({ user: obj });
+//       res.render("chat", { user: obj });
 //     }
-//     const userResult = await User.findOne({ _id: req.query.id })
-//       .select("first_name id name ")
-//       .populate("pets")
-//       .exec();
-//     console.log(userResult);
-//     res.render("pet", { userAndPets: userResult });
-//   } catch (ex) {
-//     res.render("error", { message: "Error" });
-//     console.log("Error");
-//     console.log(ex);
-//   }
+//   });
 // });
 
 module.exports = router;
