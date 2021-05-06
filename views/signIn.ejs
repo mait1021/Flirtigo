@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  
+  <%- include('_header.ejs') %>
+
+  <body>
+    <script type="text/javascript"> 
+      $(function() { $("#login").validate(); });
+    </script>
+    
+    <%- include('_nav_bar.ejs') %>
+
+    <div class="intro-container">
+
+      <img class="logo1" src="../public/images/LOGO1.png" width="104" height="104">
+
+      <form id="login" action="signIn" method="post">
+        <div class="content-wrapper">
+          <input name="email" class="input" type="email" placeholder="Email" required>
+          <input name="password" class="input" type="password" placeholder="Password" minlength="5" required>
+        </div>
+        
+        <button class="nextBtn">Sign In</button>
+
+      </form> 
+    </div>
+  </body> 
+</html>
