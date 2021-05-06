@@ -638,3 +638,61 @@ body{
 font-size: 1.2em;
 /* line-height: 30px; */
 }
+
+
+/* --------------match tab page */
+/* 1. search bar */
+ .searchInput{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2vh;
+} 
+ .searchInput input{
+  border-radius: 8px;
+  border-color: white;
+  width:80%;
+  height:6vh; 
+} 
+
+/* 2. buttons */
+.matchTab-buttons{
+  display: flex;
+  justify-content: center;  
+  width:100%;
+  text-align: center;
+  border-bottom: #2B2D42 solid 3px;
+}
+
+.matchTab-buttons button{
+  background-color:#FFEAB2;
+  border-radius: 8px;
+  border-color: transparent;
+  width:60%;
+  flex-grow: 1;
+  margin: 1px;
+  margin-bottom: 0;
+  height:5vh;
+  font-size: large;
+  cursor: pointer;
+  margin-top:3vh;
+}
+.matchTab-buttons button:focus {
+  background-color: #FDDA7F;
+}
+
+.roundProfile-wrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  margin-top: 3vh;
+}
+
+#luckyMatch{
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: #2B2D42;
+}
+
+.column .photo{
+  margin-bottom: 2vh;
+}

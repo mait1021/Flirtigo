@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <%- include('_header.ejs') %>
+  <body>
+    <%- include('_nav_bar.ejs') %>
+
+    <!-- input bar -->
+    <form action="submit" method="post">
+        <div class = "searchInput">
+            <input type="search"  name="search Matches" placeholder="Search Matches" >
+        </div>
+    </form>
+
+    <!-- button -->
+    <div class = "matchTab-buttons">
+        <button onClick = "matchTab">Matches</button>
+        <button onClick ="matchTab">Chat</button>
+    </div>
+
+ 
+        <!-- Matches page -->
+        <div class = "pageMatches">
+            <div id="luckyMatch">
+            <h3>Send these Lucky matches a message!</h3>
+            </div>
+            <div class = "roundProfile-wrapper">
+                <!-- left column -->
+                <div class = "column">
+
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/alexa.png">
+                        </a>
+                        <div class = "name">Alexa</div>
+                    </div>
+
+                                
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/bella.png">
+                        </a>
+                        <div class = "name">Bella</div>
+                    </div>
+
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/bellatrix.png">
+                        </a>
+                        <div class = "name">Bellatrix</div>
+                    </div>
+
+                </div>
+
+
+                <!-- right column -->
+                <div class = "column">
+
+                    <div class = "photo">
+                    <!-- need to change to the chatting page -->
+                    <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/rita.png">
+                        </a>
+                        <div class = "name">Rita</div>
+                    </div>
+
+                                
+                    <div class = "photo">
+                    <!-- need to change to the chatting page -->
+                    <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/gertrude.png">
+                        </a>
+                        <div class = "name">Gertrude</div>
+                    </div>
+
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/skyanne.png">
+                        </a>
+                        <div class = "name">Skyanne</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class = "pageChat">
+
+            <div class= "chat-box">
+                
+            </div>
+
+        </div>
+  </body> 
+</html>

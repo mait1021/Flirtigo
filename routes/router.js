@@ -502,4 +502,9 @@ router.get("/omikuji4", async (req, res) => {
   res.render("omikuji4");
 });
 
+router.get("/matchTab", async (req, res) => {
+  console.log("page hit");
+  res.render("matchTab");
+});
+
 module.exports = router;
