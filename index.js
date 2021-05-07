@@ -55,7 +55,7 @@ io.on("connection", (socket) => {
 
   socket.emit("publicMessage", {
     from: "Admin",
-    text: "Welcome to the chat app!",
+    text: "Welcome to the chat!",
     createdAt: moment().valueOf(),
   });
 

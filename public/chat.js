@@ -2,6 +2,7 @@ var socket = io();
 
 socket.on("connect", () => {
   console.log(socket.id);
+  console.log(socket.rooms);
 });
 
 var room = $("#room").val();
@@ -19,13 +20,18 @@ $("#submit-btn").click(function (e) {
   socket.emit("chat message", {
     room: room,
     message: document.querySelector('input[name="message"]').value,
+    id: socket.id,
   });
 });
 
 socket.on("chat message", function (data) {
   console.log("newMessage", data);
-  const formattedTime = moment(data.createdAt).format("LT");
-  $(".chats").append(`<span class = "u1 chat">${data.message}</span>`);
+  if (data.id == socket.id) {
+    const formattedTime = moment(data.createdAt).format("LT");
+    $(".chats").append(`<span class = "u2 chat">${data.message}</span>`);
+  } else {
+    $(".chats").append(`<span class = "u1 chat">${data.message}</span>`);
+  }
   // scrollToBottom();
 });
 

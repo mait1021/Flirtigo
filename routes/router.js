@@ -247,14 +247,32 @@ router.get("/chat_main", async (req, res) => {
   });
 });
 
-router.post("/chat_user", async (req, res) => {
-  console.log(req.body);
-});
-
 router.get("/chat/:userId?", async (req, res) => {
   let userId = req.params.userId;
-  res.render("chat", { userId: userId });
-  console.log(userId);
+  console.log(req.session);
+  Rating.find(
+    { _user: req.session.userId, _secondUser: req.params.userId },
+    function (err, obj) {
+      console.log({ user: obj });
+      res.render("chat", { user: obj });
+    }
+  );
+
+  //This one is real database
+  // Rating.findOne(
+  //   { _user: req.session.userId, _secondUser: req.params.userId },
+  //   function (err, obj) {
+  //     if (err) {
+  //       res.render("chat", {});
+  //     } else {
+  //       console.log({ user: obj });
+  //       res.render("chat", { user: obj });
+  //     }
+  //   }
+  // );
+
+  // res.render("chat", { userId: userId });
+  // console.log(userId);
   // User.findOne({ email: req.session.user }, function (err, obj) {
   //   if (err) {
   //     console.log(err);
