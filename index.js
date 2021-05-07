@@ -12,6 +12,7 @@ global.include = function (file) {
 };
 
 const express = require("express");
+
 const app = express();
 const router = include("routes/router");
 const path = require("path");
@@ -23,19 +24,21 @@ app.use(cookieParser("secret"));
 app.use(
   session({
     secret: "secret",
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 600000 },
     resave: true,
     saveUninitialized: true,
   })
 );
 
 app.use(flash());
+
 app.set("views", [
   path.join(__dirname, "views"),
   path.join(__dirname, "views/register/"),
   path.join(__dirname, "views/settings/"),
   path.join(__dirname, "views/chat/"),
 ]);
+
 app.set("view engine", "ejs");
 app.set("socketio", io);
 

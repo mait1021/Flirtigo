@@ -15,6 +15,10 @@ const userSchema = new Schema(
     country: { type: String, required: false },
     gender: { type: String, required: false },
     toSee: { type: String, required: false },
+    minage: { type: Number, required: false },
+    maxage: { type: Number, required: false },
+    distance: { type: Number, required: false },
+
     photo: { type: Array, required: false },
   },
   { collection: "users", timestamps: true }
