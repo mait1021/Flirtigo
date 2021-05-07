@@ -450,3 +450,276 @@ body {
   top: 0px;
   right: -10px;
 }
+
+/* Kailin */
+
+.intro-container-profile {
+  /* max-height: 100vh; */
+  max-height: 80vh;
+  /* text-align: center; */
+  margin-bottom: 30px;
+  margin-left: 10%;
+  margin-right: 10%;
+  background-color: #fdda7f;
+  border-radius: 15px;
+  position: relative;
+}
+
+* {
+  box-sizing: border-box;
+}
+/* Carsoule */
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+  text-align: center;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: blue;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+  margin-top: 2vh;
+}
+
+.active,
+.dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mySlides img {
+  width: 80%;
+  margin: auto;
+}
+
+.nameBox {
+  background-color: white;
+  max-height: 30vh;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  border-radius: 15px;
+  border-bottom: 10px solid #fdda7f;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", sans-serif;
+  position: relative;
+}
+
+.nameBox h2 {
+  padding-top: -0px;
+  padding-left: 20px;
+  color: #454344;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.info {
+  padding-left: 20px;
+  text-align: left;
+  border-top: #fdda7f solid 5px;
+}
+
+.info p {
+  margin-bottom: 0;
+}
+
+.choice {
+  display: inline-flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.choice .like {
+  background-color: #ef233c;
+  border-radius: 50px;
+  border: 6px solid #ed213e;
+  margin: auto;
+  width: 30%;
+  height: 70%;
+  font-weight: bold;
+  align-items: center;
+  display: inline-flex;
+  justify-content: space-around;
+  font-size: 6vw;
+  color: white;
+}
+
+.choice .dislike {
+  background-color: #8d99ae;
+  border-radius: 50px;
+  border: 6px solid #759ad0;
+  margin: auto;
+  width: 30%;
+  height: 70%;
+  font-weight: bold;
+  align-items: center;
+  display: inline-flex;
+  justify-content: space-around;
+  font-size: 6vw;
+  color: white;
+}
+
+/* loading screen */
+.loadScreen-body {
+  background-color: #2b2d42;
+}
+
+.loadscreen-wrapper {
+  border: 20px solid #fdda7f;
+  border-radius: 10px;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  padding: 30px;
+  margin: 50px 30px;
+  font-size: large;
+}
+
+/* omikuji page */
+.match {
+  text-align: center;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+
+.compBox {
+  background-color: white;
+  max-height: 90vh;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", sans-serif;
+  position: relative;
+  margin-bottom: 20px;
+}
+#compatibility-text {
+  font-size: 1.2em;
+  /* line-height: 30px; */
+}
+
+/* --------------match tab page */
+/* 1. search bar */
+.searchInput {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2vh;
+}
+.searchInput input {
+  border-radius: 8px;
+  border-color: white;
+  width: 80%;
+  height: 6vh;
+}
+
+/* 2. buttons */
+.matchTab-buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  border-bottom: #2b2d42 solid 3px;
+}
+
+.matchTab-buttons button {
+  background-color: #ffeab2;
+  border-radius: 8px;
+  border-color: transparent;
+  width: 60%;
+  flex-grow: 1;
+  margin: 1px;
+  margin-bottom: 0;
+  height: 5vh;
+  font-size: large;
+  cursor: pointer;
+  margin-top: 3vh;
+}
+.matchTab-buttons button:focus {
+  background-color: #fdda7f;
+}
+
+.roundProfile-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  margin-top: 3vh;
+}
+
+#luckyMatch {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: #2b2d42;
+}
+
+.column .photo {
+  margin-bottom: 2vh;
+}

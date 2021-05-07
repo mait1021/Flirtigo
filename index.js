@@ -47,7 +47,10 @@ app.use("/upload/", express.static("./upload"));
 app.use("/", router);
 
 io.on("connection", (socket) => {
-  console.log("A user just connected");
+  socket.on("join room", (room) => {
+    console.log("joining room", room);
+    socket.join(room);
+  });
 
   socket.emit("publicMessage", {
     from: "Admin",
@@ -55,30 +58,21 @@ io.on("connection", (socket) => {
     createdAt: moment().valueOf(),
   });
 
-  // socket.on("createMessage", (message) => {
-  //   console.log("Create Message", message);
-  //   io.emit("newMessage", {
-  //     from: message.from,
-  //     text: message.text,
-  //     createdAt: moment().valueOf(),
-  //   });
-  // });
+  socket.on("leave room", (room) => {
+    console.log("leaving room", room);
+    socket.leave(room);
+  });
 
-  socket.on("disconnect", () => {
-    socket.leave(socket.rooms);
-    console.log("A user just disconnected");
+  socket.on("chat message", (data) => {
+    console.log("sending message");
+    console.log("Chat message: server data", data);
+    io.to(data.room).emit("chat message", data);
   });
 });
 
 // io.on("connection", (socket) => {
 //   console.log("A user just connected");
 //   console.log(socket.id);
-
-//   socket.emit("publicMessage", {
-//     from: "Admin",
-//     text: "Welcome to the chat app!",
-//     createdAt: moment().valueOf(),
-//   });
 
 //   socket.broadcast.emit("newMessage", {
 //     from: "Admin",

@@ -247,33 +247,22 @@ router.get("/chat_main", async (req, res) => {
   });
 });
 
-router.get("/chat_room", async (req, res) => {
-  // console.log(req.session.chat);
-  const io = req.app.get("socketio");
+router.post("/chat_user", async (req, res) => {
+  console.log(req.body);
+});
 
-  io.on("connection", (socket) => {
-    console.log("A user just connected");
-    console.log(req.session);
-
-    // socket.leave(socket.rooms);
-    socket.join("room 23");
-
-    console.log(socket.rooms); // Set { <socket.id>, "room 237" }
-
-    socket.on("createMessage", (message) => {
-      console.log("Create Message", message);
-      io.emit("newMessage", {
-        from: message.from,
-        text: message.text,
-        createdAt: moment().valueOf(),
-      });
-    });
-    socket.on("disconnect", () => {
-      // socket.leave("room 23");
-      console.log("A user just disconnected from room 23");
-    });
+router.get("/chat/:userId?", async (req, res) => {
+  User.findOne({ email: req.session.user }, function (err, obj) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log({ user: obj });
+      res.render("chat", { user: obj });
+    }
   });
+});
 
+router.get("/chat_test", async (req, res) => {
   User.findOne({ email: req.session.user }, function (err, obj) {
     if (err) {
       console.log(err);
@@ -283,42 +272,5 @@ router.get("/chat_room", async (req, res) => {
     }
   });
 });
-
-// router.get("/chat", async (req, res) => {
-//   // console.log(req.session.chat);
-//   const io2 = req.app.get("socketio");
-
-//   io2.on("connection", (socket) => {
-//     console.log("A user just connected");
-
-//     // socket.leave(socket.rooms);
-//     socket.join("room 237");
-
-//     console.log(socket.rooms); // Set { <socket.id>, "room 237" }
-
-//     io2.to("room 237").emit("a new user has joined the room 237"); // broadcast to everyone in the room
-//     // socket.on("createMessage", (message) => {
-//     //   console.log("Create Message", message);
-//     //   io.emit("newMessage", {
-//     //     from: message.from,
-//     //     text: message.text,
-//     //     createdAt: moment().valueOf(),
-//     //   });
-//     // });
-//     socket.on("disconnect", () => {
-//       // socket.leave("room 237");
-//       console.log("A user just disconnected from room 237");
-//     });
-//   });
-
-//   User.findOne({ email: req.session.user }, function (err, obj) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log({ user: obj });
-//       res.render("chat", { user: obj });
-//     }
-//   });
-// });
 
 module.exports = router;
