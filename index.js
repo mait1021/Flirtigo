@@ -35,6 +35,7 @@ app.set("views", [
   path.join(__dirname, "views/register/"),
   path.join(__dirname, "views/settings/"),
   path.join(__dirname, "views/chat/"),
+  path.join(__dirname, "views/match/"),
 ]);
 app.set("view engine", "ejs");
 app.set("socketio", io);

@@ -673,12 +673,16 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 2vh;
+  font-family: "Poppins", sans-serif;
 }
 .searchInput input {
   border-radius: 8px;
   border-color: white;
   width: 80%;
   height: 6vh;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  padding: 10px;
 }
 
 /* 2. buttons */
@@ -698,10 +702,10 @@ body {
   flex-grow: 1;
   margin: 1px;
   margin-bottom: 0;
-  height: 5vh;
   font-size: large;
   cursor: pointer;
   margin-top: 3vh;
+  font-family: "Poppins", sans-serif;
 }
 .matchTab-buttons button:focus {
   background-color: #fdda7f;
@@ -712,6 +716,7 @@ body {
   grid-template-columns: 1fr 1fr;
   text-align: center;
   margin-top: 3vh;
+  font-family: "Poppins", sans-serif;
 }
 
 #luckyMatch {
@@ -722,4 +727,27 @@ body {
 
 .column .photo {
   margin-bottom: 2vh;
+}
+
+/* user list in chat tap  */
+
+.user-wrapper {
+  display: flex;
+  margin: 0px;
+  padding: 20px;
+}
+
+.user-wrapper img {
+  height: 70%;
+  margin-right: 15px;
+  float: left;
+}
+
+.user-wrapper a {
+  text-decoration: none;
+  font-size: 24px;
+
+  margin-left: 15px;
+  display: block;
+  margin: 2px 0 0 0;
 }

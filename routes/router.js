@@ -252,14 +252,17 @@ router.post("/chat_user", async (req, res) => {
 });
 
 router.get("/chat/:userId?", async (req, res) => {
-  User.findOne({ email: req.session.user }, function (err, obj) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log({ user: obj });
-      res.render("chat", { user: obj });
-    }
-  });
+  let userId = req.params.userId;
+  res.render("chat", { userId: userId });
+  console.log(userId);
+  // User.findOne({ email: req.session.user }, function (err, obj) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log({ user: obj });
+  //     res.render("chat", { user: obj });
+  //   }
+  // });
 });
 
 router.get("/chat_test", async (req, res) => {
@@ -271,6 +274,46 @@ router.get("/chat_test", async (req, res) => {
       res.render("chat_room", { user: obj });
     }
   });
+});
+
+////////Kailin Router Merge
+
+router.get("/sandra", async (req, res) => {
+  console.log("page hit");
+  res.render("sandra");
+});
+
+router.get("/janet", async (req, res) => {
+  console.log("page hit");
+  res.render("janet");
+});
+
+router.get("/loadingScreen", async (req, res) => {
+  console.log("page hit");
+  res.render("loadingScreen");
+});
+
+// different omikuji result page
+router.get("/omikuji1", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji1");
+});
+router.get("/omikuji2", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji2");
+});
+router.get("/omikuji3", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji3");
+});
+router.get("/omikuji4", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji4");
+});
+
+router.get("/matchTab", async (req, res) => {
+  console.log("page hit");
+  res.render("matchTab");
 });
 
 module.exports = router;
