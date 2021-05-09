@@ -200,10 +200,65 @@ router.post("/signIn", async (req, res) => {
   }
 });
 
+router.post("/updateprofile", (req, res) => {
+  const email = req.session.user;
+  const { minage, maxage, distance, toSee } = req.body;
+
+  User.updateOne({ email: email }, { ...req.body }).then((err, data) => {
+    res.redirect("/profile");
+  });
+});
+
+router.get("/logout", (req, res) => {
+  delete req.session.user;
+  res.redirect("/");
+});
+
 router.get("/main", async (req, res) => {
   console.log(req.session);
   console.log("page hit");
   res.render("main");
+});
+
+router.get("/profile", async (req, res) => {
+  console.log(req.session);
+  const email = req.session.user;
+  console.log(email);
+  User.findOne({ email: email }, (err, data) => {
+    console.log("profiles list fetched");
+    if (data) {
+      console.log(data);
+      res.render("user", data);
+    } else {
+      res.send("no user");
+    }
+  });
+});
+
+router.get("/edit", (req, res) => {
+  const email = req.session.user;
+  User.findOne({ email: email }, (err, data) => {
+    if (data) {
+      res.render("editinfo", data);
+    } else {
+      delete req.session.user;
+      res.redirect("index");
+    }
+  });
+});
+
+router.get("/filters", (req, res) => {
+  const email = req.session.user;
+  console.log(email);
+  User.findOne({ email: email }, (err, data) => {
+    console.log("profiles list fetched");
+    if (data) {
+      console.log(data);
+      res.render("filters", data);
+    } else {
+      res.send("no user");
+    }
+  });
 });
 
 //User profile
