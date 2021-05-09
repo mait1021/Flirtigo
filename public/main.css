@@ -383,10 +383,10 @@ body {
   position: fixed;
   bottom: 65px;
   background-color: #8d99ae;
-  padding: 20px 20px 25px 20px;
+  padding: 0px 25px 25px 25px;
   width: 100%;
   margin: auto;
-  max-width: 440px;
+  max-width: 480px;
   text-align: center;
 }
 
@@ -407,10 +407,12 @@ body {
   margin: 5px;
   position: relative;
 }
+
 .chat.u1 {
   float: left;
   clear: both;
   border-top-left-radius: 0px;
+  margin-left: 20px;
 }
 .chat.u1:before {
   content: "";
@@ -428,23 +430,33 @@ body {
 
 .chat.public {
   clear: both;
-  background: #00d025;
+  background: #484d62;
+}
+
+.public {
+  text-align: center;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 }
 
 .chat.u2 {
   float: right;
   clear: both;
   border-top-right-radius: 0px;
-  background: #00d025;
+  background: rgb(187, 166, 117);
+  margin-right: 20px;
 }
 .chat.u2:before {
   content: "";
   width: 0px;
   height: 0px;
   display: block;
-  border-left: 5px solid #00d025;
+  border-left: 5px solid rgb(187, 166, 117);
   border-right: 5px solid transparent;
-  border-top: 5px solid #00d025;
+  border-top: 5px solid rgb(187, 166, 117);
   border-bottom: 5px solid transparent;
   position: absolute;
   top: 0px;
@@ -673,12 +685,16 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 2vh;
+  font-family: "Poppins", sans-serif;
 }
 .searchInput input {
   border-radius: 8px;
   border-color: white;
   width: 80%;
   height: 6vh;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  padding: 10px;
 }
 
 /* 2. buttons */
@@ -698,10 +714,10 @@ body {
   flex-grow: 1;
   margin: 1px;
   margin-bottom: 0;
-  height: 5vh;
   font-size: large;
   cursor: pointer;
   margin-top: 3vh;
+  font-family: "Poppins", sans-serif;
 }
 .matchTab-buttons button:focus {
   background-color: #fdda7f;
@@ -712,6 +728,7 @@ body {
   grid-template-columns: 1fr 1fr;
   text-align: center;
   margin-top: 3vh;
+  font-family: "Poppins", sans-serif;
 }
 
 #luckyMatch {
@@ -722,4 +739,29 @@ body {
 
 .column .photo {
   margin-bottom: 2vh;
+}
+
+/* user list in chat tap  */
+
+.user-wrapper {
+  display: flex;
+  margin: 0px;
+  padding: 20px;
+}
+
+.user-wrapper img {
+  height: 50px;
+  width: 50px;
+  margin-right: 15px;
+  float: left;
+  border-radius: 50%;
+}
+
+.user-wrapper a {
+  text-decoration: none;
+  font-size: 24px;
+  color: black;
+  margin-left: auto;
+  display: block;
+  margin: 2px 0 0 0;
 }

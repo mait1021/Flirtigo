@@ -7,13 +7,13 @@
       <div class="chats"> </div>
 
     </div>
-
+    <h1><%= user.room %></h1>
     <div class = "msgsend-container">
       <form id="message-form">        
         <img src="/public/images/Blocks.png">
         <input type="text" name="message" placeholder="message">
         <!-- <input type="hidden" name="user" value=" user.first_name %>"> -->
-         <input id="room" type="hidden" value="room_1">
+         <input id="room" type="hidden" value="<%= user.room %>">
         <button type="submit" id="submit-btn">Submit</button>
       </form>
     </div>
