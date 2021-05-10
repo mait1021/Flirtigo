@@ -13,6 +13,7 @@ const userSchema = new Schema(
     province: { type: String, required: false },
     zip: { type: String, required: false },
     country: { type: String, required: false },
+    orientation: { type: String, required: false },
     gender: { type: String, required: false },
     toSee: { type: String, required: false },
     photo: { type: Array, required: false },

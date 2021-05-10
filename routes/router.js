@@ -133,6 +133,7 @@ router.post("/addOrientation", async (req, res) => {
   console.log("add");
   console.log(req.body);
   User.findOne({ email: req.body.email }, function (err, user) {
+    user.orientation = req.body.orientation;
     user.gender = req.body.gender;
     user.toSee = req.body.toSee;
     user.registerStep = req.body.registerStep;
