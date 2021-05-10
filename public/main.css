@@ -465,7 +465,19 @@ body {
 
 /* Kailin */
 
-.intro-container-profile {
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #edf2f4;
+  margin: auto;
+  min-height: 100vh;
+}
+
+/* Carsoule */
+
+ro-container-profile {
   /* max-height: 100vh; */
   max-height: 80vh;
   /* text-align: center; */
@@ -480,6 +492,7 @@ body {
 * {
   box-sizing: border-box;
 }
+
 /* Carsoule */
 /* Slideshow container */
 .slideshow-container {
@@ -764,4 +777,41 @@ body {
   margin-left: auto;
   display: block;
   margin: 2px 0 0 0;
+}
+
+.profile_footer {
+  background-color: #2b2d40;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 10vh;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+  margin-top: 30px;
+}
+
+.footer_btn {
+  background-color: #fdda7f;
+  border-radius: 50px;
+  border: 6px solid rgb(187, 166, 117);
+  margin: auto;
+  width: 80%;
+  height: 70%;
+  font-weight: bold;
+  align-items: center;
+  display: inline-flex;
+  justify-content: space-around;
+  font-size: 6vw;
+  max-width: 480px;
+}
+
+.Centre_button {
+  margin: auto;
+}
+
+.Centre_button img {
+  object-fit: contain;
+  height: 10vh;
 }

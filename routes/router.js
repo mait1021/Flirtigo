@@ -250,37 +250,28 @@ router.get("/chat_main", async (req, res) => {
 router.get("/chat/:userId?", async (req, res) => {
   let userId = req.params.userId;
   console.log(req.session);
-  Rating.find(
-    { _user: req.session.userId, _secondUser: req.params.userId },
-    function (err, obj) {
-      console.log({ user: obj });
-      res.render("chat", { user: obj });
-    }
-  );
 
-  //This one is real database
-  // Rating.findOne(
+  //This one is for fake database
+  // Rating.find(
   //   { _user: req.session.userId, _secondUser: req.params.userId },
   //   function (err, obj) {
-  //     if (err) {
-  //       res.render("chat", {});
-  //     } else {
-  //       console.log({ user: obj });
-  //       res.render("chat", { user: obj });
-  //     }
-  //   }
-  // );
-
-  // res.render("chat", { userId: userId });
-  // console.log(userId);
-  // User.findOne({ email: req.session.user }, function (err, obj) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
   //     console.log({ user: obj });
   //     res.render("chat", { user: obj });
   //   }
-  // });
+  // );
+
+  //This one is real database
+  Rating.findOne(
+    { _user: req.session.userId, _secondUser: req.params.userId },
+    function (err, obj) {
+      if (err) {
+        res.render("chat", {});
+      } else {
+        console.log({ user: obj });
+        res.render("chat", { user: obj });
+      }
+    }
+  );
 });
 
 router.get("/chat_test", async (req, res) => {
