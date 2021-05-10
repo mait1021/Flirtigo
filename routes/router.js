@@ -261,6 +261,42 @@ router.get("/filters", (req, res) => {
   });
 });
 
+router.get('/browse', (req, res) => {
+  const email = req.session.user;
+  console.log('searching browse for :', email)
+  User.aggregate([
+      { $match: { email: { $ne: email } } },
+      { $sample: { size: 1 } }
+    ], (err, data) => {
+    console.log('found user: ', data);
+    if (data.length > 0) {
+      res.redirect(`/browse/${data[0]._id}`);
+    } else {
+      res.send('no users found');
+    }
+  })
+})
+
+router.get("/browse/:profileid", async (req, res) => {
+  console.log(req.session);
+  const profileid = req.params.profileid;
+  User.findOne({ _id : profileid }, (err, data) => {
+    if (err) {
+      res.send("No User found");
+    }
+    console.log("Browsing user profile", data);
+    res.render("browse", data);
+  })
+});
+
+router.get('/browse/:profileid/like', async (req, res) => {
+  const email = req.session.user;
+  const profileid = req.params.profileid;
+  User.findOne({ _id: profileid }, (err, data) => {
+    res.render('like', { ...data, profileid});
+  });
+});
+
 //User profile
 
 router.get("/user", async (req, res) => {

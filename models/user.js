@@ -21,6 +21,7 @@ const userSchema = new Schema(
     photo: { type: Array, required: false },
     horoscope: { type: String, required: true },
     profileid: { type: Number, required: true },
+    character: { type: String, required: false },
   },
   { collection: "users", timestamps: true }
 );

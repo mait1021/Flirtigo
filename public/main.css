@@ -4,6 +4,11 @@ body {
   margin: auto;
 }
 
+* {
+  margin: 0%;
+  padding: 0%;
+}
+
 p {
   margin-bottom: 0%;
 }
@@ -315,6 +320,14 @@ p {
   cursor: pointer;
   text-decoration: none;
   min-width: 150px;
+  margin-top: 12px;
+}
+
+.btn-profile,
+.btn-logout {
+  min-width: 150px;
+  font-family: monospace;
+  font-weight: bold;
 }
 
 .logout-container {
@@ -336,8 +349,9 @@ p {
   bottom: 0;
   display: flex;
   justify-content: space-evenly;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 480px;
-  width: 100%;
 }
 .footer .btn-footer {
   margin: 15px 0px;
@@ -356,6 +370,49 @@ p {
   margin: 0px;
   border-radius: 50%;
 }
+
+/* Profile footer: _footer 2.ejs */
+
+.profile_footer{
+
+  background-color: #2b2d40;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height:10vh;
+  position: sticky;
+  bottom:0;
+  width:100%;
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+  margin-top: 30px;
+}
+
+
+ .footer_btn {
+   background-color: #fdda7f;
+   border-radius: 50px;
+   border: 6px solid rgb(187, 166, 117);
+   margin:auto;
+   width:80%;
+   height: 70%;
+   font-weight: bold;
+   align-items: center;
+   display: inline-flex;
+   justify-content: space-around;
+   font-size: 15px;
+   text-decoration: none;
+   color: unset;
+}
+
+.Centre_button{
+  margin:auto;
+ } 
+ 
+ .Centre_button img{
+    object-fit: contain;
+    height:10vh;
+ }  
+
 
 /* edit-info */
 
@@ -392,9 +449,18 @@ p {
   height: 500px;
 }
 
+.container-info,
+.container-profile {
+  margin-bottom: 12%;
+}
+
 .btn-edit-container .btn-container a,
 .container-info .btn-container a {
   min-width: 200px;
+}
+
+.container-info {
+  margin-top: 10%;
 }
 
 .container-profile {
@@ -506,6 +572,15 @@ p {
   right: -10px;
 }
 
+*{
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #edf2f4;
+  margin: auto;
+  min-height: 100vh;
+}
 /* Kailin */
 
 .intro-container-profile {
@@ -611,9 +686,18 @@ p {
   }
 }
 
-.mySlides img {
-  width: 80%;
+.mySlides img{
+  width: 90%;
+  height: auto;
   margin: auto;
+}
+
+@media screen and (max-width: 768px){
+  .mySlides img{
+    width: 200px;
+    height: 200px;
+    margin: auto;
+  }  
 }
 
 .nameBox {
