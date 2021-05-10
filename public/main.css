@@ -319,7 +319,7 @@ body {
   background-color: #2b2d40;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   display: flex;
   justify-content: space-evenly;
@@ -339,9 +339,11 @@ body {
   border-style: solid;
 }
 
-.btn-horoscope-icon {
-  margin: 0px;
+#btn-horoscope-icon {
+  margin: 5px 0px 0px 0px;
   border-radius: 50%;
+  border-style: none;
+  background-color: #2b2d42;
 }
 
 /* ??? */
@@ -477,16 +479,12 @@ body {
 
 /* Carsoule */
 
-ro-container-profile {
-  /* max-height: 100vh; */
-  max-height: 80vh;
-  /* text-align: center; */
-  margin-bottom: 30px;
-  margin-left: 10%;
-  margin-right: 10%;
+.intro-container-profile {
+  margin: 15px;
   background-color: #fdda7f;
   border-radius: 15px;
   position: relative;
+  padding: 10px 10px 40px 10px;
 }
 
 * {
@@ -496,7 +494,6 @@ ro-container-profile {
 /* Carsoule */
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
   position: relative;
   margin: auto;
 }
@@ -522,7 +519,7 @@ ro-container-profile {
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
-  background-color: blue;
+  background-color: RGB(188, 155, 101);
 }
 
 /* Position the "next button" to the right */
@@ -583,73 +580,74 @@ ro-container-profile {
 
 .mySlides img {
   width: 80%;
-  margin: auto;
+  margin: 10px;
 }
 
 .nameBox {
+  font-family: "Poppins", sans-serif;
   background-color: white;
-  max-height: 30vh;
-  width: 80%;
-  text-align: center;
-  margin: auto;
   border-radius: 15px;
-  border-bottom: 10px solid #fdda7f;
-  box-sizing: border-box;
-  font-family: "Source Sans Pro", sans-serif;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  padding: 10px;
 }
 
 .nameBox h2 {
-  padding-top: -0px;
-  padding-left: 20px;
   color: #454344;
-  margin: 0;
-  margin-top: 10px;
+  margin: 5px;
 }
 
 .info {
-  padding-left: 20px;
   text-align: left;
   border-top: #fdda7f solid 5px;
 }
 
 .info p {
-  margin-bottom: 0;
+  margin: 5px;
+  color: RGB(126, 125, 125);
+}
+.info h3 {
+  margin: 5px;
+  font-weight: lighter;
 }
 
 .choice {
   display: inline-flex;
   justify-content: space-evenly;
   width: 100%;
+  font-family: "Poppins", sans-serif;
+}
+
+.choice a {
+  padding: 5px 40px;
+  margin: 10px;
 }
 
 .choice .like {
-  background-color: #ef233c;
+  background-color: #8d99ae;
   border-radius: 50px;
-  border: 6px solid #ed213e;
-  margin: auto;
-  width: 30%;
+  border: 6px solid #759ad0;
   height: 70%;
   font-weight: bold;
   align-items: center;
   display: inline-flex;
   justify-content: space-around;
-  font-size: 6vw;
+  font-size: 18px;
   color: white;
 }
 
 .choice .dislike {
-  background-color: #8d99ae;
+  background-color: #ef233c;
   border-radius: 50px;
-  border: 6px solid #759ad0;
-  margin: auto;
-  width: 30%;
+  border: 6px solid RGB(188, 48, 49);
   height: 70%;
   font-weight: bold;
   align-items: center;
   display: inline-flex;
   justify-content: space-around;
-  font-size: 6vw;
+  font-size: 18px;
   color: white;
 }
 
