@@ -315,7 +315,6 @@ body {
 /* footer */
 
 .footer {
-  color: #fdda7f;
   background-color: #2b2d40;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -325,25 +324,25 @@ body {
   justify-content: space-evenly;
   max-width: 480px;
   width: 100%;
+  font-family: "Poppins", sans-serif;
+  padding-top: 5px;
 }
 .footer .btn-footer {
-  margin: 15px 0px;
+  margin: auto;
   background-color: #fdda7f;
   border-color: #2b2d424f;
   font-weight: bold;
 }
 
 .footer .btn {
-  padding: 0px 10px;
+  padding: 5px 10px;
   border-width: 5px;
   border-style: solid;
 }
 
 #btn-horoscope-icon {
-  margin: 5px 0px 0px 0px;
-  border-radius: 50%;
+  margin: auto;
   border-style: none;
-  background-color: #2b2d42;
 }
 
 /* ??? */
@@ -467,10 +466,6 @@ body {
 
 /* Kailin */
 
-* {
-  box-sizing: border-box;
-}
-
 body {
   background-color: #edf2f4;
   margin: auto;
@@ -485,10 +480,6 @@ body {
   border-radius: 15px;
   position: relative;
   padding: 10px 10px 40px 10px;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 /* Carsoule */
