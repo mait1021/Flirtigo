@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const database = include("databaseConnection");
 const User = include("models/user");
-const { isRef } = require("joi");
+const Rating = include("models/rating");
 var multer = require("multer");
+const moment = require("moment");
 
 router.get("/", async (req, res) => {
   console.log("page hit");
@@ -132,6 +133,7 @@ router.post("/addOrientation", async (req, res) => {
   console.log("add");
   console.log(req.body);
   User.findOne({ email: req.body.email }, function (err, user) {
+    user.orientation = req.body.orientation;
     user.gender = req.body.gender;
     user.toSee = req.body.toSee;
     user.registerStep = req.body.registerStep;
@@ -193,7 +195,9 @@ router.post("/signIn", async (req, res) => {
   const user = await User.findOne({ email: email, password: password });
   if (user) {
     req.session.user = req.body.email;
-    res.redirect("/main");
+    req.session.username = user.first_name;
+    req.session.userId = user.id;
+    res.redirect("/chat_main");
   } else {
     throw new Error("No");
   }
@@ -222,81 +226,107 @@ router.get("/user", async (req, res) => {
 //chat
 
 router.get("/chat_main", async (req, res) => {
+  let userList = [];
+  Rating.find({ _user: req.session.userId }, function (err, obj) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log({ user: obj });
+      userList = obj.map((match) => match._secondUser);
+      console.log(userList);
+
+      User.find()
+        .where("_id")
+        .in(userList)
+        .exec((err, data) => {
+          if (err) {
+            console.log("no");
+          } else {
+            console.log({ newUser: data, user: obj });
+            res.render("chat_main", { newUser: data, user: obj });
+          }
+        });
+    }
+  });
+});
+
+router.get("/chat/:userId?", async (req, res) => {
+  let userId = req.params.userId;
   console.log(req.session);
+
+  //This one is for fake database
+  // Rating.find(
+  //   { _user: req.session.userId, _secondUser: req.params.userId },
+  //   function (err, obj) {
+  //     console.log({ user: obj });
+  //     res.render("chat", { user: obj });
+  //   }
+  // );
+
+  //This one is real database
+  Rating.findOne(
+    { _user: req.session.userId, _secondUser: req.params.userId },
+    function (err, obj) {
+      if (err) {
+        res.render("chat", {});
+      } else {
+        console.log({ user: obj });
+        res.render("chat", { user: obj });
+      }
+    }
+  );
+});
+
+router.get("/chat_test", async (req, res) => {
   User.findOne({ email: req.session.user }, function (err, obj) {
     if (err) {
       console.log(err);
     } else {
       console.log({ user: obj });
-      res.render("chat_main", { user: obj });
+      res.render("chat_room", { user: obj });
     }
   });
 });
 
-router.put("/chat_main", function (req, res) {
-  /* 
-    do stuff to update the foo resource 
-    ...
-   */
+////////Kailin Router Merge
 
-  // now broadcast the updated foo..
-  req.io.sockets.emit("update", foo);
+router.get("/sandra", async (req, res) => {
+  console.log("page hit");
+  res.render("sandra");
 });
-// router.get("/populateData", async (req, res) => {
-//   console.log("populate Data");
-//   try {
-//     let pet1 = new Pet({
-//       name: "Fido",
-//     });
-//     let pet2 = new Pet({
-//       name: "Rex",
-//     });
-//     await pet1.save();
-//     //pet1.id contains the newly created pet's id
-//     console.log(pet1.id);
-//     await pet2.save();
-//     //pet2.id contains the newly created pet's id
-//     console.log(pet2.id);
-//     let user = new User({
-//       first_name: "Me",
-//       last_name: "Awesome",
-//       email: "a@b.ca",
-//       password_hash: "thisisnotreallyahash",
-//       password_salt: "notagreatsalt",
-//       pets: [pet1.id, pet2.id],
-//     });
-//     await user.save();
-//     //user.id contains the newly created user's id
-//     console.log(user.id);
-//     res.redirect("/");
-//   } catch (ex) {
-//     res.render("error", { message: "Error" });
-//     console.log("Error");
-//     console.log(ex);
-//   }
-// });
 
-// router.get("/showPets", async (req, res) => {
-//   console.log("page hit");
-//   try {
-//     const schema = Joi.string().max(25).required();
-//     const validationResult = schema.validate(req.query.id);
-//     if (validationResult.error != null) {
-//       console.log(validationResult.error);
-//       throw validationResult.error;
-//     }
-//     const userResult = await User.findOne({ _id: req.query.id })
-//       .select("first_name id name ")
-//       .populate("pets")
-//       .exec();
-//     console.log(userResult);
-//     res.render("pet", { userAndPets: userResult });
-//   } catch (ex) {
-//     res.render("error", { message: "Error" });
-//     console.log("Error");
-//     console.log(ex);
-//   }
-// });
+router.get("/janet", async (req, res) => {
+  console.log("page hit");
+  res.render("janet");
+});
+
+router.get("/loadingScreen", async (req, res) => {
+  console.log("page hit");
+  res.render("loadingScreen");
+});
+
+// different omikuji result page
+router.get("/omikuji1", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji1");
+});
+router.get("/omikuji2", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji2");
+});
+router.get("/omikuji3", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji3");
+});
+router.get("/omikuji4", async (req, res) => {
+  console.log("page hit");
+  res.render("omikuji4");
+});
+
+router.get("/matchTab", async (req, res) => {
+  console.log("page hit");
+  res.render("matchTab");
+});
 
 
 

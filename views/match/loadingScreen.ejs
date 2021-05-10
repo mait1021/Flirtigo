@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <%- include('_header.ejs') %>
+  <body class = "loadScreen-body">
+    <div class="intro-container">
+        <p class="loadscreen-wrapper content-wrapper"> 
+            Give me 5 seconds...<br><br>
+            Calculating the compatibility of your creative energies...
+        </p>
+
+      <img class="logo1" src="../public/images/Logo.gif" width="250" height="250">
+
+      <script>
+
+        setTimeout(function(){
+          location.href="javascript:openSite()"
+        },3000)
+        var links = [
+              "omikuji1",
+              "omikuji2",
+              "omikuji3",
+              "omikuji4"]
+
+           var openSite = function() {
+              // get a random number between 0 and the number of links
+              var randIdx = Math.random() * links.length;
+              // round it, so it can be used as array index
+              randIdx = parseInt(randIdx, 10);
+              // construct the link to be opened
+              var link = links[randIdx];
+        return location.href=link
+   
+    };
+
+   
+       
+     </script>
+  </div>
+  </body> 
+</html>

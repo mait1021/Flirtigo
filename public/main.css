@@ -315,7 +315,6 @@ body {
 /* footer */
 
 .footer {
-  color: #fdda7f;
   background-color: #2b2d40;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -325,23 +324,28 @@ body {
   justify-content: space-evenly;
   max-width: 480px;
   width: 100%;
+<<<<<<< HEAD
+=======
+  font-family: "Poppins", sans-serif;
+  padding-top: 5px;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
 }
 .footer .btn-footer {
-  margin: 15px 0px;
+  margin: auto;
   background-color: #fdda7f;
   border-color: #2b2d424f;
   font-weight: bold;
 }
 
 .footer .btn {
-  padding: 0px 10px;
+  padding: 5px 10px;
   border-width: 5px;
   border-style: solid;
 }
 
-.btn-horoscope-icon {
-  margin: 0px;
-  border-radius: 50%;
+#btn-horoscope-icon {
+  margin: auto;
+  border-style: none;
 }
 
 /* Profile footer: _footer 2.ejs */
@@ -425,10 +429,17 @@ body {
   position: fixed;
   bottom: 65px;
   background-color: #8d99ae;
+<<<<<<< HEAD
   padding: 20px 20px 25px 20px;
   width: 100%;
   margin: auto;
   max-width: 440px;
+=======
+  padding: 0px 25px 25px 25px;
+  width: 100%;
+  margin: auto;
+  max-width: 480px;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
   text-align: center;
 }
 
@@ -449,10 +460,18 @@ body {
   margin: 5px;
   position: relative;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
 .chat.u1 {
   float: left;
   clear: both;
   border-top-left-radius: 0px;
+<<<<<<< HEAD
+=======
+  margin-left: 20px;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
 }
 .chat.u1:before {
   content: "";
@@ -470,23 +489,47 @@ body {
 
 .chat.public {
   clear: both;
+<<<<<<< HEAD
   background: #00d025;
+=======
+  background: #484d62;
+}
+
+.public {
+  text-align: center;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
 }
 
 .chat.u2 {
   float: right;
   clear: both;
   border-top-right-radius: 0px;
+<<<<<<< HEAD
   background: #00d025;
+=======
+  background: rgb(187, 166, 117);
+  margin-right: 20px;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
 }
 .chat.u2:before {
   content: "";
   width: 0px;
   height: 0px;
   display: block;
+<<<<<<< HEAD
   border-left: 5px solid #00d025;
   border-right: 5px solid transparent;
   border-top: 5px solid #00d025;
+=======
+  border-left: 5px solid rgb(187, 166, 117);
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgb(187, 166, 117);
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
   border-bottom: 5px solid transparent;
   position: absolute;
   top: 0px;
@@ -495,6 +538,7 @@ body {
 
 /* Kailin */
 
+<<<<<<< HEAD
 .intro-container-profile {
   /* max-height: 100vh; */
   max-height: 80vh;
@@ -514,6 +558,27 @@ body {
 /* Slideshow container */
 .slideshow-container {
   max-width: 1000px;
+=======
+body {
+  background-color: #edf2f4;
+  margin: auto;
+  min-height: 100vh;
+}
+
+/* Carsoule */
+
+.intro-container-profile {
+  margin: 15px;
+  background-color: #fdda7f;
+  border-radius: 15px;
+  position: relative;
+  padding: 10px 10px 40px 10px;
+}
+
+/* Carsoule */
+/* Slideshow container */
+.slideshow-container {
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
   position: relative;
   margin: auto;
 }
@@ -539,7 +604,11 @@ body {
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
+<<<<<<< HEAD
   background-color: blue;
+=======
+  background-color: RGB(188, 155, 101);
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
 }
 
 /* Position the "next button" to the right */
@@ -600,6 +669,7 @@ body {
 
 .mySlides img {
   width: 80%;
+<<<<<<< HEAD
   margin: auto;
 }
 
@@ -626,18 +696,50 @@ body {
 
 .info {
   padding-left: 20px;
+=======
+  margin: 10px;
+}
+
+.nameBox {
+  font-family: "Poppins", sans-serif;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  padding: 10px;
+}
+
+.nameBox h2 {
+  color: #454344;
+  margin: 5px;
+}
+
+.info {
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
   text-align: left;
   border-top: #fdda7f solid 5px;
 }
 
 .info p {
+<<<<<<< HEAD
   margin-bottom: 0;
+=======
+  margin: 5px;
+  color: RGB(126, 125, 125);
+}
+.info h3 {
+  margin: 5px;
+  font-weight: lighter;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
 }
 
 .choice {
   display: inline-flex;
   justify-content: space-evenly;
   width: 100%;
+<<<<<<< HEAD
 }
 
 .choice .like {
@@ -646,27 +748,55 @@ body {
   border: 6px solid #ed213e;
   margin: auto;
   width: 30%;
+=======
+  font-family: "Poppins", sans-serif;
+}
+
+.choice a {
+  padding: 5px 40px;
+  margin: 10px;
+}
+
+.choice .like {
+  background-color: #8d99ae;
+  border-radius: 50px;
+  border: 6px solid #759ad0;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
   height: 70%;
   font-weight: bold;
   align-items: center;
   display: inline-flex;
   justify-content: space-around;
+<<<<<<< HEAD
   font-size: 6vw;
+=======
+  font-size: 18px;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
   color: white;
 }
 
 .choice .dislike {
+<<<<<<< HEAD
   background-color: #8d99ae;
   border-radius: 50px;
   border: 6px solid #759ad0;
   margin: auto;
   width: 30%;
+=======
+  background-color: #ef233c;
+  border-radius: 50px;
+  border: 6px solid RGB(188, 48, 49);
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
   height: 70%;
   font-weight: bold;
   align-items: center;
   display: inline-flex;
   justify-content: space-around;
+<<<<<<< HEAD
   font-size: 6vw;
+=======
+  font-size: 18px;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
   color: white;
 }
 
@@ -780,18 +910,70 @@ body {
 }
 
 .user-wrapper img {
+<<<<<<< HEAD
   height: 70%;
   margin-right: 15px;
   float: left;
+=======
+  height: 50px;
+  width: 50px;
+  margin-right: 15px;
+  float: left;
+  border-radius: 50%;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
 }
 
 .user-wrapper a {
   text-decoration: none;
   font-size: 24px;
+<<<<<<< HEAD
 
   margin-left: 15px;
+=======
+  color: black;
+  margin-left: auto;
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614
   display: block;
   margin: 2px 0 0 0;
 }
 
+<<<<<<< HEAD
 
+=======
+.profile_footer {
+  background-color: #2b2d40;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 10vh;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+  margin-top: 30px;
+}
+
+.footer_btn {
+  background-color: #fdda7f;
+  border-radius: 50px;
+  border: 6px solid rgb(187, 166, 117);
+  margin: auto;
+  width: 80%;
+  height: 70%;
+  font-weight: bold;
+  align-items: center;
+  display: inline-flex;
+  justify-content: space-around;
+  font-size: 6vw;
+  max-width: 480px;
+}
+
+.Centre_button {
+  margin: auto;
+}
+
+.Centre_button img {
+  object-fit: contain;
+  height: 10vh;
+}
+>>>>>>> 3b5f2a0f466409a0220cbcb6e9ada395ac260614

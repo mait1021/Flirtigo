@@ -4,45 +4,110 @@
   <body>
     <%- include('_nav_bar.ejs') %>
 
+    <!-- input bar -->
+    <form action="submit" method="post">
+        <div class = "searchInput">
+            <input type="search"  name="search Matches" placeholder="Search Matches" >
+        </div>
+    </form>
 
-    <div class = "search-container">
-      <form action="/search">
-        <input type="text" placeholder="Search.." name="search">
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
+    <!-- button -->
+    <div class = "matchTab-buttons">
+        <button onClick = "matchTab">Matches</button>
+        <button onClick ="matchTab">Chat</button>
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript">
-      let socket = io();
 
-      socket.on('connect', () => {
-        console.log('Connected to server.')
-        
-        // socket.emit('createMessage', {
-        //   from: "Hailey",
-        //   text: "Whats going on"
-        // })
-      })
+        <!-- Matches page -->
+        <div class = "pageMatches" style="display: none;">
+            <div id="luckyMatch">
+            <h3>Send these Lucky matches a message!</h3>
+            </div>
+            <div class = "roundProfile-wrapper">
+                <!-- left column -->
+                <div class = "column">
 
-      socket.on('newMessage', function(message) {
-        console.log("newMessage", message)
-      })
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/alexa.png">
+                        </a>
+                        <div class = "name">Alexa</div>
+                    </div>
 
-      socket.on('disconnect', () => {
-        console.log('Connected to server.')
-      })
+                            
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/bella.png">
+                        </a>
+                        <div class = "name">Bella</div>
+                    </div>
 
-    </script>
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/bellatrix.png">
+                        </a>
+                        <div class = "name">Bellatrix</div>
+                    </div>
+
+                </div>
 
 
-    <div class = "chat-container">
-      <div class="chat-example">
-      </div>
-    </div>
+                <!-- right column -->
+                <div class = "column">
+
+                    <div class = "photo">
+                    <!-- need to change to the chatting page -->
+                    <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/rita.png">
+                        </a>
+                        <div class = "name">Rita</div>
+                    </div>
+
+                            
+                    <div class = "photo">
+                    <!-- need to change to the chatting page -->
+                    <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/gertrude.png">
+                        </a>
+                        <div class = "name">Gertrude</div>
+                    </div>
+
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/skyanne.png">
+                        </a>
+                        <div class = "name">Skyanne</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class = "pageChat" >
+          <div class = "userList-container">
+            <div class = "content-wrapper user-wrapper">
+              <a href="/chat/alexa"> <img src="../public/images/profileRound/alexa.png"> Alexa </a>
+            </div>
+            <div class = "content-wrapper user-wrapper">
+              <a href="/chat/rita"> <img src="../public/images/profileRound/rita.png">Rita </a>
+            </div>
+
+            <% for (var key in newUser) { %>
+              <div class = "content-wrapper user-wrapper">
+                <a href="/chat/<%= newUser[key]._id%>"> <img src= <%= '/upload/' +  newUser[key].photo %> > <%= newUser[key].first_name %> </a>
+              </div>
+                <!--<h3><%= newUser[key]._id%></h3>-->
+            <% } %>
+
+          </div>
+
+
+        <script src="/socket.io/socket.io.js"></script>
     
-
-    
+       </div>
   </body> 
-  
 </html>
+
