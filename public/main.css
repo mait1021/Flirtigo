@@ -662,6 +662,7 @@ body {
   text-align: center;
   padding-top: 0.5vh;
   padding-bottom: 0.5vh;
+  font-family: "Poppins", sans-serif;
 }
 
 .compBox {
@@ -672,9 +673,9 @@ body {
   margin: auto;
   border-radius: 15px;
   box-sizing: border-box;
-  font-family: "Source Sans Pro", sans-serif;
   position: relative;
   margin-bottom: 20px;
+  padding: 10px;
 }
 #compatibility-text {
   font-size: 1.2em;
