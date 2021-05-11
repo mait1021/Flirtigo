@@ -3,6 +3,7 @@ const database = include("databaseConnection");
 const User = include("models/user");
 const Rating = include("models/rating");
 var multer = require("multer");
+var multerS3 = require("multer-s3");
 const moment = require("moment");
 
 router.get("/", async (req, res) => {
@@ -168,20 +169,22 @@ router.get("/signIn", async (req, res) => {
 var upload = multer({ dest: "./upload/" });
 //save file in upload folder
 
-router.post("/addPhoto", upload.array("photo", 200), function (req, res) {
-  User.findOne({ email: req.body.email }, function (err, user) {
-    for (let i = 0; i < req.files.length; i++) {
-      user.photo = req.files[i].filename;
-      res.render("signIn");
+const { uploadFile } = require("../public/s3");
+
+router.post("/addPhoto", upload.array("photo", 10), async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email }).exec();
+    console.log(user);
+    for (let file of req.files) {
+      const result = await uploadFile(file);
+      console.log(result.key);
+      user.photo.push(result.key);
+      user.save();
     }
-    user.save(function (err) {
-      if (err) {
-        console.error("ERROR!");
-      }
-    });
-  });
-  console.log(req.files);
-  console.log(req.files[0].filename);
+    res.render("signIn");
+  } catch {
+    console.error("ERROR!");
+  }
 });
 
 //sign In
