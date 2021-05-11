@@ -5,6 +5,7 @@ const Rating = include("models/rating");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
 const moment = require("moment");
+const { v4: uuidv4 } = require("uuid");
 
 router.get("/", async (req, res) => {
   console.log("page hit");
@@ -81,7 +82,6 @@ router.post("/addAge", async (req, res) => {
   let age = Math.floor(
     (new Date() - new Date(req.body.birthday).getTime()) / 3.15576e10
   );
-
   if (age < 18) {
     console.log("error?");
     req.flash("error", "Sorry, You must be 18+.");
@@ -91,6 +91,7 @@ router.post("/addAge", async (req, res) => {
       user.age = age;
       user.birthday = req.body.birthday;
       user.registerStep = req.body.registerStep;
+      user.zodiac = req.body.zodiac;
       user.save(function (err) {
         if (err) {
           console.error("ERROR!");
@@ -156,15 +157,6 @@ router.get("/signIn", async (req, res) => {
   console.log("page hit");
   res.render("signIn");
 });
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "data/images");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + ".jpg");
-//   },
-// });
 
 var upload = multer({ dest: "./upload/" });
 //save file in upload folder
@@ -329,6 +321,93 @@ router.get("/matchTab", async (req, res) => {
   res.render("matchTab");
 });
 
+// Match function
+
+const { randomUser } = require("../public/randomUser");
+const { LookoutEquipment } = require("aws-sdk");
+
+router.get("/userList", async (req, res) => {
+  console.log("page hit");
+  try {
+    const user = await User.findById(req.session.userId)
+      .select("dislike toSee")
+      .exec();
+
+    const gender = user.toSee;
+
+    const result = await User.find({
+      _id: { $ne: req.session.userId },
+      gender: gender,
+    })
+      .select("first_name age zodiac id photo")
+      .exec();
+
+    // console.log("I dont like ", dislikes.dislike);
+    // console.log(result);
+    let second_user = randomUser(user.dislike, result);
+    console.log(second_user);
+    res.render("userList", { secondUser: second_user });
+  } catch (ex) {
+    res.render("error", { message: "Error" });
+    console.log("Error");
+    console.log(ex);
+  }
+});
+
+router.post("/dislike", async (req, res) => {
+  try {
+    const user = await User.findById(req.session.userId).exec();
+    console.log(user);
+    user.dislike.push(req.body.rating);
+    user.save();
+    res.redirect("/userList");
+  } catch {
+    console.error("ERROR!");
+  }
+});
+
+router.post("/like", async (req, res) => {
+  try {
+    let userId = req.session.userId;
+    let secondUserId = req.body.rating;
+    const user = await User.findById(userId).exec();
+    user.like.push(secondUserId);
+    user.save();
+
+    const secondUser = await User.findById(secondUserId).select("like").exec();
+    console.log(secondUser);
+    if (secondUser.like.includes(userId)) {
+      const room = uuidv4();
+      var newRating = new Rating();
+      newRating._user = userId;
+      newRating._secondUser = secondUserId;
+      newRating.like = true;
+      newRating.room = room;
+      await newRating.save();
+
+      var second = new Rating();
+      second._user = secondUserId;
+      second._secondUser = userId;
+      second.like = true;
+      second.room = room;
+      await second.save();
+    }
+    res.redirect("/userList");
+  } catch {
+    console.error("ERROR!");
+  }
+});
+
 //////////Mai Merge
+
+router.get("/info", async (req, res) => {
+  console.log("page hit");
+  res.render("info");
+});
+
+router.get("/like", async (req, res) => {
+  console.log("page hit");
+  res.render("like");
+});
 
 module.exports = router;

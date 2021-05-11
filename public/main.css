@@ -281,6 +281,10 @@ body {
   margin: 0px 0px 30px 0px;
 }
 
+.btn-container {
+  margin: 20px 0px;
+}
+
 .btn-container a,
 .btn-container button {
   font-weight: bold;
@@ -289,6 +293,7 @@ body {
   padding: 5px 40px;
   font-weight: bold;
   font-size: 18px;
+  font-family: "Poppins", sans-serif;
 }
 
 .btn-profile {
@@ -296,9 +301,10 @@ body {
   color: white;
   border-color: #8d99ae41;
   display: block;
-  margin: 15px auto;
+  margin: 35px auto;
   width: fit-content;
   text-decoration: none;
+  border-radius: 30px;
 }
 
 .btn-logout {
@@ -611,7 +617,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-.choice a {
+.choice input {
   padding: 5px 40px;
   margin: 10px;
 }

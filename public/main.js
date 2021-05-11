@@ -139,7 +139,9 @@ $(document).ready(function () {
     } else if (birthmonth > 12 || birthday > 31) {
       alert("Please enter an accurate date ! ");
     }
-    $(".zodiac").prepend("<p>" + result + "</p>");
+    $(".zodiac").prepend(
+      `<input type='hidden' name='zodiac' value=${result}></input>`
+    );
   });
 
   $(".photo").change(function () {
