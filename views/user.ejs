@@ -5,30 +5,30 @@
   <body>
     <%- include('_nav_bar.ejs') %>
     <div class="intro-container">
-      <div class="container container-profile d-flex align-items-center flex-column">
-        <div class="img-container-profile mt-2">
-          <img class="logo1 img img-fluid rounded-circle profile-image" src="../upload/<%= photo[0] ? photo[0] : '1620107578796.jpg' %>" alt="user image" />
+      <div class="container container-profile">
+        <div class="container-profile">
+          <img class="profile-image" src="../upload/<%= photo[0] ? photo[0] : '1620107578796.jpg' %>" alt="user image" />
         </div>
-        <div class="details-container mt-2 d-flex flex-column align-items-center">
+        <div class="details-container">
           <h2><strong><%= first_name %>, <%= age %></strong></h2>
           <p><strong><%= birthday %></strong></p>
         </div>
-        <div class="btn-container col-10 d-flex flex-column">
-          <a class="btn-profile col-10 btn mt-2 btn-rounded" href="/filters">Filters</a>
-          <a class="btn-profile col-10 btn mt-2 btn-rounded" href="/edit">Edit Info</a>
-          <a class="btn-profile col-10 btn mt-2 btn-rounded">FAQ</a>
+        <div class="btn-container">
+          <a class="btn-profile" href="/filters">Filters</a>
+          <a class="btn-profile" href="/edit">Edit Info</a>
+          <a class="btn-profile">FAQ</a>
         </div>
         <div class="logout-container">
-          <a href="/logout" class="btn btn-rounded btn-logout">Logout</a>
+          <a href="/logout" class="btn btn-logout">Logout</a>
         </div>
       </div>
 
       <div class="footer footer-container">
-        <button class="btn btn-footer btn-light-yellow btn-rounded">Account</button>
-        <button class="btn btn-footer btn-horoscope-icon btn-light-yellow rounded-square rounded-circle btn-rounded">
+        <button class="btn btn-footer">Account</button>
+        <button class="btn btn-footer btn-horoscope-icon">
           <img width="30px" height="30px" src="/images/horoscope/cancer.svg" />
         </button>
-        <button class="btn btn-footer btn-light-yellow btn-rounded">Matches</button>
+        <button class="btn btn-footer">Matches</button>
       </div>
     </div>
   </body>

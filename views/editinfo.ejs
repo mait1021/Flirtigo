@@ -6,9 +6,9 @@
   <body>
     <%- include('_nav_bar.ejs') %>
     <div class="intro-container">      
-      <div class="container container-edit d-flex align-items-center flex-column">
+      <div class="container-edit">
         <form action="/updateprofile" method="post">
-        <div class="btn-container d-flex flex-column">
+        <div class="btn-container">
           <h3>Who do you want to see?</h3>
             <div class="age-container">
               <label for="age">Age</label>
@@ -43,17 +43,17 @@
                 <label for="Bisexual">Bisexual</label>
               </div>
             </div>
-            <button type="submit" class="btn-profile btn mt-2 btn-rounded">Confirm</a>
+            <button type="submit" class="btn-profile">Confirm</a>
             </div>
           </form>
       </div>
 
       <div class="footer footer-container">
-        <button class="btn btn-footer btn-light-yellow btn-rounded">Account</button>
-        <button class="btn btn-footer btn-horoscope-icon btn-light-yellow rounded-square rounded-circle btn-rounded">
+        <button class="btn btn-footer">Account</button>
+        <button class="btn btn-footer btn-horoscope-icon">
           <img width="30px" height="30px" src="../images/horoscope/aries.svg" />
         </button>
-        <button class="btn btn-footer btn-light-yellow btn-rounded">Matches</button>
+        <button class="btn btn-footer">Matches</button>
       </div>
       <script src="/vendor/nouislider.min.js"></script>
       <script>
