@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
   <link rel="stylesheet" href="/vendor/nouislider.min.css" />
+  <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/main.css" />
+  <style>
+    .char-prop {
+      display: flex;
+      margin-top: 20px;
+      color: white;
+      background-color: #2b2d40;
+      border-radius: 5px;
+      padding: 4px;
+    }
+  </style>
   <%- include('_header.ejs') %>
   <body>
     <%- include('_nav_bar.ejs') %>
     <div class="intro-container">      
-      <div class="container-edit">
+      <div class="container container-edit d-flex align-items-center flex-column">
         <form action="/updateprofile" method="post">
-        <div class="btn-container">
+        <div class="btn-container d-flex flex-column">
           <h3>Who do you want to see?</h3>
             <div class="age-container">
               <label for="age">Age</label>
@@ -23,47 +34,42 @@
             </div>
             <div class="personal-chars">
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Straight" value="Straight" <%= toSee == "Straight" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Straight" value="Straight" <%= data.toSee == "Straight" ? "checked" : "" %> />
                 <label for="Straight">Straight</label>
               </div>
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Gay" value="Gay" <%= toSee.trim() == "Gay" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Gay" value="Gay" <%= data.toSee == "Gay" ? "checked" : "" %> />
                 <label for="Gay">Gay</label>
               </div>
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Queer" value="Queer" <%= toSee.trim() == "Queer" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Queer" value="Queer" <%= data.toSee == "Queer" ? "checked" : "" %> />
                 <label for="Queer">Queer</label>
               </div>
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Asexual" value="Asexual" <%= toSee.trim() == "Asexual" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Asexual" value="Asexual" <%= data.toSee == "Asexual" ? "checked" : "" %> />
                 <label for="Asexual">Asexual</label>
               </div>
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Bisexual" value="Bisexual" <%= toSee.trim() == "Bisexual" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Bisexual" value="Bisexual" <%= data.toSee == "Bisexual" ? "checked" : "" %> />
                 <label for="Bisexual">Bisexual</label>
               </div>
             </div>
-            <button type="submit" class="btn-profile">Confirm</a>
+            <button type="submit" class="btn-profile btn mt-2 btn-rounded">Confirm</a>
             </div>
           </form>
       </div>
 
-      <div class="footer footer-container">
-        <button class="btn btn-footer">Account</button>
-        <button class="btn btn-footer btn-horoscope-icon">
-          <img width="30px" height="30px" src="../images/horoscope/aries.svg" />
-        </button>
-        <button class="btn btn-footer">Matches</button>
-      </div>
+      <%- include('_footer 2.ejs') %>
+      
       <script src="/vendor/nouislider.min.js"></script>
       <script>
         var ageMinInp = document.getElementById('range-age-min');
         var ageMaxInp = document.getElementById('range-age-max');
         var distanceInp = document.getElementById('range-distance');
         var sliderRangeAge = document.getElementById("slider-range-age");
-        var minage = <%= minage ? minage : 25 %>;
-        var maxage = <%= maxage ? maxage : 45 %>;
-        var distance = <%= distance ? distance : 50 %>;
+        var minage = <%= minage %>;
+        var maxage = <%= maxage  %>;
+        var distance = <%= distance %>;
 
         noUiSlider.create(sliderRangeAge, {
           start: [minage, maxage],

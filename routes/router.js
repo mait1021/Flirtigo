@@ -3,7 +3,10 @@ const database = include("databaseConnection");
 const User = include("models/user");
 const Rating = include("models/rating");
 var multer = require("multer");
+var multerS3 = require("multer-s3");
 const moment = require("moment");
+var { calculateDistance, getLatLng } = require('./helper');
+const { v4: uuidv4 } = require("uuid");
 
 router.get("/", async (req, res) => {
   console.log("page hit");
@@ -80,7 +83,6 @@ router.post("/addAge", async (req, res) => {
   let age = Math.floor(
     (new Date() - new Date(req.body.birthday).getTime()) / 3.15576e10
   );
-
   if (age < 18) {
     console.log("error?");
     req.flash("error", "Sorry, You must be 18+.");
@@ -90,6 +92,7 @@ router.post("/addAge", async (req, res) => {
       user.age = age;
       user.birthday = req.body.birthday;
       user.registerStep = req.body.registerStep;
+      user.zodiac = req.body.zodiac;
       user.save(function (err) {
         if (err) {
           console.error("ERROR!");
@@ -105,16 +108,20 @@ router.get("/register_address", async (req, res) => {
   res.render("register_address", { email: req.query.email });
 });
 
-router.post("/addAddress", async (req, res) => {
+router.post("/addAddress", (req, res) => {
   console.log("add");
   console.log(req.body);
-  User.findOne({ email: req.body.email }, function (err, user) {
-    user.street = req.body.street;
-    user.city = req.body.city;
-    user.province = req.body.province;
-    user.zip = req.body.zip;
-    user.country = req.body.country;
-    user.registerStep = req.body.registerStep;
+  User.findOne({ email: req.body.email }, async function (err, user) {
+    const {street, city, province, zip, country, registerStep} = req.body;
+    const latlng = await getLatLng(`${street}, ${city}, ${province}, ${country}, ${zip}`);
+    user.street = street;
+    user.city = city;
+    user.province = province;
+    user.zip = zip;
+    user.country = country;
+    user.registerStep = registerStep;
+    user.latitude = latlng.lat || 0;
+    user.longitude = latlng.lng || 0;
     user.save(function (err) {
       if (err) {
         console.error("ERROR!");
@@ -133,6 +140,7 @@ router.post("/addOrientation", async (req, res) => {
   console.log("add");
   console.log(req.body);
   User.findOne({ email: req.body.email }, function (err, user) {
+    user.orientation = req.body.orientation;
     user.gender = req.body.gender;
     user.toSee = req.body.toSee;
     user.registerStep = req.body.registerStep;
@@ -155,32 +163,25 @@ router.get("/signIn", async (req, res) => {
   res.render("signIn");
 });
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "data/images");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + ".jpg");
-//   },
-// });
-
 var upload = multer({ dest: "./upload/" });
 //save file in upload folder
 
-router.post("/addPhoto", upload.array("photo", 200), function (req, res) {
-  User.findOne({ email: req.body.email }, function (err, user) {
-    for (let i = 0; i < req.files.length; i++) {
-      user.photo = req.files[i].filename;
-      res.render("signIn");
+const { uploadFile } = require("../public/s3");
+
+router.post("/addPhoto", upload.array("photo", 10), async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email }).exec();
+    console.log(user);
+    for (let file of req.files) {
+      const result = await uploadFile(file);
+      console.log(result.key);
+      user.photo.push(result.key);
+      user.save();
     }
-    user.save(function (err) {
-      if (err) {
-        console.error("ERROR!");
-      }
-    });
-  });
-  console.log(req.files);
-  console.log(req.files[0].filename);
+    res.render("signIn");
+  } catch {
+    console.error("ERROR!");
+  }
 });
 
 //sign In
@@ -194,57 +195,13 @@ router.post("/signIn", async (req, res) => {
     req.session.user = req.body.email;
     req.session.username = user.first_name;
     req.session.userId = user.id;
-    res.redirect("/chat_main");
+    req.session.latitude = user.latitude || 0;
+    req.session.longitude = user.longitude || 0;
+    req.session.profilePic = user.photo.length > 0 ? user.photo[0] : '';
+    res.redirect("/browse");
   } else {
     throw new Error("No");
   }
-});
-
-router.post("/updateprofile", (req, res) => {
-  const email = req.session.user;
-  const { minage, maxage, distance, toSee } = req.body;
-
-  User.updateOne({ email: email }, { ...req.body }).then((err, data) => {
-    res.redirect("/profile");
-  });
-});
-
-router.get("/logout", (req, res) => {
-  delete req.session.user;
-  res.redirect("/");
-});
-
-router.get("/main", async (req, res) => {
-  console.log(req.session);
-  console.log("page hit");
-  res.render("main");
-});
-
-router.get("/profile", async (req, res) => {
-  console.log(req.session);
-  const email = req.session.user;
-  console.log(email);
-  User.findOne({ email: email }, (err, data) => {
-    console.log("profiles list fetched");
-    if (data) {
-      console.log(data);
-      res.render("user", data);
-    } else {
-      res.send("no user");
-    }
-  });
-});
-
-router.get("/edit", (req, res) => {
-  const email = req.session.user;
-  User.findOne({ email: email }, (err, data) => {
-    if (data) {
-      res.render("editinfo", data);
-    } else {
-      delete req.session.user;
-      res.redirect("index");
-    }
-  });
 });
 
 router.get("/filters", (req, res) => {
@@ -261,40 +218,11 @@ router.get("/filters", (req, res) => {
   });
 });
 
-router.get('/browse', (req, res) => {
-  const email = req.session.user;
-  console.log('searching browse for :', email)
-  User.aggregate([
-      { $match: { email: { $ne: email } } },
-      { $sample: { size: 1 } }
-    ], (err, data) => {
-    console.log('found user: ', data);
-    if (data.length > 0) {
-      res.redirect(`/browse/${data[0]._id}`);
-    } else {
-      res.send('no users found');
-    }
-  })
-})
 
-router.get("/browse/:profileid", async (req, res) => {
+router.get("/main", async (req, res) => {
   console.log(req.session);
-  const profileid = req.params.profileid;
-  User.findOne({ _id : profileid }, (err, data) => {
-    if (err) {
-      res.send("No User found");
-    }
-    console.log("Browsing user profile", data);
-    res.render("browse", data);
-  })
-});
-
-router.get('/browse/:profileid/like', async (req, res) => {
-  const email = req.session.user;
-  const profileid = req.params.profileid;
-  User.findOne({ _id: profileid }, (err, data) => {
-    res.render('like', { ...data, profileid});
-  });
+  console.log("page hit");
+  res.render("main");
 });
 
 //User profile
@@ -341,37 +269,28 @@ router.get("/chat_main", async (req, res) => {
 router.get("/chat/:userId?", async (req, res) => {
   let userId = req.params.userId;
   console.log(req.session);
-  Rating.find(
-    { _user: req.session.userId, _secondUser: req.params.userId },
-    function (err, obj) {
-      console.log({ user: obj });
-      res.render("chat", { user: obj });
-    }
-  );
 
-  //This one is real database
-  // Rating.findOne(
+  //This one is for fake database
+  // Rating.find(
   //   { _user: req.session.userId, _secondUser: req.params.userId },
   //   function (err, obj) {
-  //     if (err) {
-  //       res.render("chat", {});
-  //     } else {
-  //       console.log({ user: obj });
-  //       res.render("chat", { user: obj });
-  //     }
-  //   }
-  // );
-
-  // res.render("chat", { userId: userId });
-  // console.log(userId);
-  // User.findOne({ email: req.session.user }, function (err, obj) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
   //     console.log({ user: obj });
   //     res.render("chat", { user: obj });
   //   }
-  // });
+  // );
+
+  //This one is real database
+  Rating.findOne(
+    { _user: req.session.userId, _secondUser: req.params.userId },
+    function (err, obj) {
+      if (err) {
+        res.render("chat", {});
+      } else {
+        console.log({ user: obj });
+        res.render("chat", { user: obj });
+      }
+    }
+  );
 });
 
 router.get("/chat_test", async (req, res) => {
@@ -424,5 +343,94 @@ router.get("/matchTab", async (req, res) => {
   console.log("page hit");
   res.render("matchTab");
 });
+
+// Match function
+
+const { randomUser } = require("../public/randomUser");
+const { LookoutEquipment } = require("aws-sdk");
+
+router.get("/userList", async (req, res) => {
+  console.log("page hit");
+  try {
+    const user = await User.findById(req.session.userId)
+      .select("dislike toSee")
+      .exec();
+
+    const gender = user.toSee;
+
+    const result = await User.find({
+      _id: { $ne: req.session.userId },
+      gender: gender,
+    })
+      .select("first_name age zodiac id photo")
+      .exec();
+
+    // console.log("I dont like ", dislikes.dislike);
+    // console.log(result);
+    let second_user = randomUser(user.dislike, result);
+    console.log(second_user);
+    res.render("userList", { secondUser: second_user });
+  } catch (ex) {
+    res.render("error", { message: "Error" });
+    console.log("Error");
+    console.log(ex);
+  }
+});
+
+router.post("/dislike", async (req, res) => {
+  try {
+    const user = await User.findById(req.session.userId).exec();
+    console.log(user);
+    user.dislike.push(req.body.rating);
+    user.save();
+    res.redirect("/userList");
+  } catch {
+    console.error("ERROR!");
+  }
+});
+
+router.post("/like", async (req, res) => {
+  try {
+    let userId = req.session.userId;
+    let secondUserId = req.body.rating;
+    const user = await User.findById(userId).exec();
+    user.like.push(secondUserId);
+    user.save();
+
+    const secondUser = await User.findById(secondUserId).select("like").exec();
+    console.log(secondUser);
+    if (secondUser.like.includes(userId)) {
+      const room = uuidv4();
+      var newRating = new Rating();
+      newRating._user = userId;
+      newRating._secondUser = secondUserId;
+      newRating.like = true;
+      newRating.room = room;
+      await newRating.save();
+
+      var second = new Rating();
+      second._user = secondUserId;
+      second._secondUser = userId;
+      second.like = true;
+      second.room = room;
+      await second.save();
+    }
+    res.redirect("/userList");
+  } catch {
+    console.error("ERROR!");
+  }
+});
+
+//////////Mai Merge
+
+// router.get("/info", async (req, res) => {
+//   console.log("page hit");
+//   res.render("info");
+// });
+
+// router.get("/like", async (req, res) => {
+//   console.log("page hit");
+//   res.render("like");
+// });
 
 module.exports = router;

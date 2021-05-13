@@ -49,17 +49,19 @@
       <h2>Janet <span class="age"> 24, Libra </span></h2>
       <div class = "info">
         <h3>Balance me out</h3>
-        <p>19km away</p>
-        <p>Lives in North Vancouver</p>
-    </div>
+          <p>19km away</p>
+          <p>Lives in North Vancouver</p>
+      </div>
     </div>
 
-</div>    
-
-<div class="choice">
-  <a button class="dislike">Dislike</a> 
-  <a button class="like">Like</a>
 </div>
+
+<form action="rating" method="post">
+  <div class="choice">
+    <input type="submit" class="dislike" value="Dislike">
+    <input type="submit" class="like" value="Like">
+  </div>
+</form>
 
 <%- include('_footer 2.ejs') %>
 </body>

@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html>
   <%- include('_header.ejs') %>
+  <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/main.css" />
   <body>
     <%- include('_nav_bar.ejs') %>
     <div class="intro-container">
-      <div class="container container-info">
+      <div
+        class="container container-info d-flex align-items-center flex-column"
+      >
         <div class="btn-container btn-edit-container">
-          <a class="btn-profile">Location</a>
-          <a class="btn-profile">Sexual Orientation</a>
-          <a class="btn-profile">Work/Education</a>
-          <a class="btn-profile">Profile Photos</a>
+          <a class="btn-profile btn mt-2 btn-rounded">Location</a>
+          <a class="btn-profile btn mt-2 btn-rounded">Sexual Orientation</a>
+          <a class="btn-profile btn mt-2 btn-rounded">Work/Education</a>
+          <a class="btn-profile btn mt-2 btn-rounded">Profile Photos</a>
         </div>
       </div>
 
-      <div class="footer">
-        <button class="btn btn-footer">Account</button>
-        <button class="btn btn-footer btn-horoscope-icon">
-          <img width="30px" height="30px" src="/images/horoscope/aries.svg" />
-        </button>
-        <button class="btn btn-footer">Matches</button>
-      </div>
+      <%- include('_footer 2.ejs') %>
     </div>
   </body>
 </html>

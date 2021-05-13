@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
+  <%- include('_header.ejs') %>
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width" />
-  <!-- <link rel="stylesheet" href="profile.css"> -->
-  <link rel="stylesheet" href="../public/main.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"> </script>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/vendor/swipe.js"></script>
   <script src="https://kit.fontawesome.com/738c285426.js" crossorigin="anonymous"></script>
 
 </head>
@@ -20,23 +20,21 @@
     <div class="slideshow-container">
       <!-- The dots/circles -->
       <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
+        <% if (photo.length) {
+            photo.forEach((filename, idx) => { %>
+              <span class="dot" onclick="currentSlide(<%= idx %>)"></span>
+            <% })
+        } %>
       </div>
 
         <!-- Full-width images with number and caption text -->
-        <div class="mySlides fade">
-          <img src="/upload/<%= photo[0] %>" >  
-        </div>
-
-        <div class="mySlides fade">
-          <img src="../public/images/janet2.png" >
-        </div>
-
-        <div class="mySlides fade">  
-          <img src="../public/images/janet3.png">    
-        </div>
+        <% if (photo.length) {
+            photo.forEach(filename => { %>
+                <div class="mySlides fade">
+                  <img src="/upload/<%= filename %>" >
+                </div>
+            <% })
+        } %>
 
         <!-- Next and previous buttons -->
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -46,21 +44,32 @@
 
     <!-- information -->
     <div class="nameBox">
-      <h2><%= first_name %> <span class="age"> <%= age %> </span></h2>
+      <h2><%= first_name %> <span class="age">(<%= age %>)</span></h2>
       <div class = "info">
-        <h3><%= province %></h3>
-        <p><%= street %></p>
+        <h3><%= bio %></h3>
+        <p><%= distance %> km Away</p>
+        <p>Lives in <%= street + "," + province %></p>
     </div>
     </div>
 
 </div>    
 
 <div class="choice">
-  <a button class="dislike" href="/browse">Dislike</a> 
+  <a button class="dislike" href="/browse/<%= _id %>/dislike">Dislike</a> 
   <a button class="like" href="/browse/<%= _id %>/like">Like</a>
 </div>
 
-<%- include('_footer_2.ejs') %>
+<%- include('_footer 2.ejs') %>
 </body>
 <script type="text/javascript" src="/main.js"></script>
+<script>
+  $('.slideshow-container').onSwipe(function(results) {
+    if (results.right === true) {
+      plusSlides(1)
+    }
+    if (results.left === true) {
+      plusSlides(-1)
+    }
+  })
+</script>
 </html>

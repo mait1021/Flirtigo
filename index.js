@@ -14,10 +14,13 @@ global.include = function (file) {
 const express = require("express");
 const app = express();
 const router = include("routes/router");
+const browseRouter = include("routes/browse");
+const profileRouter = include("routes/profile");
+
 const path = require("path");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3009;
 
 app.use(cookieParser("secret"));
 app.use(
@@ -46,6 +49,8 @@ app.use("/public/images/", express.static("./public/images"));
 app.use("/upload/", express.static("./upload"));
 
 app.use("/", router);
+app.use('/', profileRouter);
+app.use('/browse', browseRouter);
 
 io.on("connection", (socket) => {
   socket.on("join room", (room) => {

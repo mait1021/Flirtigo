@@ -14,7 +14,7 @@
             <div class="image-preview"></div>
             <div class="upload-options">
               <label>
-                <input name="photo" type="file" class="image-upload" accept="image/*" />
+                <input name="photo" type="file" class="image-upload" accept="image/*" required />
               </label>
             </div>
           </div>
@@ -23,7 +23,7 @@
             <div class="image-preview"></div>
             <div class="upload-options">
               <label>
-                <input name="photo" type="file" class="image-upload" accept="image/*" />
+                <input name="photo" type="file" class="image-upload" accept="image/*" required />
               </label>
             </div>
           </div>
@@ -32,7 +32,7 @@
             <div class="image-preview"></div>
             <div class="upload-options">
               <label>
-                <input name="photo" type="file" class="image-upload" accept="image/*" />
+                <input name="photo" type="file" class="image-upload" accept="image/*" required />
               </label>
             </div>
           </div>
@@ -67,7 +67,7 @@
 
         <div class = "bio-container">
           <p>Add a bio to compliment those <br>amazing photos!</p>
-          <textarea>Enter here..</textarea>
+          <textarea name="bio" placeholder="About you..">Like me</textarea>
         </div>
 
         <input type="hidden" name="email" value="<%= email %>">
