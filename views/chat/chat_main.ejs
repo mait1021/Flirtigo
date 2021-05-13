@@ -12,14 +12,20 @@
     </form>
 
     <!-- button -->
-    <div class = "matchTab-buttons">
-        <button onClick = "matchTab">Matches</button>
+    <!-- <div class = "matchTab-buttons" >
+        <button name= "matchTab" value="Show match page" onClick = "show_matchTab()">Matches</button>
         <button onClick ="matchTab">Chat</button>
-    </div>
+    </div>  -->
+
+   <div class = "matchTab-buttons" >
+        <button name= "matchTab" id = "matchTab" onclick="showMatch()">Matches</button>
+        <button id = "chatTab" onclick="showChat()">Chat</button>
+    </div> 
+
 
 
         <!-- Matches page -->
-        <div class = "pageMatches" style="display: none;">
+        <div  id = "pageMatches"class = "pageMatches" style ="display:show" >
             <div id="luckyMatch">
             <h3>Send these Lucky matches a message!</h3>
             </div>
@@ -86,13 +92,45 @@
             </div>
         </div>
 
-        <div class = "pageChat" >
+        <div  id = "pageChat" class = "pageChat" style="display:none">
           <div class = "userList-container">
             <div class = "content-wrapper user-wrapper">
               <a href="/chat/alexa"> <img src="../public/images/profileRound/alexa.png"> Alexa </a>
+
+              <!-- part containing dots, match/report buttons -->
+              <div class = "load_chat">
+                  <!-- three dots -->
+                  <div class = "dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                  </div>
+
+                  <div class = "reportMatch" style="display: none;">
+                    <a button class="unmatch">Unmatch</a> 
+                    <a button class="report">Report</a>
+                  </div>
+
+              </div>
+
             </div>
+
             <div class = "content-wrapper user-wrapper">
               <a href="/chat/rita"> <img src="../public/images/profileRound/rita.png">Rita </a>
+
+                           <!-- part containing dots, match/report buttons -->
+                           <div class = "load_chat">
+                            <!-- three dots -->
+                            <div class = "dots">
+                              <span class="dot"></span>
+                              <span class="dot"></span>
+                              <span class="dot"></span>
+                            </div>
+          
+                            <div class = "reportMatch" style="display: none;">
+                              <a button class="unmatch">Unmatch</a> 
+                              <a button class="report">Report</a>
+                            </div>
             </div>
 
             <% for (var key in newUser) { %>
@@ -107,6 +145,23 @@
 
         <script src="/socket.io/socket.io.js"></script>
     
+    
+       </div>
+
+       <!-- only appear if click on report -->
+       <div id ="pageReport" class ="pageReport overlay" style="display: none;">
+           <div class = "reportText">
+            <h3><em>What is the reason for your report?</em></h3>
+            <p>Shh.. We won't tell this person</p>
+           </div>
+          
+            <div class = "reportBtn"> 
+                <a button> Fake profile/Spam</a>
+                <a button> Inappropriate messages</a>
+                <a button> Inappropriate profile picture</a>
+                <a button> Someone is in danger</a>
+                <a button> Offline behavior </a>
+            </div>
        </div>
   </body> 
 </html>
