@@ -96,7 +96,7 @@
 
             <% for (var key in newUser) { %>
               <div class = "content-wrapper user-wrapper">
-                <a href="/chat/<%= newUser[key]._id%>"> <img src= <%= '/upload/' +  newUser[key].photo[0] %> > <%= newUser[key].first_name %> </a>
+                <a href="/chat/<%= newUser[key]._id%>"> <img src= <%=  newUser[key].photo[0] %> > <%= newUser[key].first_name %> </a>
 
                 <div class = "load_chat">
                     <!-- three dots -->

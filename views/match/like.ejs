@@ -14,8 +14,8 @@
             <h2 class="match-title" >It's A Match</h2>
             <h4 class="match-title">You and <%= secondUser.first_name %> like each other</h4>
             <div class="match-like-pics">
-                <img class="profile-image"  src=<%='/upload/' + user.photo[0] %> >
-                <img class="profile-image"  src=<%='/upload/' + secondUser.photo[0] %> >
+                <img class="profile-image"  src=<%= user.photo[0] %> >
+                <img class="profile-image"  src=<%= secondUser.photo[0] %> >
             </div>
             <div class="match-btn-container">
                 <a class="match-btn dislike">Send Message</a> 

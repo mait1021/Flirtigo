@@ -6,6 +6,7 @@ var multer = require("multer");
 var multerS3 = require("multer-s3");
 const moment = require("moment");
 const { v4: uuidv4 } = require("uuid");
+const upload_to_S3 = require("../public/s3.js");
 
 router.get("/", async (req, res) => {
   console.log("page hit");
@@ -163,16 +164,17 @@ var upload = multer({ dest: "./upload/" });
 
 const { uploadFile } = require("../public/s3");
 
-router.post("/addPhoto", upload.array("photo", 10), async (req, res) => {
+router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
+  // router.post("/addPhoto", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
-    console.log(user);
+    // upload_to_S3("photo", 10)
+    // console.log(user);
+    console.log(req.files);
     for (let file of req.files) {
-      const result = await uploadFile(file);
-      console.log(result.key);
-      user.photo.push(result.key);
-      user.save();
+      user.photo.push(file.location);
     }
+    user.save();
     res.render("signIn");
   } catch (err) {
     res.render("error", { message: "Error" });
@@ -387,13 +389,14 @@ router.post("/like", async (req, res) => {
       second.like = true;
       second.room = room;
       await second.save();
-
       res.render("like", { secondUser: secondUser, user: user });
     } else {
       res.redirect("/userList");
     }
-  } catch {
-    console.error("ERROR!");
+  } catch (ex) {
+    res.render("error", { message: "Error" });
+    console.log("Error");
+    console.log(ex);
   }
 });
 
