@@ -160,7 +160,7 @@ $(document).ready(function () {
 
 // ------------
 var slideIndex = 1;
-showSlides(slideIndex);
+// showSlides(slideIndex);
 
 // Next/previous controls
 function plusSlides(n) {
@@ -192,5 +192,64 @@ function showSlides(n) {
   dots[slideIndex - 1].className += " active";
 }
 
-//matchTab-buttons change color onclick
-matchTab();
+//matchTab-buttons  onclick
+function showMatch() {
+  var x = document.getElementById("pageMatches");
+  var y = document.getElementById("pageChat");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+function showChat() {
+  var x = document.getElementById("pageChat");
+  var y = document.getElementById("pageMatches");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+//chat_main: click on three dots, buttons shows
+
+$(document).ready(function () {
+  $(".dots").click(function () {
+    $(".reportMatch").toggle();
+  });
+
+  $(".report").click(function () {
+    $(".pageReport").show();
+    $(".user-wrapper").hide();
+  });
+
+  $(".reportBtn a").click(function () {
+    $(".overlay").hide();
+    $(".user-wrapper").show();
+  });
+});
+
+// function swipe() {
+//   $(document).on("swipe", ".slideshow-container", function (event) {
+//     console.log(event);
+//     if (event.right == true) {
+//       plusSlides(1);
+//     }
+//     if (results.left === true) {
+//       plusSlides(-1);
+//     }
+//   });
+
+//   // $(".slideshow-container").onSwipe(function (results) {
+//   //   if (results.right === true) {
+//   //     plusSlides(1);
+//   //   }
+//   //   if (results.left === true) {
+//   //     plusSlides(-1);
+//   //   }
+//   // });
+// }

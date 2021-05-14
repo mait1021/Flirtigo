@@ -2,6 +2,7 @@ body {
   max-width: 480px;
   background-color: #edf2f4;
   margin: auto;
+  height: 100vh;
 }
 
 .main-container {
@@ -13,6 +14,9 @@ body {
   font-family: "Shrikhand", cursive;
   font-size: 60px;
   -webkit-text-stroke: 1px #484d62;
+}
+
+.container {
 }
 
 .sign-btn a {
@@ -51,7 +55,10 @@ body {
 .nav-bar {
   background-color: #2b2d42;
   padding: 7px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .content-wrapper {
@@ -324,7 +331,7 @@ body {
   background-color: #2b2d40;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   display: flex;
   justify-content: space-evenly;
@@ -332,6 +339,11 @@ body {
   width: 100%;
   font-family: "Poppins", sans-serif;
   padding-top: 5px;
+}
+
+.footer a {
+  text-decoration: none;
+  color: black;
 }
 .footer .btn-footer {
   margin: auto;
@@ -387,18 +399,26 @@ body {
 /* Chat Room */
 
 .msgsend-container {
-  position: fixed;
-  bottom: 65px;
   background-color: #8d99ae;
-  padding: 0px 25px 25px 25px;
-  width: 100%;
-  margin: auto;
   max-width: 480px;
+  margin: auto;
   text-align: center;
+  position: fixed;
+  bottom: 90px;
+  width: 100%;
+}
+
+.msgsend-container form {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
 }
 
 .msgsend-container input {
   width: 60%;
+  margin: 5px;
+  border: none;
+  padding: 5px;
 }
 
 .chat {
@@ -413,6 +433,11 @@ body {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   margin: 5px;
   position: relative;
+}
+
+.chats {
+  padding-bottom: 20px;
+  overflow-y: scroll;
 }
 
 .chat.u1 {
@@ -472,13 +497,12 @@ body {
 
 /* Kailin */
 
-body {
-  background-color: #edf2f4;
-  margin: auto;
-  min-height: 100vh;
-}
-
 /* Carsoule */
+
+.user-container {
+  height: 80vh;
+  overflow-y: scroll;
+}
 
 .intro-container-profile {
   margin: 15px;
@@ -756,6 +780,7 @@ body {
   display: flex;
   margin: 0px;
   padding: 20px;
+  justify-content: space-between;
 }
 
 .user-wrapper img {
@@ -810,4 +835,161 @@ body {
 .Centre_button img {
   object-fit: contain;
   height: 10vh;
+}
+
+/* Mai Match page Merge */
+
+.match-container {
+  border: 2px solid white;
+  border-radius: 30px;
+  padding: 20px;
+}
+.profile-like-container {
+  margin: auto;
+  width: -webkit-fill-available;
+}
+.profile-like-container h2 {
+  font-family: "Shrikhand", cursive;
+  font-size: 29px;
+  line-height: 80%;
+}
+.match-title {
+  margin: 0px;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+.match-like-pics {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+.match-like-pics img {
+  width: 120px;
+  height: 120px;
+  border: 3px solid white;
+}
+.match-btn-container {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.match-btn {
+  background-color: #fdda7f;
+  border-radius: 50px;
+  border: 6px solid rgb(187, 166, 117);
+  margin: auto;
+  width: 70%;
+  height: 40px;
+  font-weight: bold;
+  align-items: center;
+  display: inline-flex;
+  justify-content: space-around;
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.match-wrapper {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(/public/images/horoscope_final.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  background-position: center;
+  padding: 19px;
+  font-family: "Poppins", sans-serif;
+  overflow-y: scroll;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Report Part */
+
+.dots {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+  padding-top: 0px;
+}
+
+.dots .dot {
+  margin-top: 0px;
+}
+.reportMatch {
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  padding-right: 0px;
+}
+
+.reportMatch a {
+  padding: 5px 10px;
+  margin: 3px;
+  border-radius: 50px;
+  height: 12%;
+  font-weight: bold;
+  align-items: center;
+  font-size: 15px;
+  color: white;
+}
+
+.reportMatch .report {
+  background-color: #8d99ae;
+  border: 6px solid #759ad0;
+}
+
+.reportMatch .unmatch {
+  background-color: #ef233c;
+  border: 6px solid RGB(188, 48, 49);
+}
+
+/* report buttons in report div */
+/* report headings */
+.overlay {
+  background-color: #c4c4c4;
+  border-radius: 15px;
+  height: 95%;
+  width: 85%;
+  top: 0;
+  margin: auto;
+  opacity: 1;
+  position: relative;
+}
+
+.reportText {
+  max-height: 90vh;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", sans-serif;
+  position: relative;
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+.reportBtn {
+  text-align: center;
+  padding-bottom: 10vh;
+}
+
+.reportBtn a {
+  padding: 5px 40px;
+  margin: 10px;
+  background-color: #2b2d42;
+  border-radius: 50px;
+  border: 6px solid #8d99ae;
+  height: 70%;
+  font-weight: bold;
+  align-items: center;
+  display: inline-flex;
+  justify-content: space-around;
+  font-size: 18px;
+  color: white;
 }

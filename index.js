@@ -42,6 +42,7 @@ app.set("socketio", io);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
+app.use("/public/css/", express.static("./public/css"));
 app.use("/public/images/", express.static("./public/images"));
 app.use("/upload/", express.static("./upload"));
 

@@ -244,41 +244,34 @@ router.get("/chat_main", async (req, res) => {
 });
 
 router.get("/chat/:userId?", async (req, res) => {
-  let userId = req.params.userId;
-  console.log(req.session);
+  try {
+    let userId = req.params.userId;
+    console.log(req.session);
+    //This one is for fake database
+    // Rating.find(
+    //   { _user: req.session.userId, _secondUser: req.params.userId },
+    //   function (err, obj) {
+    //     console.log({ user: obj });
+    //     res.render("chat", { user: obj });
+    //   }
+    // );
 
-  //This one is for fake database
-  // Rating.find(
-  //   { _user: req.session.userId, _secondUser: req.params.userId },
-  //   function (err, obj) {
-  //     console.log({ user: obj });
-  //     res.render("chat", { user: obj });
-  //   }
-  // );
-
-  //This one is real database
-  Rating.findOne(
-    { _user: req.session.userId, _secondUser: req.params.userId },
-    function (err, obj) {
-      if (err) {
-        res.render("chat", {});
-      } else {
-        console.log({ user: obj });
-        res.render("chat", { user: obj });
-      }
-    }
-  );
+    //This one is real database
+    const match = await Rating.findOne({
+      _user: req.session.userId,
+      _secondUser: req.params.userId,
+    })
+      .select("room")
+      .exec();
+    console.log(match);
+    res.render("chat", { match: match });
+  } catch {
+    console.error("ERROR!");
+  }
 });
 
-router.get("/chat_test", async (req, res) => {
-  User.findOne({ email: req.session.user }, function (err, obj) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log({ user: obj });
-      res.render("chat_room", { user: obj });
-    }
-  });
+router.get("/real_main", async (req, res) => {
+  res.render("real_main", { content: "chat_test.ejs" });
 });
 
 ////////Kailin Router Merge
@@ -294,7 +287,6 @@ router.get("/janet", async (req, res) => {
 });
 
 router.get("/loadingScreen", async (req, res) => {
-  console.log("page hit");
   res.render("loadingScreen");
 });
 
@@ -342,8 +334,6 @@ router.get("/userList", async (req, res) => {
       .select("first_name age zodiac id photo")
       .exec();
 
-    // console.log("I dont like ", dislikes.dislike);
-    // console.log(result);
     let second_user = randomUser(user.dislike, result);
     console.log(second_user);
     res.render("userList", { secondUser: second_user });
@@ -361,8 +351,10 @@ router.post("/dislike", async (req, res) => {
     user.dislike.push(req.body.rating);
     user.save();
     res.redirect("/userList");
-  } catch {
-    console.error("ERROR!");
+  } catch (ex) {
+    res.render("error", { message: "Error" });
+    console.log("Error");
+    console.log(ex);
   }
 });
 
@@ -373,8 +365,10 @@ router.post("/like", async (req, res) => {
     const user = await User.findById(userId).exec();
     user.like.push(secondUserId);
     user.save();
-
-    const secondUser = await User.findById(secondUserId).select("like").exec();
+    console.log(user);
+    const secondUser = await User.findById(secondUserId)
+      .select("like first_name photo")
+      .exec();
     console.log(secondUser);
     if (secondUser.like.includes(userId)) {
       const room = uuidv4();
@@ -391,8 +385,11 @@ router.post("/like", async (req, res) => {
       second.like = true;
       second.room = room;
       await second.save();
+
+      res.render("like", { secondUser: secondUser, user: user });
+    } else {
+      res.redirect("/userList");
     }
-    res.redirect("/userList");
   } catch {
     console.error("ERROR!");
   }
@@ -407,7 +404,13 @@ router.get("/info", async (req, res) => {
 
 router.get("/like", async (req, res) => {
   console.log("page hit");
+  console.log(req.session.userId);
+
   res.render("like");
+});
+router.get("/like2", async (req, res) => {
+  console.log("page hit");
+  res.render("like2");
 });
 
 module.exports = router;

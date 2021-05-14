@@ -1,5 +1,14 @@
 var socket = io();
 
+//Go to the bottom when you get a new message
+function scrollToBottom() {
+  $(".chats").animate(
+    {
+      scrollTop: $(".chats")[0].scrollHeight,
+    },
+    0
+  );
+}
 socket.on("connect", () => {
   console.log(socket.id);
   console.log(socket.rooms);
@@ -32,7 +41,7 @@ socket.on("chat message", function (data) {
   } else {
     $(".chats").append(`<span class = "u1 chat">${data.message}</span>`);
   }
-  // scrollToBottom();
+  scrollToBottom();
 });
 
 $("#leave").click(function () {

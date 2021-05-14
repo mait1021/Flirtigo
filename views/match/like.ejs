@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('_header.ejs') %>
-<body>
+<body class="background-yellow">
   <%- include('_nav_bar.ejs') %>
 
-<div class = "intro-container-profile">
+<div id = "match-wrapper" class = "match-wrapper">
      <!-- Slideshow container -->
-    <div class="match-container">
+    <div id="match-container" class="match-container">
         <!-- Full-width images with number and caption text -->
         <div class="profile-like-container">
             <!-- information -->
-            <h2 class="match-title" style="color: white;">Congratulations !</h2>
-            <h2 class="match-title" style="color: white;">It's A Match</h2>
-            <h4 class="match-title" style="color: white;">You and Santra like each other</h4>
+            <h2 class="match-title" >Congratulations !</h2>
+            <h2 class="match-title" >It's A Match</h2>
+            <h4 class="match-title">You and <%= secondUser.first_name %> like each other</h4>
             <div class="match-like-pics">
-                <img class="profile-image" src="/images/janet1.png" alt="guest image">
-                <img class="profile-image" src="/images/janet2.png" alt="guest image">
+                <img class="profile-image"  src=<%='/upload/' + user.photo[0] %> >
+                <img class="profile-image"  src=<%='/upload/' + secondUser.photo[0] %> >
             </div>
             <div class="match-btn-container">
                 <a class="match-btn dislike">Send Message</a> 
-                <a href="/browse" button class="match-btn like">Keep Swiping</a>
+                <a href="/userList" button class="match-btn like">Keep Swiping</a>
             </div>
         </div>
     </div>
 </div>    
+<script>
+    const size = function (event) {
+      document.getElementById("match-wrapper").style.height = ($(window).height()-165)+"px";
+    }
+    window.addEventListener('resize', size, true);
+    window.addEventListener('load', size, true);
+  </script>
 
-
-<%- include('_footer 2.ejs') %>
+<%- include('_footer.ejs') %>
 </body>
 </html>
