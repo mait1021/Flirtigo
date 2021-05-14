@@ -174,8 +174,10 @@ router.post("/addPhoto", upload.array("photo", 10), async (req, res) => {
       user.save();
     }
     res.render("signIn");
-  } catch {
-    console.error("ERROR!");
+  } catch (err) {
+    res.render("error", { message: "Error" });
+    console.log("Error");
+    console.log(err);
   }
 });
 
