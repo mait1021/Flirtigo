@@ -438,6 +438,7 @@ body {
 .chats {
   padding-bottom: 20px;
   overflow-y: scroll;
+  padding-top: 10px;
 }
 
 .chat.u1 {
@@ -772,6 +773,12 @@ body {
 
 .column .photo {
   margin-bottom: 2vh;
+}
+
+.photo img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
 }
 
 /* user list in chat tap  */

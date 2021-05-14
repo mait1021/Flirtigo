@@ -75,11 +75,14 @@
                     </div>
 
                     <div class = "photo">
+                        <% for (var key in newUser) { %>
                         <!-- need to change to the chatting page -->
-                        <a href = "./chat/chat_main.ejs">
-                            <img src="../public/images/profileRound/skyanne.png">
+                        <a href="/chat/<%= newUser[key]._id%>"> 
+                            <img src= <%= newUser[key].photo[0] %>>
                         </a>
-                        <div class = "name">Skyanne</div>
+                        <div class = "name"><%= newUser[key].first_name %></div>
+
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -96,7 +99,7 @@
 
             <% for (var key in newUser) { %>
               <div class = "content-wrapper user-wrapper">
-                <a href="/chat/<%= newUser[key]._id%>"> <img src= <%=  newUser[key].photo[0] %> > <%= newUser[key].first_name %> </a>
+                <a href="/chat/<%= newUser[key]._id%>"> <img src= <%= newUser[key].photo[0] %> > <%= newUser[key].first_name %> </a>
 
                 <div class = "load_chat">
                     <!-- three dots -->

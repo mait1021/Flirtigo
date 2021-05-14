@@ -194,7 +194,7 @@ router.post("/signIn", async (req, res) => {
     req.session.user = req.body.email;
     req.session.username = user.first_name;
     req.session.userId = user.id;
-    res.redirect("/chat_main");
+    res.redirect("/main");
   } else {
     throw new Error("No");
   }
