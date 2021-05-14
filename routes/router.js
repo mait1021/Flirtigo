@@ -538,4 +538,9 @@ router.get("/matchTab", async (req, res) => {
 });
 
 
+router.get("/register_verify", async (req, res) => {
+  console.log("page hit");
+  res.render("register_verify");
+});
+
 module.exports = router;

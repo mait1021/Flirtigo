@@ -160,7 +160,7 @@ $(document).ready(function () {
 // ------------
 
  var slideIndex = 1;
-//showSlides(slideIndex);
+ 
 
 // Next/previous controls
 function plusSlides(n) {
@@ -200,9 +200,7 @@ function showMatch(){
   if (x.style.display === "none") {
       x.style.display = "block";
       y.style.display = "none";
-  } else {
-      x.style.display = "none";
-  }
+  } 
 }
 
 function showChat(){
@@ -211,10 +209,7 @@ function showChat(){
   if (x.style.display === "none") {
       x.style.display = "block";
       y.style.display = "none";
-  } else {
-      x.style.display = "none";
-
-  }
+  } 
 }
 
 
