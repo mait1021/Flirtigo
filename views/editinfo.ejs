@@ -34,23 +34,23 @@
             </div>
             <div class="personal-chars">
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Straight" value="Straight" <%= data.toSee == "Straight" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Straight" value="Straight" <%= toSee == "Straight" ? "checked" : "" %> />
                 <label for="Straight">Straight</label>
               </div>
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Gay" value="Gay" <%= data.toSee == "Gay" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Gay" value="Gay" <%= toSee.trim() == "Gay" ? "checked" : "" %> />
                 <label for="Gay">Gay</label>
               </div>
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Queer" value="Queer" <%= data.toSee == "Queer" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Queer" value="Queer" <%= toSee.trim() == "Queer" ? "checked" : "" %> />
                 <label for="Queer">Queer</label>
               </div>
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Asexual" value="Asexual" <%= data.toSee == "Asexual" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Asexual" value="Asexual" <%= toSee.trim() == "Asexual" ? "checked" : "" %> />
                 <label for="Asexual">Asexual</label>
               </div>
               <div class="char-prop">
-                <input type="radio" name="toSee" id="Bisexual" value="Bisexual" <%= data.toSee == "Bisexual" ? "checked" : "" %> />
+                <input type="radio" name="toSee" id="Bisexual" value="Bisexual" <%= toSee.trim() == "Bisexual" ? "checked" : "" %> />
                 <label for="Bisexual">Bisexual</label>
               </div>
             </div>

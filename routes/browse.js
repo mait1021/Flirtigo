@@ -19,12 +19,13 @@ router.get('/', (req, res) => {
     });
   });
 
-router.get("/:profileid", async (req, res) => {
+router.get("/:profileid", (req, res) => {
   const profileid = req.params.profileid;
-  if (!req.session.latitude) {
+  if (!req.session.userId) {
     console.log("Session expired");
-    res.redirect("/signin");
-  }
+    res.redirect('/signin');
+    return;
+  }  
   User.findOne({ _id: profileid }, (err, data) => {
     if (err) {
       res.send("No User found");

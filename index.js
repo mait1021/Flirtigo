@@ -1,4 +1,5 @@
 const session = require("express-session");
+require('dotenv').config();
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const moment = require("moment");
@@ -20,7 +21,7 @@ const profileRouter = include("routes/profile");
 const path = require("path");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-const port = process.env.PORT || 3009;
+const port = process.env.PORT || 3014;
 
 app.use(cookieParser("secret"));
 app.use(
