@@ -14,7 +14,7 @@ $(document).ready(function () {
       result = "Aquarius";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-aquarius.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-aquarius.svg'>"
       );
     }
 
@@ -25,7 +25,7 @@ $(document).ready(function () {
       result = "Pisces";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-pisces.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Pisces.svg'>"
       );
     }
 
@@ -36,7 +36,7 @@ $(document).ready(function () {
       result = "Aries";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-aries.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Aries.svg'>"
       );
     }
 
@@ -47,7 +47,7 @@ $(document).ready(function () {
       result = "Taurus";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-taurus.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Taurus.svg'>"
       );
     }
 
@@ -58,7 +58,7 @@ $(document).ready(function () {
       result = "Gemini";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-gemini.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Gemini.svg'>"
       );
     }
 
@@ -69,7 +69,7 @@ $(document).ready(function () {
       result = "Cancer";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-cancer.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Cancer.svg'>"
       );
     }
 
@@ -80,7 +80,7 @@ $(document).ready(function () {
       result = "Leo";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-leo.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Leo.svg'>"
       );
     }
 
@@ -91,7 +91,7 @@ $(document).ready(function () {
       result = "Virgo";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-virgo.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Virgo.svg'>"
       );
     }
 
@@ -102,7 +102,7 @@ $(document).ready(function () {
       result = "Libra";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-libra.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Libra.svg'>"
       );
     }
 
@@ -113,7 +113,7 @@ $(document).ready(function () {
       result = "Scorpio";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-scorpio.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Scorpio.svg'>"
       );
     }
 
@@ -124,7 +124,7 @@ $(document).ready(function () {
       result = "Sagittarius";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-sagittarius.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Sagittarius.svg'>"
       );
     }
     if (
@@ -134,7 +134,7 @@ $(document).ready(function () {
       result = "Capricorn";
       $(".zodiac").empty();
       $(".zodiac").prepend(
-        "<img src='https://www.horoscope.com/images-US/signs/profile-capricorn.png'width=20%>"
+        "<img src='../public/images/horoscope/profile-Capricorn.svg'>"
       );
     } else if (birthmonth > 12 || birthday > 31) {
       alert("Please enter an accurate date ! ");

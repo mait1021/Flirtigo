@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
   <%- include('_header.ejs') %>
-  <body>
-    <%- include('_nav_bar.ejs') %>
-    <div class="intro-container">
-
-    <img class="logo1" src="../public/images/LOGO1.png" width="104" height="104">
+  <body class="background-white">
+    <%- include('_bold_nav_bar.ejs') %>
+    <div class="logo-container">
+    
+    <img class="logo1" src="../public/images/star_button.svg" width="104" height="104">
       <p class="content-wrapper"> Look for this magical horoscope button to check whether the bond between the two of you is written in the stars.
       </p>
-      <a class="nextBtn" href="userList">Begin</a>
     </div>
+      <div class="nextBtn-wrapper">
+        <a class="nextBtn" href="/userList">Begin</a>
+      </div>
+
  
   </body> 
 </html>
