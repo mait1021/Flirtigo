@@ -6,16 +6,16 @@
     <div class="profile-container">
       <div class="img-container-profile mt-2">
         <img class="img img-fluid rounded-circle profile-image" 
-        src= <%= '/upload/' + user.photo[0] %>  alt="user image" />
+        src= <%= user.photo[0] %>  alt="user image" />
       </div>  
 
       <div class="profile-detail">
         <h2><strong> <%= user.first_name %> , <%= user.age %>  </strong></h2>
-        <p><strong> <%= user.email %> </strong></p>
+        <p><strong> <%= user.zodiac %> </strong></p>
       </div>
       <div class="btn-container">        
         <a class="btn-profile btn-rounded" href="">Filters</a>
-        <a class="btn-profile btn-rounded" href="">Edit Info</a>
+        <a class="btn-profile btn-rounded" href="info">Edit Info</a>
         <a class="btn-profile btn-rounded" href="">FAQ</a>
       
         <div class="logout-container">

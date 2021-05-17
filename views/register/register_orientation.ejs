@@ -4,31 +4,31 @@
   <body>
     <%- include('_nav_bar.ejs') %>
 
-    <div class="intro-container">
+    <div class="orientation-container">
 
       <form action="addOrientation" method="post">
         <h2>My sexual orientation is...</h2>
-          <div class="content-wrapper">
-            <label class="orientation">Straight
+          <div class="orientation-wrapper">
+            <label class="orientation"><p>Straight</p>
               <input type="radio" name="orientation" value="straight">
               <span class="checkmark"></span>
             </label>
 
-            <label class="orientation">Gay
+            <label class="orientation"><p>Gay</p>
               <input type="radio" name="orientation" value ="gay">
               <span class="checkmark"></span>
             </label>
 
-            <label class="orientation">Queer
+            <label class="orientation"><p>Queer</p>
               <input type="radio" name="orientation" value="queer">
               <span class="checkmark"></span>
             </label>
-            <label class="orientation">Asexual
+            <label class="orientation"><p>Asexual</p>
               <input type="radio" name="orientation" value="Asexual">
               <span class="checkmark"></span>
             </label>
 
-            <label class="orientation">Bisexual
+            <label class="orientation"><p>Bisexual</p>
               <input type="radio" name="orientation" value="Bisexual">
               <span class="checkmark"></span>
             </label>
@@ -36,32 +36,32 @@
           </div>
 
           <h2>I identify as...</h2>
-          <div class="content-wrapper">
-            <label class="orientation">Women
+          <div class="orientation-wrapper">
+            <label class="orientation"><p>Women</p>
               <input type="radio" name="gender" value="women">
               <span class="checkmark"></span>
             </label>
-            <label class="orientation">Men
+            <label class="orientation"><p>Men</p>
               <input type="radio" name="gender" value="men">
               <span class="checkmark"></span>
             </label>
-            <label class="orientation">None
+            <label class="orientation"><p>None</p>
               <input type="radio" name="gender" value="None">
               <span class="checkmark"></span>
             </label>
           </div>
 
           <h2>I want to see...</h2>
-          <div class="content-wrapper">
-            <label class="orientation">Women
+          <div class="orientation-wrapper">
+            <label class="orientation"><p>Women</p>
               <input type="radio" name="toSee" value="women">
               <span class="checkmark"></span>
             </label>
-            <label class="orientation">Men
+            <label class="orientation"><p>Men</p>
               <input type="radio" name="toSee" value="men">
               <span class="checkmark"></span>
             </label>
-            <label class="orientation">Everyone
+            <label class="orientation"><p>Everyone</p>
               <input type="radio" name="toSee" value="everyone">
               <span class="checkmark"></span>
             </label>
@@ -70,7 +70,9 @@
         
           <input type="hidden" name="email" value="<%= email %>">
           <input type="hidden" name="registerStep" value="4">
-          <button class="nextBtn">Next</button>
+          <div class="nextBtn-wrapper">
+            <button class="nextBtn">Next</button>
+          </div>
 
       </form> 
     </div>

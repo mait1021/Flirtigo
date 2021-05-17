@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <%- include('_header.ejs') %>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <link rel="stylesheet" href="/main.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"> </script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/main.js"></script>
+
+  </head>
   <body class = "loadScreen-body">
     <div class="intro-container">
         <p class="loadscreen-wrapper content-wrapper"> 
@@ -11,7 +22,6 @@
       <img class="logo1" src="../public/images/Logo.gif" width="250" height="250">
 
       <script>
-
         setTimeout(function(){
           location.href="javascript:openSite()"
         },3000)
@@ -21,20 +31,16 @@
               "omikuji3",
               "omikuji4"]
 
-           var openSite = function() {
-              // get a random number between 0 and the number of links
-              var randIdx = Math.random() * links.length;
-              // round it, so it can be used as array index
-              randIdx = parseInt(randIdx, 10);
-              // construct the link to be opened
-              var link = links[randIdx];
-        return location.href=link
-   
-    };
-
-   
-       
-     </script>
+        var openSite = function() {
+            // get a random number between 0 and the number of links
+            var randIdx = Math.random() * links.length;
+            // round it, so it can be used as array index
+            randIdx = parseInt(randIdx, 10);
+            // construct the link to be opened
+            var link = links[randIdx];
+            return location.href=link
+          }; 
+      </script>
   </div>
   </body> 
 </html>

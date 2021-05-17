@@ -2,6 +2,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const moment = require("moment");
+const timeout = require("connect-timeout");
 
 global.base_dir = __dirname;
 global.abs_path = function (path) {
@@ -42,6 +43,7 @@ app.set("socketio", io);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
+app.use("/public/css/", express.static("./public/css"));
 app.use("/public/images/", express.static("./public/images"));
 app.use("/upload/", express.static("./upload"));
 
@@ -98,3 +100,5 @@ io.on("connection", (socket) => {
 server.listen(port, () => {
   console.log("Node application listening on port " + port);
 });
+
+server.timeout = 1000;

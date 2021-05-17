@@ -8,6 +8,7 @@ const userSchema = new Schema(
     registerStep: { type: Number, required: true },
     age: { type: Number, required: false },
     birthday: { type: String, required: false },
+    zodiac: { type: String, required: false },
     street: { type: String, required: false },
     city: { type: String, required: false },
     province: { type: String, required: false },
@@ -17,6 +18,8 @@ const userSchema = new Schema(
     gender: { type: String, required: false },
     toSee: { type: String, required: false },
     photo: { type: Array, required: false },
+    dislike: { type: Array, required: false },
+    like: { type: Array, required: false },
   },
   { collection: "users", timestamps: true }
 );

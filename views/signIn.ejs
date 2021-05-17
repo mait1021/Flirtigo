@@ -8,19 +8,22 @@
       $(function() { $("#login").validate(); });
     </script>
     
-    <%- include('_nav_bar.ejs') %>
+    <%- include('_bold_nav_bar.ejs') %>
 
-    <div class="intro-container">
+    <div class="logo-container">
+      <img class="logo1" src="../public/images/logo_line.svg" width="104" height="104">
+    </div>
 
-      <img class="logo1" src="../public/images/LOGO1.png" width="104" height="104">
-
+    <div class ="login-container">
       <form id="login" action="signIn" method="post">
         <div class="content-wrapper">
           <input name="email" class="input" type="email" placeholder="Email" required>
           <input name="password" class="input" type="password" placeholder="Password" minlength="5" required>
         </div>
-        
-        <button class="nextBtn">Sign In</button>
+
+        <div class="nextBtn-wrapper">
+          <button class="nextBtn" style="bottom:31vh">Sign In</button>
+        </div>
 
       </form> 
     </div>

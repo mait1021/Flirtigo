@@ -1,29 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <%- include('_header.ejs') %>
-  <body>
-    <%- include('_nav_bar.ejs') %>
-    <div class = "chats-container">
-      <div class="chats"> </div>
+<div class = "chats-container">
+  <div class="chats"> </div>
+</div>
 
-    </div>
+<div class = "msgsend-container">
+  <form id="message-form">        
+    <img src="/public/images/Blocks.png">
+    <input type="text" name="message" placeholder="message">
+    <!-- <input type="hidden" name="user" value=" user.first_name %>"> -->
+    <input id="user" type="hidden" value="room_2">
+    <button type="submit" id="submit-btn">Submit</button>
+  </form>
+</div>
 
-    <div class = "msgsend-container">
-      <form id="message-form">        
-        <img src="/public/images/Blocks.png">
-        <input type="text" name="message" placeholder="message">
-        <!-- <input type="hidden" name="user" value=" user.first_name %>"> -->
-        <input id="user" type="hidden" value="room_2">
-        <button type="submit" id="submit-btn">Submit</button>
-      </form>
-    </div>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src ="/chat.js"></script>
-    <script type="text/javascript" src ="/moment.js"></script>
-
-
-
-  </body> 
-    <%- include('_footer.ejs') %>  
-</html>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src ="/chat.js"></script>
+<script type="text/javascript" src ="/moment.js"></script>

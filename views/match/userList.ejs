@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('_header.ejs') %>
+
+<body onload="showSlides(1)">
+
+  <%- include('_nav_bar.ejs') %>
+  <div class="user-container">
+    <div class="intro-container-profile">
+      <div class="slideshow-container">
+        <div class="mySlides fade">
+          <img src=<%= secondUser.photo[0] %> >
+        </div>
+
+        <div class="mySlides fade">
+          <img src=<%= secondUser.photo[1] %> >
+        </div>
+
+        <div class="mySlides fade">
+          <img src=<%= secondUser.photo[2] %>>
+        </div>
+      </div>     
+        
+      <div style="text-align:center; margin-bottom: 5%">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+
+      <div class="nameBox">
+        <h2>
+          <%= secondUser.first_name %>
+            <span class="age">
+              <%= secondUser.age %>, <%= secondUser.zodiac%>
+            </span>
+        </h2>
+        <span class="info">
+          <h3>Balance me out</h3>
+          <p>19km away</p>
+          <p>Lives in North Vancouver</p>
+        </span>
+      </div>
+    </div>
+
+      <!-- information -->
+
+    <div class="choice">
+      <form action="dislike" method="post">
+        <input type="hidden" name="rating" value="<%= secondUser._id %>">
+        <input type="submit" class="dislike" value="">
+      </form>
+      <form action="like" method="post">
+        <input type="hidden" name="rating" value="<%= secondUser._id %>">
+        <input type="submit" class="like" value="">
+      </form>
+    </div>
+  </div>
+  <div>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+
+  
+  <%- include('_footer.ejs') %>
+  <script src="/vendor/swipe.js"></script>
+  <script>
+    $('.slideshow-container').onSwipe(function(results) {
+      if (results.right === true) {
+        plusSlides(1)
+      }
+      if (results.left === true) {
+        plusSlides(-1)
+      }
+    })
+  </script>
+</body>
+
+</html>

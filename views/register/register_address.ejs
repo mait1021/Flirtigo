@@ -2,7 +2,7 @@
 <html>
   <%- include('_header.ejs') %>
   <body>
-    <%- include('_nav_bar.ejs') %>
+    <%- include('_bold_nav_bar.ejs') %>
 
     <div class="intro-container">
 
@@ -24,7 +24,9 @@
         
         <input type="hidden" name="email" value="<%= email %>">
         <input type="hidden" name="registerStep" value="4">
-        <button class="nextBtn">Next</button>
+        <div class="nextBtn-wrapper">
+          <button class="nextBtn">Next</button>
+        </div>
 
       </form> 
     </div>
