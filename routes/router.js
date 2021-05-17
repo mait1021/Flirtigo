@@ -329,6 +329,8 @@ router.get("/userList", async (req, res) => {
       .select("dislike toSee")
       .exec();
 
+    console.log("Logging user...\n", user);
+
     const gender = user.toSee;
 
     const result = await User.find({
@@ -338,8 +340,11 @@ router.get("/userList", async (req, res) => {
       .select("first_name age zodiac _id photo")
       .exec();
 
+    console.log("Logging result... \n", result);
+
     let second_user = randomUser(user.dislike, result);
-    console.log(second_user);
+    console.log("Logging second user...\n", second_user);
+
     res.render("userList", { secondUser: second_user });
   } catch (ex) {
     res.render("error", { message: "Error" });
