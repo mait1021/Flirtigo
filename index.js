@@ -2,6 +2,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const moment = require("moment");
+const timeout = require("connect-timeout");
 
 global.base_dir = __dirname;
 global.abs_path = function (path) {
@@ -13,6 +14,7 @@ global.include = function (file) {
 
 const express = require("express");
 const app = express();
+app.use(timeout("5s"));
 const router = include("routes/router");
 const path = require("path");
 const server = require("http").createServer(app);

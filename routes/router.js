@@ -335,7 +335,7 @@ router.get("/userList", async (req, res) => {
       _id: { $ne: req.session.userId },
       gender: gender,
     })
-      .select("first_name age zodiac id photo")
+      .select("first_name age zodiac _id photo")
       .exec();
 
     let second_user = randomUser(user.dislike, result);
