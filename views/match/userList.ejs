@@ -1,18 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <link rel="stylesheet" href="real-main.css">
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"> </script>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Shrikhand&display=swap"
-    rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://kit.fontawesome.com/738c285426.js" crossorigin="anonymous"></script>
-
-</head>
+<%- include('_header.ejs') %>
 
 <body onload="showSlides(1)">
 
@@ -74,7 +63,6 @@
 
   
   <%- include('_footer.ejs') %>
-  <script type="text/javascript" src="/main.js"></script>
   <script src="/vendor/swipe.js"></script>
   <script>
     $('.slideshow-container').onSwipe(function(results) {
