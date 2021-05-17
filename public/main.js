@@ -233,23 +233,12 @@ $(document).ready(function () {
   });
 });
 
-// function swipe() {
-//   $(document).on("swipe", ".slideshow-container", function (event) {
-//     console.log(event);
-//     if (event.right == true) {
-//       plusSlides(1);
-//     }
-//     if (results.left === true) {
-//       plusSlides(-1);
-//     }
-//   });
+// height calculate function
 
-//   // $(".slideshow-container").onSwipe(function (results) {
-//   //   if (results.right === true) {
-//   //     plusSlides(1);
-//   //   }
-//   //   if (results.left === true) {
-//   //     plusSlides(-1);
-//   //   }
-//   // });
-// }
+function heightCalculation(id, num) {
+  $(window).on("load resize", function () {
+    const div = $(id);
+    let windowHeight = $(window).height();
+    div.css("height", windowHeight - num);
+  });
+}
