@@ -17,11 +17,7 @@
       </div>
     </div>
     <script>
-      const size = function (event) {
-        document.getElementById("chats").style.height = ($(window).height()-226)+"px";
-      }
-      window.addEventListener('resize', size, true);
-      window.addEventListener('load', size, true);
+      heightCalculation("#chats",243)
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src ="/chat.js"></script>
