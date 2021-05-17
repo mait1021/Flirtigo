@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <%- include('_header.ejs') %>
+  <body>
+    <%- include('_bold_nav_bar.ejs') %>
+
+    <div class="intro-container">
+
+      <h1>What's <br>your age?</h1>
+      <p>You must be 18+ to use Flirtigo</p>
+    </div>
+
+    <form action="addAge" method="post">
+      <div class="content-wrapper">
+        <input type="date" id="birthday" name="birthday" required>        
+        
+        <% if(locals.message){ %>
+        <div class="error-message">
+            <%= message.error%>
+        </div>
+        
+      </div>
+      
+        <% } %>
+
+      <div class="content-wrapper, zodiac-wrapper">
+        <p>Your <br>Zodiac Sign</p>
+        <img src="/public/images/vertical.svg">
+        <div class="zodiac">
+          <img src="/public/images/horoscope/zodiac.svg">
+        </div>
+      </div>
+      
+      <input type="hidden" name="email" value="<%= email %>">
+      <input type="hidden" name="registerStep" value="3">
+      <div class="nextBtn-wrapper">
+        <button class="nextBtn">Next</button>
+      </div>
+      <!-- <a class="nextBtn" href="/register_address">Next</a> -->
+    </form> 
+    
+  </body> 
+  
+</html>

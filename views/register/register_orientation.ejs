@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <%- include('_header.ejs') %>
+  <body>
+    <%- include('_nav_bar.ejs') %>
+
+    <div class="orientation-container">
+
+      <form action="addOrientation" method="post">
+        <h2>My sexual orientation is...</h2>
+          <div class="orientation-wrapper">
+            <label class="orientation"><p>Straight</p>
+              <input type="radio" name="orientation" value="straight">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="orientation"><p>Gay</p>
+              <input type="radio" name="orientation" value ="gay">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="orientation"><p>Queer</p>
+              <input type="radio" name="orientation" value="queer">
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>Asexual</p>
+              <input type="radio" name="orientation" value="Asexual">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="orientation"><p>Bisexual</p>
+              <input type="radio" name="orientation" value="Bisexual">
+              <span class="checkmark"></span>
+            </label>
+
+          </div>
+
+          <h2>I identify as...</h2>
+          <div class="orientation-wrapper">
+            <label class="orientation"><p>Women</p>
+              <input type="radio" name="gender" value="women">
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>Men</p>
+              <input type="radio" name="gender" value="men">
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>None</p>
+              <input type="radio" name="gender" value="None">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <h2>I want to see...</h2>
+          <div class="orientation-wrapper">
+            <label class="orientation"><p>Women</p>
+              <input type="radio" name="toSee" value="women">
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>Men</p>
+              <input type="radio" name="toSee" value="men">
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>Everyone</p>
+              <input type="radio" name="toSee" value="everyone">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+        
+          <input type="hidden" name="email" value="<%= email %>">
+          <input type="hidden" name="registerStep" value="4">
+          <div class="nextBtn-wrapper">
+            <button class="nextBtn">Next</button>
+          </div>
+
+      </form> 
+    </div>
+
+    
+  </body> 
+  
+</html>

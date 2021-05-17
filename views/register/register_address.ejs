@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <%- include('_header.ejs') %>
+  <body>
+    <%- include('_bold_nav_bar.ejs') %>
+
+    <div class="intro-container">
+
+      <h1>Address</h1>
+
+      <form action="addAddress" method="post">
+
+        <div class="content-wrapper">
+          <input type="street" id="autocomplete" placeholder="Street" name="street">
+  
+          <input type="city" id="inputCity" placeholder="City" name="city">
+  
+          <input type="province" id="inputState" placeholder="Province" name="province">
+  
+          <input type="zip" id="inputZip" placeholder="Zip" name="zip">
+  
+          <input type="county" id="inputCounty" placeholder="County" name="country">
+        </div>
+        
+        <input type="hidden" name="email" value="<%= email %>">
+        <input type="hidden" name="registerStep" value="4">
+        <div class="nextBtn-wrapper">
+          <button class="nextBtn">Next</button>
+        </div>
+
+      </form> 
+    </div>
+
+    
+  </body> 
+  
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+        <link rel="stylesheet" href="/main.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"> </script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/main.js"></script>
+      
+      </head>
+  <body>
+    <%- include('_nav_bar.ejs') %>
+
+    <!-- input bar -->
+    <form action="submit" method="post">
+        <div class = "searchInput">
+            <input type="search"  name="search Matches" placeholder="Search Matches" >
+        </div>
+    </form>
+
+
+    <div class = "matchTab-buttons" >
+        <button name= "matchTab" id = "matchTab" onclick="showMatch()">Matches</button>
+        <button id = "chatTab" onclick="showChat()">Chat</button>
+    </div> 
+
+        <!-- Matches page -->
+        <div  id = "pageMatches"class = "pageMatches" style ="display:show" >
+            <div id="luckyMatch">
+            <h3>Send these Lucky matches a message!</h3>
+            </div>
+            <div class = "roundProfile-wrapper">
+                <!-- left column -->
+                <div class = "column">
+
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/alexa.png">
+                        </a>
+                        <div class = "name">Alexa</div>
+                    </div>
+
+                            
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/bella.png">
+                        </a>
+                        <div class = "name">Bella</div>
+                    </div>
+
+                    <div class = "photo">
+                        <!-- need to change to the chatting page -->
+                        <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/bellatrix.png">
+                        </a>
+                        <div class = "name">Bellatrix</div>
+                    </div>
+
+                </div>
+
+
+                <!-- right column -->
+                <div class = "column">
+
+                    <div class = "photo">
+                    <!-- need to change to the chatting page -->
+                    <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/rita.png">
+                        </a>
+                        <div class = "name">Rita</div>
+                    </div>
+
+                            
+                    <div class = "photo">
+                    <!-- need to change to the chatting page -->
+                    <a href = "./chat/chat_main.ejs">
+                            <img src="../public/images/profileRound/gertrude.png">
+                        </a>
+                        <div class = "name">Gertrude</div>
+                    </div>
+
+                    <div class = "photo">
+                        <% for (var key in newUser) { %>
+                        <!-- need to change to the chatting page -->
+                        <a href="/chat/<%= newUser[key]._id%>"> 
+                            <img src= <%= newUser[key].photo[0] %>>
+                        </a>
+                        <div class = "name"><%= newUser[key].first_name %></div>
+
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div  id = "pageChat" class = "pageChat" style="display:none">
+          <div class = "userList-container">
+            <div class = "content-wrapper user-wrapper">
+              <a href="/chat/alexa"> <img src="../public/images/profileRound/alexa.png"> Alexa </a>
+            </div>
+            <div class = "content-wrapper user-wrapper">
+              <a href="/chat/rita"> <img src="../public/images/profileRound/rita.png">Rita </a>
+            </div>
+
+            <% for (var key in newUser) { %>
+              <div class = "content-wrapper user-wrapper">
+                <a href="/chat/<%= newUser[key]._id%>"> <img src= <%= newUser[key].photo[0] %> > <%= newUser[key].first_name %> </a>
+
+                <div class = "load_chat">
+                    <!-- three dots -->
+                    <div class = "dots">
+                      <span class="dot"></span>
+                      <span class="dot"></span>
+                      <span class="dot"></span>
+                    </div>
+
+                    <div class = "reportMatch" style="display: none;">
+                      <a button class="unmatch">Unmatch</a> 
+                      <a button class="report">Report</a>
+                    </div>
+
+                </div>
+                
+              </div>
+                <!--<h3><%= newUser[key]._id%></h3>-->
+            <% } %>
+
+          </div>
+        <script src="/socket.io/socket.io.js"></script>  
+       </div>
+
+       <!-- only appear if click on report -->
+       <div id ="pageReport" class ="pageReport overlay" style="display: none;">
+            <div class = "reportText">
+            <h3><em>What is the reason for your report?</em></h3>
+            <p>Shh.. We won't tell this person</p>
+            </div>
+            <div class = "reportBtn"> 
+                <a button> Fake profile/Spam</a>
+                <a button> Inappropriate messages</a>
+                <a button> Inappropriate profile picture</a>
+                <a button> Someone is in danger</a>
+                <a button> Offline behavior </a>
+            </div>
+        </div>
+  </body> 
+</html>
+
