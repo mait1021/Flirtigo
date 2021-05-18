@@ -38,6 +38,7 @@ app.set("views", [
   path.join(__dirname, "views/settings/"),
   path.join(__dirname, "views/chat/"),
   path.join(__dirname, "views/match/"),
+  path.join(__dirname, "views/error/"),
 ]);
 app.set("view engine", "ejs");
 
