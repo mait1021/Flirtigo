@@ -326,7 +326,7 @@ router.get("/userList", async (req, res) => {
   console.log("page hit");
   try {
     const user = await User.findById(req.session.userId)
-      .select("dislike toSee")
+      .select("dislike like toSee")
       .exec();
 
     console.log("Logging user...\n", user);
@@ -344,8 +344,11 @@ router.get("/userList", async (req, res) => {
 
     let second_user = randomUser(user.dislike, result);
     console.log("Logging second user...\n", second_user);
-
-    res.render("userList", { secondUser: second_user });
+    if (!second_user) {
+      res.render("main");
+    } else {
+      res.render("userList", { secondUser: second_user });
+    }
   } catch (ex) {
     res.render("error", { message: "Error" });
     console.log("Error");
