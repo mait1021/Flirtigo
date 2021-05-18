@@ -1741,3 +1741,20 @@ body {
   font-size: 18px;
   color: black;
 }
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+}
+
+.error-container img {
+  margin-bottom: 10px;
+}
+.error-container p {
+  width: 50%;
+  text-align: center;
+  margin-top: 0;
+}

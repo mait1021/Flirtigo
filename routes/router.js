@@ -334,7 +334,7 @@ router.get("/userList", async (req, res) => {
     let second_user = randomUser(user.dislike, result);
     console.log("Logging second user...\n", second_user);
     if (!second_user) {
-      res.render("main");
+      res.render("error_no_user");
     } else {
       res.render("userList", { secondUser: second_user });
     }
@@ -416,6 +416,13 @@ router.get("/like2", async (req, res) => {
 });
 
 //register_verify page
+router.get("/error_no_user", async (req, res) => {
+  console.log("page hit");
+  res.render("error_no_user");
+});
+
+//
+
 router.get("/register_verify", async (req, res) => {
   console.log("page hit");
   res.render("register_verify");

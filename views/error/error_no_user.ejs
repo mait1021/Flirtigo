@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <%- include('_header.ejs') %>
+  <body class="background-white">
+    <%- include('_nav_bar.ejs') %>
+    <div class="error-container">
+      <img src="/public/images/error.svg" width="91" height="91">
+      <h2>No users</h2>
+      <p> Sorry, There is no more profile to check now. <br></p>
+    </div>
+    <%- include('_footer.ejs') %>
+    <script>
+      heightCalculation(".error-container",200)
+    </script>
+  </body> 
+</html>
