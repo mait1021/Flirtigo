@@ -696,7 +696,7 @@ body {
   padding: 7px;
   position: sticky;
   top: 0;
-  height: 6%;
+  height: 60px;
   z-index: 1;
 }
 
@@ -728,8 +728,7 @@ body {
 
 .nextBtn {
   border: none;
-  width: 20vh;
-  padding: 10px;
+  padding: 10px 50px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   display: block;
@@ -1077,11 +1076,11 @@ body {
   max-width: 480px;
   width: 100%;
   font-family: "Poppins", sans-serif;
-  align-items: stretch;
+  height: 110px;
 }
 
 .footer a {
-  padding: 2% 3%;
+  padding: 10px 15px;
   width: 20%;
 }
 .footer img {
@@ -1147,7 +1146,7 @@ body {
   margin: auto;
   text-align: center;
   position: fixed;
-  bottom: 90px;
+  bottom: 108px;
   width: 100%;
 }
 
@@ -1244,16 +1243,14 @@ body {
 /* Carsoule */
 
 .user-container {
-  padding: 5%;
+  padding: 20px 10px;
+  overflow-y: scroll;
 }
 
 .intro-container-profile {
-  background-color: #fdda7f;
+  background-color: #bdbbb6;
   position: relative;
-  padding: 0 0 3% 0;
-  border-radius: 8px;
-  height: 72vh;
-  overflow-y: scroll;
+  padding: 0 0 6% 0;
 }
 
 .slideshow-container {
@@ -1281,7 +1278,7 @@ body {
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
-  background-color: RGB(188, 155, 101);
+  background-color: RGB(127, 127, 128, 0.6);
 }
 
 /* Position the "next button" to the right */
@@ -1306,6 +1303,7 @@ body {
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
+  border: 0.5px solid;
 }
 
 .active,
@@ -1341,6 +1339,7 @@ body {
 
 .mySlides img {
   width: 100%;
+  border: 3px solid white;
 }
 
 .nameBox {
@@ -1359,7 +1358,7 @@ body {
 
 .info {
   text-align: left;
-  border-top: #fdda7f solid 5px;
+  border-top: #bdbbb6 solid 5px;
 }
 
 .info p {
@@ -1373,34 +1372,23 @@ body {
 
 .choice {
   display: inline-flex;
-  justify-content: flex-end;
-  width: 100%;
-  font-family: "Poppins", sans-serif;
+  float: right;
+  margin: 15px 20px;
 }
 
 .choice input {
-  padding: 5px 40px;
-  margin: 10px;
+  height: 35px;
+  border: none;
 }
 
 .choice .like {
   background: url(/public/images/like.svg) no-repeat;
-  border: none;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  display: inline-flex;
-  justify-content: space-around;
+  width: 70px;
 }
 
 .choice .dislike {
   background: url(/public/images/dislike.svg) no-repeat;
-  border: none;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  display: inline-flex;
-  justify-content: space-around;
+  width: 100px;
 }
 
 /* loading screen */
