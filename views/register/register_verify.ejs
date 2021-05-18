@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <%- include('_header.ejs') %>
+  <body>
+    <%- include('_nav_bar.ejs') %>
+
+    <div class="intro-container">
+
+      
+        <!-- shows the verifying text and gif -->
+        <div id = "verifying">
+            <h1><em>Verifying...</em></h1>
+            <!-- <iframe  src="https://giphy.com/embed/3G4UqgoXTdOyV8ALku" width="254" height="500" frameBorder="0" class="giphy-embed" allowFullScreen></iframe> -->
+            <iframe src="https://giphy.com/embed/3oriNO0p3Sn0itamg8" width="254" height="500" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        </div>
+
+        <!-- shows the thank you and afterward fig -->
+        <div id = "verifyText" style="visibility: hidden;">
+            <h1><em>Thank you!</em></h1>
+            <div class="content-wrapper verify" >
+                <h3>You have successfully joined Flirtigo!</h3>
+                <img  src="../public/images/congrats.gif" width="254" height="254">
+            </div>
+        </div>
+
+        <!-- button also shows after verifying -->
+        <a button id ="verifyBtn" class="nextBtn" style="visibility: hidden;" href= "/">Sign In</a>
+
+    </div>
+
+    <script type="text/javascript">
+        window.setTimeout("document.getElementById('verifying').style.display='none';", 3000); 
+        
+        function showIt2() {
+            document.getElementById("verifyText").style.visibility = "visible";
+            // document.getElementById("verifyText").style.visibility = "visible";
+             document.getElementById("verifyBtn").style.visibility = "visible";
+        }
+        setTimeout("showIt2()", 3000); 
+        </script>
+        
+
+    <!-- <script type="text/javascript">
+    window.setTimeout("document.getElementById('something').style.display='none';", 3000); 
+    
+    function showIt2() {
+        document.getElementById("verifyText").style.visibility = "visible";
+        document.getElementById("verifyBtn").style.visibility = "visible";
+    }
+    setTimeout("showIt2()", 3000); 
+    </script>
+     -->
+  </body> 
+  
+</html>

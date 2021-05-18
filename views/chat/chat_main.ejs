@@ -92,7 +92,6 @@
                             <img src= <%= newUser[key].photo[0] %>>
                         </a>
                         <div class = "name"><%= newUser[key].first_name %></div>
-
                         <% } %>
                     </div>
                 </div>
@@ -111,7 +110,6 @@
             <% for (var key in newUser) { %>
               <div class = "content-wrapper user-wrapper">
                 <a href="/chat/<%= newUser[key]._id%>"> <img src= <%= newUser[key].photo[0] %> > <%= newUser[key].first_name %> </a>
-
                 <div class = "load_chat">
                     <!-- three dots -->
                     <div class = "dots">
@@ -119,12 +117,10 @@
                       <span class="dot"></span>
                       <span class="dot"></span>
                     </div>
-
                     <div class = "reportMatch" style="display: none;">
                       <a button class="unmatch">Unmatch</a> 
                       <a button class="report">Report</a>
                     </div>
-
                 </div>
                 
               </div>
@@ -151,4 +147,3 @@
         </div>
   </body> 
 </html>
-

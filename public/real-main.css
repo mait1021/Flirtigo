@@ -1718,3 +1718,26 @@ body {
   font-size: 18px;
   color: white;
 }
+
+/* ice break question buttons */
+#iceBreak {
+  text-align: center;
+  padding-bottom: 1vh;
+  background-color: wheat;
+  border-radius: 20px;
+}
+
+.iceBreak a {
+  padding: 5px 40px;
+  margin: 10px;
+  background-color: white;
+  border-radius: 50px;
+  border: 6px solid #8d99ae;
+  height: 70%;
+  font-weight: bold;
+  align-items: center;
+  display: inline-flex;
+  justify-content: space-around;
+  font-size: 18px;
+  color: black;
+}

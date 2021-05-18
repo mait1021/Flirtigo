@@ -183,6 +183,8 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
   }
 });
 
+
+
 //sign In
 
 router.post("/signIn", async (req, res) => {
@@ -425,5 +427,15 @@ router.get("/like2", async (req, res) => {
   console.log("page hit");
   res.render("like2");
 });
+
+
+
+
+//register_verify page 
+router.get("/register_verify", async (req, res) => {
+  console.log("page hit");
+  res.render("register_verify");
+});
+
 
 module.exports = router;
