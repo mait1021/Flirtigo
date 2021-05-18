@@ -199,7 +199,9 @@ function showMatch() {
   if (x.style.display === "none") {
     x.style.display = "block";
     y.style.display = "none";
-  } 
+  } else {
+    x.style.display = "none";
+  }
 }
 
 function showChat() {
@@ -208,7 +210,9 @@ function showChat() {
   if (x.style.display === "none") {
     x.style.display = "block";
     y.style.display = "none";
-  } 
+  } else {
+    x.style.display = "none";
+  }
 }
 
 //chat_main: click on three dots, buttons shows
@@ -238,20 +242,3 @@ function heightCalculation(id, num) {
     div.css("height", windowHeight - num);
   });
 }
-
-//ice break on chat
-function showIceBreak() {
-  var x = document.getElementById("iceBreak");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-
-
-$(document).ready(function () {
-  $(".iceQ").click(function () {
-    $(".iceBreak").hide();
-  });
-})
