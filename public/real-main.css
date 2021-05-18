@@ -1248,10 +1248,9 @@ body {
 }
 
 .intro-container-profile {
-  background-color: #fdda7f;
+  background-color: #bdbbb6;
   position: relative;
-  padding: 0 0 3% 0;
-  border-radius: 8px;
+  padding: 0 0 6% 0;
 }
 
 .slideshow-container {
@@ -1279,7 +1278,7 @@ body {
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
-  background-color: RGB(188, 155, 101);
+  background-color: RGB(127, 127, 128, 0.6);
 }
 
 /* Position the "next button" to the right */
@@ -1304,6 +1303,7 @@ body {
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
+  border: 0.5px solid;
 }
 
 .active,
@@ -1339,6 +1339,7 @@ body {
 
 .mySlides img {
   width: 100%;
+  border: 3px solid white;
 }
 
 .nameBox {
@@ -1357,7 +1358,7 @@ body {
 
 .info {
   text-align: left;
-  border-top: #fdda7f solid 5px;
+  border-top: #bdbbb6 solid 5px;
 }
 
 .info p {
