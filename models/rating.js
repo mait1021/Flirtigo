@@ -11,3 +11,13 @@ const RatingSchema = new Schema(
 );
 const Rating = mongoose.model("Rating", RatingSchema);
 module.exports = Rating;
+
+// chats = [["hello", A], ["Yo wassup", B]]
+
+// for (chat in Chats) {
+//   if (chat[1] == current_user.id) {
+//     $('#chat').append('<span class="me">' + chat[0] + '</span>');
+//   } else {
+//     $('#chat').append('<span class="you">' + chat[0] + '</span>');
+//   }
+// }
