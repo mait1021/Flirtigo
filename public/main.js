@@ -239,3 +239,19 @@ function heightCalculation(id, num) {
   });
 }
 
+//Kailin: add ice breaking functions
+function showIceBreak() {
+  var questonList = document.getElementById("iceBreak");
+  if (questonList.style.display === "none") {
+    questonList.style.display = "block";
+  } else{
+    questonList.style.display = "none"
+  }
+}
+
+$(document).ready(function () {
+  $(".iceQ").click(function () {
+    $(".iceBreak").hide();
+  });
+
+})
