@@ -2,7 +2,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const moment = require("moment");
-const timeout = require("connect-timeout");
+const Chats = require("./models/chat");
 
 global.base_dir = __dirname;
 global.abs_path = function (path) {
@@ -30,6 +30,7 @@ app.use(
   })
 );
 
+app.set("io", io);
 app.use(flash());
 app.set("views", [
   path.join(__dirname, "views"),
@@ -39,7 +40,6 @@ app.set("views", [
   path.join(__dirname, "views/match/"),
 ]);
 app.set("view engine", "ejs");
-app.set("socketio", io);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
@@ -69,7 +69,27 @@ io.on("connection", (socket) => {
   socket.on("chat message", (data) => {
     console.log("sending message");
     console.log("Chat message: server data", data);
-    io.to(data.room).emit("chat message", data);
+    const chatMessage = new Chats();
+    Chats.findOne({ room: data.room }).exec(function (err, chat) {
+      if (chat) {
+        console.log("The room is already made");
+        Chats.updateOne(
+          { room: data.room },
+          { $push: { chats: { chat: data.message, sender: data._user } } },
+          function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+          }
+        );
+        io.to(data.room).emit("chat message", data);
+      } else {
+        chatMessage.room = data.room;
+        chatMessage.chats = [];
+        chatMessage.chats.push({ chat: data.message, sender: data._user });
+        chatMessage.save();
+        io.to(data.room).emit("chat message", data);
+      }
+    });
   });
 });
 
@@ -100,5 +120,3 @@ io.on("connection", (socket) => {
 server.listen(port, () => {
   console.log("Node application listening on port " + port);
 });
-
-server.timeout = 1000;

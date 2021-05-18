@@ -7,10 +7,23 @@
       <div id="chats" class="chats"></div>
 
       <div class = "msgsend-container">
+   
+
+        <!-- only appear if click on report -->
+        <div id ="iceBreak" class ="iceBreak" style="display: none;">
+          
+              <a span class="iceQ" > Pinapple on pizza: yes or no?</a>
+              <a span class="iceQ"> If you could be a celebrity for a day, who would you like to be?</a>
+              <a span class="iceQ"> What's one food you can't live without?</a>
+          
+        </div>
+
         <form id="message-form">        
-          <img src="/public/images/Blocks.png">
+          <img src="/public/images/Blocks.png" onclick="showIceBreak()">
           <input type="text" name="message" placeholder="message">
           <!-- <input type="hidden" name="user" value=" user.first_name %>"> -->
+          <input id="_user" type="hidden" value="<%= match._user %>">
+          <input id="_secondUser" type="hidden" value="<%= match._secondUser %>">
           <input id="room" type="hidden" value="<%= match.room %>">
           <button type="submit" id="submit-btn">Submit</button>
         </form>

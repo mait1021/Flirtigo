@@ -14,6 +14,8 @@ socket.on("connect", () => {
   console.log(socket.rooms);
 });
 
+var _user = $("#_user").val();
+var _secondUser = $("#_secondUser").val();
 var room = $("#room").val();
 
 socket.emit("join room", room);
@@ -27,6 +29,8 @@ socket.on("publicMessage", function (message) {
 $("#submit-btn").click(function (e) {
   e.preventDefault();
   socket.emit("chat message", {
+    _user: _user,
+    _secondUser: _secondUser,
     room: room,
     message: document.querySelector('input[name="message"]').value,
     id: socket.id,
