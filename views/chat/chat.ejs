@@ -22,6 +22,8 @@
           <img src="/public/images/Blocks.png" onclick="showIceBreak()">
           <input type="text" name="message" placeholder="message">
           <!-- <input type="hidden" name="user" value=" user.first_name %>"> -->
+          <input id="_user" type="hidden" value="<%= match._user %>">
+          <input id="_secondUser" type="hidden" value="<%= match._secondUser %>">
           <input id="room" type="hidden" value="<%= match.room %>">
           <button type="submit" id="submit-btn">Submit</button>
         </form>

@@ -183,8 +183,6 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
   }
 });
 
-
-
 //sign In
 
 router.post("/signIn", async (req, res) => {
@@ -251,23 +249,12 @@ router.get("/chat_main", async (req, res) => {
 
 router.get("/chat/:userId?", async (req, res) => {
   try {
-    let userId = req.params.userId;
-    console.log(req.session);
-    //This one is for fake database
-    // Rating.find(
-    //   { _user: req.session.userId, _secondUser: req.params.userId },
-    //   function (err, obj) {
-    //     console.log({ user: obj });
-    //     res.render("chat", { user: obj });
-    //   }
-    // );
-
     //This one is real database
     const match = await Rating.findOne({
       _user: req.session.userId,
       _secondUser: req.params.userId,
     })
-      .select("room")
+      .select("room _user _secondUser")
       .exec();
     console.log(match);
     res.render("chat", { match: match });
@@ -428,14 +415,10 @@ router.get("/like2", async (req, res) => {
   res.render("like2");
 });
 
-
-
-
-//register_verify page 
+//register_verify page
 router.get("/register_verify", async (req, res) => {
   console.log("page hit");
   res.render("register_verify");
 });
-
 
 module.exports = router;

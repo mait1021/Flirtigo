@@ -2,10 +2,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const chatSchema = new Schema({
   users: {
-    type: Array,
+    type: String,
   },
-  chat: {
-    type: Array,
+  chats: [
+    {
+      sender: String,
+      chat: String,
+    },
+  ],
+  room: {
+    type: String,
   },
 });
 
