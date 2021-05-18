@@ -696,7 +696,7 @@ body {
   padding: 7px;
   position: sticky;
   top: 0;
-  height: 6%;
+  height: 60px;
   z-index: 1;
 }
 
@@ -728,8 +728,7 @@ body {
 
 .nextBtn {
   border: none;
-  width: 20vh;
-  padding: 10px;
+  padding: 10px 50px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   display: block;
@@ -1077,11 +1076,11 @@ body {
   max-width: 480px;
   width: 100%;
   font-family: "Poppins", sans-serif;
-  align-items: stretch;
+  height: 110px;
 }
 
 .footer a {
-  padding: 2% 3%;
+  padding: 10px 15px;
   width: 20%;
 }
 .footer img {
@@ -1244,7 +1243,8 @@ body {
 /* Carsoule */
 
 .user-container {
-  padding: 5%;
+  padding: 20px 10px;
+  overflow-y: scroll;
 }
 
 .intro-container-profile {
@@ -1252,8 +1252,6 @@ body {
   position: relative;
   padding: 0 0 3% 0;
   border-radius: 8px;
-  height: 72vh;
-  overflow-y: scroll;
 }
 
 .slideshow-container {
@@ -1373,34 +1371,23 @@ body {
 
 .choice {
   display: inline-flex;
-  justify-content: flex-end;
-  width: 100%;
-  font-family: "Poppins", sans-serif;
+  float: right;
+  margin: 15px 20px;
 }
 
 .choice input {
-  padding: 5px 40px;
-  margin: 10px;
+  height: 35px;
+  border: none;
 }
 
 .choice .like {
   background: url(/public/images/like.svg) no-repeat;
-  border: none;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  display: inline-flex;
-  justify-content: space-around;
+  width: 70px;
 }
 
 .choice .dislike {
   background: url(/public/images/dislike.svg) no-repeat;
-  border: none;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  display: inline-flex;
-  justify-content: space-around;
+  width: 100px;
 }
 
 /* loading screen */
