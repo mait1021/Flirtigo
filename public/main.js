@@ -250,23 +250,21 @@ function showIceBreak() {
 }
 
 $(document).ready(function () {
-  $(".iceBreak a").click(function () {
-    $(".iceBreak").hide();
+  $(".iceQ").click(function () {
+   
+    var cursorPos = $('#textbox').prop('selectionStart');
+    var v = $('#textbox').val();
+    var textBefore = v.substring(0,  cursorPos );
+    var textAfter  = v.substring( cursorPos, v.length );
+    $('#textbox').val( textBefore+ $(this).val() +textAfter );
+
+   $(".iceBreak").hide();
 
     // text =$(".iceQ").html();
     // console.log(text);
  
-    text =$(".iceQ").html();
-    console.log(text);
-    var area = document.getElementById("textbox");
-    area.innerHTML = text;
-
-    // var input = document.body.appendChild(document.createElement("input"));
-    // input.value = text;
-    // input.focus();
-    // input.select();
-    // document.execCommand('copy');
-    // input.parentNode.removeChild(input);
+    // text =$(".iceQ").html();
+    // console.log(text);
   
   });
 
