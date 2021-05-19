@@ -262,8 +262,24 @@ function showIceBreak() {
 
 
 $(document).ready(function () {
-  $(".iceQ").click(function () {
+  $(".iceBreak a").click(function () {
     $(".iceBreak").hide();
+
+    // text =$(".iceQ").html();
+    // console.log(text);
+ 
+    text =$(".iceQ").html();
+    console.log(text);
+    var area = document.getElementById("textbox");
+    area.innerHTML = text;
+
+    // var input = document.body.appendChild(document.createElement("input"));
+    // input.value = text;
+    // input.focus();
+    // input.select();
+    // document.execCommand('copy');
+    // input.parentNode.removeChild(input);
+  
   });
 })
 
