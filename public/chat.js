@@ -11,6 +11,7 @@ function scrollToBottom() {
 }
 socket.on("connect", () => {
   console.log(socket.id);
+  console.log(socket.rooms);
 });
 
 var _user = $("#_user").val();
@@ -34,7 +35,6 @@ $("#submit-btn").click(function (e) {
     message: document.querySelector('input[name="message"]').value,
     id: socket.id,
   });
-  $("input[name='message']").val("");
 });
 
 socket.on("chat message", function (data) {
@@ -46,26 +46,6 @@ socket.on("chat message", function (data) {
     $(".chats").append(`<span class = "u1 chat">${data.message}</span>`);
   }
   scrollToBottom();
-});
-
-$(document).ready(function () {
-  console.log("chat data ready");
-  $(".chats").empty();
-  socket.on("load message", (data) => {
-    if (data) {
-      const chatHistory = data.chats;
-      chatHistory.forEach((obj, i) => {
-        if (obj.sender == _user) {
-          $(".chats").append(`<span class = "u2 chat">${obj.chat}</span>`);
-        } else {
-          $(".chats").append(`<span class = "u1 chat">${obj.chat}</span>`);
-        }
-        scrollToBottom();
-      });
-    } else {
-      console.log("No history");
-    }
-  });
 });
 
 $("#leave").click(function () {

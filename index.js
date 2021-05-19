@@ -51,15 +51,9 @@ app.use("/upload/", express.static("./upload"));
 app.use("/", router);
 
 io.on("connection", (socket) => {
-  socket.on("join room", async (room) => {
+  socket.on("join room", (room) => {
     console.log("joining room", room);
     socket.join(room);
-
-    const chatHistory = await Chats.findOne({ room: room })
-      .select("chats")
-      .exec();
-
-    io.to(room).emit("load message", chatHistory);
   });
 
   socket.emit("publicMessage", {
@@ -99,6 +93,30 @@ io.on("connection", (socket) => {
     });
   });
 });
+
+// io.on("connection", (socket) => {
+//   console.log("A user just connected");
+//   console.log(socket.id);
+
+//   socket.broadcast.emit("newMessage", {
+//     from: "Admin",
+//     text: "New user joined!",
+//     createdAt: moment().valueOf(),
+//   });
+
+//   socket.on("createMessage", (message) => {
+//     console.log("Create Message", message);
+//     io.emit("newMessage", {
+//       from: message.from,
+//       text: message.text,
+//       createdAt: moment().valueOf(),
+//     });
+//   });
+
+//   socket.on("disconnect", () => {
+//     console.log("A user just disconnected");
+//   });
+// });
 
 server.listen(port, () => {
   console.log("Node application listening on port " + port);
