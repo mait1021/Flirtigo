@@ -5,8 +5,7 @@
     <%- include('_nav_bar.ejs') %>
     <div class="profile-container">
       <div class="img-container-profile mt-2">
-        <img class="img img-fluid rounded-circle profile-image" 
-        src= <%= user.photo[0] %>  alt="user image" />
+        <div class="user-profile-image" style="background-image: url(<%= user.photo[0] %>);"> </div>
       </div>  
 
       <div class="profile-detail">
@@ -22,7 +21,10 @@
           <button class="btn-rounded btn-danger btn-logout">Logout</button>
         </div> 
     </div>
-
+    </div>
+    <script>
+      heightCalculation(".profile-container",206)
+    </script>
     <%- include('_footer.ejs') %>
   </body>
 </html>
