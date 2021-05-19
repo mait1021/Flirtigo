@@ -239,3 +239,35 @@ function heightCalculation(id, num) {
   });
 }
 
+//Kailin: add ice breaking functions
+function showIceBreak() {
+  var questonList = document.getElementById("iceBreak");
+  if (questonList.style.display === "none") {
+    questonList.style.display = "block";
+  } else{
+    questonList.style.display = "none"
+  }
+}
+
+$(document).ready(function () {
+  $(".iceBreak a").click(function () {
+    $(".iceBreak").hide();
+
+    // text =$(".iceQ").html();
+    // console.log(text);
+ 
+    text =$(".iceQ").html();
+    console.log(text);
+    var area = document.getElementById("textbox");
+    area.innerHTML = text;
+
+    // var input = document.body.appendChild(document.createElement("input"));
+    // input.value = text;
+    // input.focus();
+    // input.select();
+    // document.execCommand('copy');
+    // input.parentNode.removeChild(input);
+  
+  });
+
+})

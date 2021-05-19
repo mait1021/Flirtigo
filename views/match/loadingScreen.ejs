@@ -1,25 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-    <link rel="stylesheet" href="/main.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"> </script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/main.js"></script>
-
-  </head>
+  <%- include('_header.ejs') %>
   <body class = "loadScreen-body">
-    <div class="intro-container">
-        <p class="loadscreen-wrapper content-wrapper"> 
-            Give me 5 seconds...<br><br>
-            Calculating the compatibility of your creative energies...
+    <div class="loading-container">
+      <img src="../public/images/Logo.gif">
+        <p> 
+            Calculating <br> the compatibility of your creative energies...
         </p>
-
-      <img class="logo1" src="../public/images/Logo.gif" width="250" height="250">
 
       <script>
         setTimeout(function(){
