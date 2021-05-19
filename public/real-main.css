@@ -1721,24 +1721,29 @@ body {
 
 /* ice break question buttons */
 #iceBreak {
+  /* height:10vh; */
   text-align: center;
   padding-bottom: 1vh;
   background-color: wheat;
   border-radius: 20px;
+  /* overflow-y:auto; */
+
 }
 
-.iceBreak a {
+/* kailin change here on May 19th*/
+.iceBreak input {
   padding: 5px 40px;
-  margin: 10px;
+  /* margin: 10px; */
   background-color: white;
-  border-radius: 50px;
-  border: 6px solid #8d99ae;
-  height: 70%;
+  border-radius: 15px;
+  border: 2px solid #8d99ae;
+  width: 80vw;
+  height:max-content;
   font-weight: bold;
   align-items: center;
   display: inline-flex;
-  justify-content: space-around;
-  font-size: 18px;
+ justify-content: space-around; 
+  font-size: 12px;
   color: black;
 }
 
