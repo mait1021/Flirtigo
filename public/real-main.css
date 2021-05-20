@@ -726,6 +726,12 @@ body {
   text-align: center;
 }
 
+.info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .nextBtn {
   border: none;
   padding: 10px 50px;
@@ -759,12 +765,17 @@ body {
   border-radius: 8px;
   justify-content: space-around;
   align-items: center;
+  margin-top: 20px;
 }
 .zodiac {
   width: fit-content;
 }
 
 /* register_orientation section */
+.error {
+  font-weight: 300;
+  font-size: 13px;
+}
 
 .content-wrapper input {
   font-family: "Poppins", sans-serif;
@@ -772,7 +783,7 @@ body {
   margin: auto;
   width: 74%;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-top: 20px;
   border-radius: 8px;
   background-color: white;
   color: #bbbbbb;
@@ -802,10 +813,13 @@ body {
 .orientation-container {
   overflow-y: scroll;
   font-family: "Poppins", sans-serif;
-  padding: 8%;
-  height: 69vh;
+  padding: 0 8%;
 }
 
+.orientation-container h2 {
+  font-weight: 400;
+  font-size: 20px;
+}
 /* Hide the browser's default radio button */
 .orientation input {
   position: absolute;
@@ -815,14 +829,17 @@ body {
 
 .orientation p {
   margin-left: 15%;
+  font-weight: 300;
+  font-size: 16px;
 }
 /* Create a custom radio button */
 .checkmark {
   position: absolute;
-  top: 0;
+  top: 4px;
   left: 0;
-  height: 25px;
-  width: 25px;
+  height: 16px;
+  width: 16px;
+  border: solid 0.3px;
   background-color: #eee;
   border-radius: 50%;
 }
@@ -834,7 +851,7 @@ body {
 
 /* When the radio button is checked, add a blue background */
 .orientation input:checked ~ .checkmark {
-  background-color: #ef233c;
+  background-color: white;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -851,12 +868,13 @@ body {
 
 /* Style the indicator (dot/circle) */
 .orientation .checkmark:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
+  top: 4px;
+  left: 4px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: white;
+  background: red;
+  border: solid 0.5px;
 }
 
 /* register_photo section */
@@ -898,9 +916,14 @@ body {
   padding: 5%;
 }
 
+.photo-container p {
+  font-size: 13px;
+}
+
 .photo-container h2 {
-  line-height: 100%;
-  font-size: 20px;
+  line-height: 0.5;
+  font-size: 19px;
+  font-weight: 500;
 }
 
 .photo-wrapper {
@@ -1733,6 +1756,14 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+/* report close btn */
+#closeX {
+  float: left;
+  display: inline-block;
+  padding: 2px 5px;
+  background: #ccc;
+}
+
 /* ice break question buttons */
 #iceBreak {
   /* height:10vh; */
@@ -1741,7 +1772,6 @@ body {
   background-color: wheat;
   border-radius: 20px;
   /* overflow-y:auto; */
-
 }
 
 /* kailin change here on May 19th*/
@@ -1752,11 +1782,11 @@ body {
   border-radius: 15px;
   border: 2px solid #8d99ae;
   width: 80vw;
-  height:max-content;
+  height: max-content;
   font-weight: bold;
   align-items: center;
   display: inline-flex;
- justify-content: space-around; 
+  justify-content: space-around;
   font-size: 12px;
   color: black;
 }

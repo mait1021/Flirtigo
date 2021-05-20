@@ -2,21 +2,26 @@
 <html>
   <%- include('_header.ejs') %>
   <body>
-        <%- include('_bold_nav_bar.ejs') %>
+    <%- include('_bold_nav_bar.ejs') %>
+      <script type="text/javascript"> 
+        $(function() { $("#login").validate(); });
+      </script>
 
     <div class="logo-container">
       <img class="logo1" src="../public/images/logo_line.svg" width="104" height="104">
     </div>
 
-    <div class ="login-container">
+    <div class ="intro-container">
       <form id="login" action="signIn" method="post">
-        <div class="content-wrapper">
-          <input name="email" class="input" type="email" placeholder="Email" required>
-          <input name="password" class="input" type="password" placeholder="Password" minlength="5" required>
+        <div class="form-wrapper">
+          <div class="content-wrapper">
+            <input name="email" class="input" type="email" placeholder="Email" required>
+            <input name="password" class="input" type="password" placeholder="Password" minlength="5" required>
+          </div>
         </div>
 
         <div class="nextBtn-wrapper">
-          <button class="nextBtn" style="bottom:31vh">Sign In</button>
+          <button class="nextBtn" >Sign In</button>
         </div>
       </form> 
     </div>

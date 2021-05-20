@@ -171,8 +171,7 @@ var upload = multer({ dest: "./upload/" });
 
 const { uploadFile } = require("../public/s3");
 
-router.post("/addPhoto", upload_to_s3.array("photo", 10), async (req, res) => {
-  // router.post("/addPhoto", async (req, res) => {
+router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
     // upload_to_S3("photo", 10)
@@ -181,6 +180,7 @@ router.post("/addPhoto", upload_to_s3.array("photo", 10), async (req, res) => {
     for (let file of req.files) {
       user.photo.push(file.location);
     }
+    user.bio = req.body.bio;
     user.save();
     res.render("signIn");
   } catch (err) {
@@ -349,17 +349,26 @@ router.get("/userList", async (req, res) => {
     console.log("Logging user...\n", user);
 
     const gender = user.toSee;
-
-    const result = await User.find({
-      _id: { $ne: req.session.userId },
-        ...(gender !== 'everyone' && {gender: gender}),
+    if (gender == "everyone") {
+      var result = await User.find({
+        _id: { $ne: req.session.userId },
       })
-      .select("first_name age zodiac _id photo latitude longitude province street")
-      .exec();
+        .select("first_name age zodiac _id photo city bio")
+        .exec();
+    } else {
+      var result = await User.find({
+        $and: [
+          { _id: { $ne: req.session.userId } },
+          { $or: [{ gender: gender }, { gender: "none" }] },
+        ],
+      })
+        .select("first_name age zodiac _id photo city bio")
+        .exec();
+    }
 
     console.log("Logging result... \n", result);
 
-    let second_user = randomUser(user, result);
+    let second_user = randomUser(user.dislike, user.like, result);
     console.log("Logging second user...\n", second_user);
     if (!second_user) {
       res.render("main", { message: "No Matching users could be found"});
