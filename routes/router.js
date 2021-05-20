@@ -321,13 +321,22 @@ router.get("/userList", async (req, res) => {
     console.log("Logging user...\n", user);
 
     const gender = user.toSee;
-
-    const result = await User.find({
-      _id: { $ne: req.session.userId },
-      gender: gender,
-    })
-      .select("first_name age zodiac _id photo city bio")
-      .exec();
+    if (gender == "everyone") {
+      var result = await User.find({
+        _id: { $ne: req.session.userId },
+      })
+        .select("first_name age zodiac _id photo city bio")
+        .exec();
+    } else {
+      var result = await User.find({
+        $and: [
+          { _id: { $ne: req.session.userId } },
+          { $or: [{ gender: gender }, { gender: "none" }] },
+        ],
+      })
+        .select("first_name age zodiac _id photo city bio")
+        .exec();
+    }
 
     console.log("Logging result... \n", result);
 

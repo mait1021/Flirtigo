@@ -3,16 +3,17 @@
   <%- include('_header.ejs') %>
   <body>
     <%- include('_nav_bar.ejs') %>
-    <div class="intro-container">
-      <div class="container container-info">
+    <div class="info-container">
         <div class="btn-container btn-edit-container">
           <a class="btn-profile">Location</a>
           <a class="btn-profile">Sexual Orientation</a>
           <a class="btn-profile">Work/Education</a>
           <a class="btn-profile">Profile Photos</a>
         </div>
-      </div>
-      <%- include('_footer 2.ejs') %>
     </div>
+    <script>
+      heightCalculation(".info-container",243)
+    </script>
+    <%- include('_footer.ejs') %>
   </body>
 </html>

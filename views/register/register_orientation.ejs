@@ -10,7 +10,7 @@
         <h2>My sexual orientation is...</h2>
           <div class="orientation-wrapper">
             <label class="orientation"><p>Straight</p>
-              <input type="radio" name="orientation" value="straight">
+              <input type="radio" name="orientation" value="straight" required>
               <span class="checkmark"></span>
             </label>
 
@@ -37,8 +37,8 @@
 
           <h2>I identify as...</h2>
           <div class="orientation-wrapper">
-            <label class="orientation"><p>Women</p>
-              <input type="radio" name="gender" value="women">
+            <label class="orientation" ><p>Women</p>
+              <input type="radio" name="gender" value="women" required>
               <span class="checkmark"></span>
             </label>
             <label class="orientation"><p>Men</p>
@@ -54,7 +54,7 @@
           <h2>I want to see...</h2>
           <div class="orientation-wrapper">
             <label class="orientation"><p>Women</p>
-              <input type="radio" name="toSee" value="women">
+              <input type="radio" name="toSee" value="women" required>
               <span class="checkmark"></span>
             </label>
             <label class="orientation"><p>Men</p>
@@ -76,7 +76,9 @@
 
       </form> 
     </div>
-
+    <script>
+      heightCalculation(".orientation-container",200)
+    </script>
     
   </body> 
   
