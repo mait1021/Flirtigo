@@ -165,7 +165,6 @@ var upload = multer({ dest: "./upload/" });
 const { uploadFile } = require("../public/s3");
 
 router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
-  // router.post("/addPhoto", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
     // upload_to_S3("photo", 10)
@@ -174,6 +173,7 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
     for (let file of req.files) {
       user.photo.push(file.location);
     }
+    user.bio = req.body.bio;
     user.save();
     res.render("signIn");
   } catch (err) {
@@ -326,7 +326,7 @@ router.get("/userList", async (req, res) => {
       _id: { $ne: req.session.userId },
       gender: gender,
     })
-      .select("first_name age zodiac _id photo")
+      .select("first_name age zodiac _id photo city bio")
       .exec();
 
     console.log("Logging result... \n", result);
