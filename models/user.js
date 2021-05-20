@@ -20,6 +20,7 @@ const userSchema = new Schema(
     photo: { type: Array, required: false },
     dislike: { type: Array, required: false },
     like: { type: Array, required: false },
+    bio: { type: String, required: false },
   },
   { collection: "users", timestamps: true }
 );
