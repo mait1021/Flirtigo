@@ -331,7 +331,7 @@ router.get("/userList", async (req, res) => {
 
     console.log("Logging result... \n", result);
 
-    let second_user = randomUser(user.dislike, result);
+    let second_user = randomUser(user.dislike, user.like, result);
     console.log("Logging second user...\n", second_user);
     if (!second_user) {
       res.render("error_no_user");
