@@ -215,15 +215,16 @@ function showChat() {
 
 $(document).ready(function () {
   $(".dots").click(function () {
-    $(".reportMatch").toggle();
-  });
+    $(this).next().toggle()
+    
+  })
 
   $(".report").click(function () {
     $(".pageReport").show();
     $(".user-wrapper").hide();
   });
 
-  $(".reportBtn a").click(function () {
+  $("#closeX").click(function () {
     $(".overlay").hide();
     $(".user-wrapper").show();
   });

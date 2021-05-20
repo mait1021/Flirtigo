@@ -1732,6 +1732,14 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+/* report close btn */
+#closeX{
+  float:left;
+  display:inline-block;
+  padding:2px 5px;
+  background:#ccc;
+  }
+
 /* ice break question buttons */
 #iceBreak {
   /* height:10vh; */
@@ -1776,3 +1784,5 @@ body {
   text-align: center;
   margin-top: 0;
 }
+
+
