@@ -423,6 +423,7 @@ router.get("/filters", async (req, res) => {
     res.render("filters", user);
   })
 });
+
 router.post("/filters", (req, res) => {
   const email = req.session.user;
   const { minage, maxage, distance, toSee } = req.body;
