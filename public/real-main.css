@@ -1,6 +1,6 @@
 body {
   max-width: 480px;
-  background-color: #edf2f4;
+  background-color: RGB(246, 246, 246);
   margin: auto;
   height: 100vh;
 }
@@ -696,7 +696,7 @@ body {
   padding: 7px;
   position: sticky;
   top: 0;
-  height: 60px;
+  height: 55px;
   z-index: 1;
 }
 
@@ -1009,13 +1009,14 @@ body {
   margin-bottom: 10px;
   text-align: center;
   font-family: "Poppins", sans-serif;
+  overflow-y: scroll;
+  height: 100vhb;
 }
 
-.profile-image {
-  height: 150px;
+.profile-container .user-profile-image {
   width: 150px;
-  border-radius: 50%;
-  border: solid 1px black;
+  height: 150px;
+  margin-top: 20px;
 }
 
 .profile-detail h2 {
@@ -1032,32 +1033,29 @@ body {
 
 .btn-container a,
 .btn-container button {
-  font-weight: bold;
   border-width: 5px;
-  border-style: solid;
-  padding: 5px 40px;
-  font-weight: bold;
-  font-size: 18px;
+  padding: 10px 35px;
+  font-size: 15px;
   font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
 
 .btn-profile {
   background-color: #2b2d42;
   color: white;
-  border-color: #8d99ae41;
   display: block;
-  margin: 35px auto;
+  margin: 15px auto;
   width: fit-content;
   text-decoration: none;
   border-radius: 30px;
 }
 
 .btn-logout {
-  margin: 30px 0px;
-  background-color: #ff3f2d;
-  border-color: #8d99ae41;
+  background-color: #f54a3a;
   color: white;
   min-width: 150px;
+  border: none;
+  margin-top: 10px;
 }
 .btn-rounded {
   border-radius: 30px;
@@ -1298,7 +1296,7 @@ body {
   cursor: pointer;
   height: 7px;
   width: 7px;
-  margin: 0;
+  margin: 1px;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
@@ -1392,25 +1390,36 @@ body {
 }
 
 /* loading screen */
+
 .loadScreen-body {
-  background-color: #2b2d42;
+  background: url(/public/images/loading_background.png) no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
 
-.loadscreen-wrapper {
-  border: 20px solid #fdda7f;
-  border-radius: 10px;
-  background-color: white;
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
   font-family: "Poppins", sans-serif;
-  padding: 30px;
-  margin: 50px 30px;
-  font-size: large;
+}
+
+.loading-container img {
+  width: 23%;
+  margin-bottom: 10px;
+}
+.loading-container p {
+  width: 70%;
+  text-align: center;
+  color: white;
+  font-size: x-large;
 }
 
 /* omikuji page */
 .match {
   text-align: center;
-  padding-top: 0.5vh;
-  padding-bottom: 0.5vh;
   font-family: "Poppins", sans-serif;
 }
 
@@ -1436,17 +1445,17 @@ body {
 .searchInput {
   display: flex;
   justify-content: center;
-  margin-bottom: 2vh;
   font-family: "Poppins", sans-serif;
+  background-color: RGB(246, 246, 246);
 }
 .searchInput input {
   border-radius: 8px;
   border-color: white;
   width: 80%;
-  height: 6vh;
   font-family: "Poppins", sans-serif;
   border: none;
   padding: 10px;
+  margin: 20px;
 }
 
 /* 2. buttons */
@@ -1455,24 +1464,20 @@ body {
   justify-content: center;
   width: 100%;
   text-align: center;
-  border-bottom: #2b2d42 solid 3px;
+  border-bottom: RGB(246, 246, 246) solid 5px;
 }
 
 .matchTab-buttons button {
-  background-color: #ffeab2;
-  border-radius: 8px;
+  background-color: white;
   border-color: transparent;
-  width: 60%;
   flex-grow: 1;
-  margin: 1px;
-  margin-bottom: 0;
-  font-size: large;
   cursor: pointer;
-  margin-top: 3vh;
   font-family: "Poppins", sans-serif;
+  padding: 10px;
+  font-weight: 600;
 }
 .matchTab-buttons button:focus {
-  background-color: #fdda7f;
+  border-bottom: #fdda7f solid 3px;
 }
 
 .roundProfile-wrapper {
@@ -1481,48 +1486,56 @@ body {
   text-align: center;
   margin-top: 3vh;
   font-family: "Poppins", sans-serif;
+  font-weight: 300;
 }
 
 #luckyMatch {
   text-align: center;
   font-family: "Poppins", sans-serif;
-  color: #2b2d42;
+  font-weight: 500;
 }
 
-.column .photo {
-  margin-bottom: 2vh;
-}
-
-.photo img {
+.user-profile-image {
   height: 100px;
   width: 100px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
   border-radius: 50%;
+  margin: auto;
+}
+
+.photo .name {
+  margin: 10px;
+}
+.pageMatches h3 {
+  font-family: "Poppins", sans-serif;
 }
 
 /* user list in chat tap  */
 
 .user-wrapper {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 2fr 2fr;
   margin: 0px;
   padding: 20px;
-  justify-content: space-between;
+  border-bottom: RGB(246, 246, 246) solid 3px;
 }
 
-.user-wrapper img {
+.content-wrapper .user-profile-image {
   height: 50px;
   width: 50px;
-  margin-right: 15px;
-  float: left;
   border-radius: 50%;
 }
 
 .user-wrapper a {
   text-decoration: none;
-  font-size: 24px;
+  font-size: 20px;
   color: black;
-  margin-left: auto;
-  display: block;
-  margin: 2px 0 0 0;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
 }
 
 .profile_footer {
@@ -1647,42 +1660,42 @@ body {
   margin-top: 0px;
 }
 .reportMatch {
-  width: 100%;
   font-family: "Poppins", sans-serif;
-  padding-right: 0px;
+  border: #e7e7e7 solid 1px;
+  border-radius: 4px;
+  position: fixed;
+  background-color: white;
+  z-index: 1;
 }
 
 .reportMatch a {
   padding: 5px 10px;
   margin: 3px;
-  border-radius: 50px;
-  height: 12%;
-  font-weight: bold;
-  align-items: center;
-  font-size: 15px;
-  color: white;
+  font-size: 16px;
 }
 
-.reportMatch .report {
-  background-color: #8d99ae;
-  border: 6px solid #759ad0;
+.reportMatch a:hover {
+  background-color: #f6f6f6;
 }
 
-.reportMatch .unmatch {
-  background-color: #ef233c;
-  border: 6px solid RGB(188, 48, 49);
+.load_chat .dots {
+  display: block;
+  padding-top: 0px;
+  float: right;
+}
+.load_chat .dot {
+  width: 5px;
+  height: 5px;
 }
 
 /* report buttons in report div */
 /* report headings */
 .overlay {
-  background-color: #c4c4c4;
+  background-color: RGB(246, 246, 246);
   border-radius: 15px;
-  height: 95%;
   width: 85%;
   top: 0;
   margin: auto;
-  opacity: 1;
   position: relative;
 }
 
@@ -1693,7 +1706,7 @@ body {
   margin: auto;
   border-radius: 15px;
   box-sizing: border-box;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Noto Serif", serif;
   position: relative;
   margin-bottom: 20px;
   padding-top: 20px;
@@ -1705,19 +1718,27 @@ body {
 }
 
 .reportBtn a {
-  padding: 5px 40px;
+  padding: 10px 30px;
   margin: 10px;
   background-color: #2b2d42;
   border-radius: 50px;
-  border: 6px solid #8d99ae;
   height: 70%;
-  font-weight: bold;
   align-items: center;
   display: inline-flex;
   justify-content: space-around;
   font-size: 18px;
   color: white;
+  font-weight: 300;
+  font-family: "Poppins", sans-serif;
 }
+
+/* report close btn */
+#closeX{
+  float:left;
+  display:inline-block;
+  padding:2px 5px;
+  background:#ccc;
+  }
 
 /* ice break question buttons */
 #iceBreak {
@@ -1763,3 +1784,5 @@ body {
   text-align: center;
   margin-top: 0;
 }
+
+
