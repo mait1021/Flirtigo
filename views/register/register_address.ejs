@@ -3,12 +3,15 @@
   <%- include('_header.ejs') %>
   <body>
     <%- include('_bold_nav_bar.ejs') %>
+    <script type="text/javascript"> 
+      $(function() { $("#address").validate(); });
+    </script>
 
     <div class="intro-container">
 
       <h1>Address</h1>
 
-      <form action="addAddress" method="post">
+      <form id="address" action="addAddress" method="post">
 
         <div class="content-wrapper">
           <input type="street" id="autocomplete" placeholder="Street" name="street">
