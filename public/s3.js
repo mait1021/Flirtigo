@@ -28,18 +28,6 @@ const upload_to_s3 = multer({
   }),
 });
 
-async function getFileNames () {
-  const uploadParams = {
-    Bucket: bucketName
-  };
-  const data = await s3.listObjects(uploadParams).promise();
-  for (let index = 1; index < data['Contents'].length; index++) {
-      console.log(data['Contents'][index]['Key'])        
-  }
-  return data;
-}
-
-
 function uploadFile(file) {
   const fileStream = fs.createReadStream(file.path);
 
@@ -65,16 +53,10 @@ function getFileStream(fileKey) {
     Key: fileKey,
     Bucket: bucketName,
   };
-  const fileStream = false;
-  try {
-    return s3.getObject(downloadParams).createReadStream();
-  } catch(err) {
-    return false;
-  }
+
+  return s3.getObject(downloadParams).createReadStream;
 }
 
 exports.uploadFile = uploadFile;
 exports.getFileStream = getFileStream;
-exports.getFileNames = getFileNames;
-module.exports =  { upload_to_s3, uploadFile, getFileNames, getFileStream };
-// module.exports = ;
+module.exports = upload_to_s3;

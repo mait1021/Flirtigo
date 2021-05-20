@@ -1392,14 +1392,13 @@ body {
 }
 
 .choice {
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
+  float: right;
   margin: 15px 20px;
 }
 
 .choice input {
   height: 35px;
-  width: 30%;
   border: none;
 }
 
