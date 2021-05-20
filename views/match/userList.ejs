@@ -11,15 +11,15 @@
     <div class="intro-container-profile">
       <div class="slideshow-container">
         <div class="mySlides fade">
-          <img src=<%= secondUser.photo[0] %> >
+          <img src="/get_photo/<%= secondUser.photo[0] %>" >
         </div>
 
         <div class="mySlides fade">
-          <img src=<%= secondUser.photo[1] %> >
+          <img src="/get_photo/<%= secondUser.photo[1] %>" >
         </div>
 
         <div class="mySlides fade">
-          <img src=<%= secondUser.photo[2] %>>
+          <img src="/get_photo/<%= secondUser.photo[2] %>" >
         </div>
       </div>     
         
@@ -33,13 +33,13 @@
         <h2>
           <%= secondUser.first_name %>
             <span class="age">
-              <%= secondUser.age %>, <%= secondUser.zodiac%>
+              <%= secondUser.age %>, <%= secondUser.zodiac %>
             </span>
         </h2>
         <span class="info">
-          <h3>Balance me out</h3>
-          <p>19km away</p>
-          <p>Lives in North Vancouver</p>
+          <h3><%= secondUser.bio || 'Hello there..!!' %></h3>
+          <p><%= secondUser.calculatedDistance %>km away</p>
+          <p><%= secondUser.street + ", " + secondUser.province %></p>
         </span>
       </div>   
 
@@ -55,11 +55,11 @@
 
   <div class="choice">
     <form action="dislike" method="post">
-      <input type="hidden" name="rating" value="<%= secondUser._id %>">
+      <input type="hidden" name="secondUserId" value="<%= secondUser._id %>">
       <input type="submit" class="dislike" value="">
     </form>
     <form action="like" method="post">
-      <input type="hidden" name="rating" value="<%= secondUser._id %>">
+      <input type="hidden" name="secondUserId" value="<%= secondUser._id %>">
       <input type="submit" class="like" value="">
     </form>
   </div>
@@ -84,6 +84,9 @@
         plusSlides(-1)
       }
     })
+  </script>
+  <script>
+
   </script>
 </body>
 

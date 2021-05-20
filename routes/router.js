@@ -6,7 +6,10 @@ var multer = require("multer");
 var multerS3 = require("multer-s3");
 const moment = require("moment");
 const { v4: uuidv4 } = require("uuid");
-const upload_to_S3 = require("../public/s3.js");
+var request = require('request');
+var path = require('path');
+const { upload_to_s3, getFileNames, getFileStream } = require("../public/s3.js");
+const { getLatLng } = require('./helpers');
 
 router.get("/", async (req, res) => {
   console.log("page hit");
@@ -111,13 +114,17 @@ router.get("/register_address", async (req, res) => {
 router.post("/addAddress", async (req, res) => {
   console.log("add");
   console.log(req.body);
-  User.findOne({ email: req.body.email }, function (err, user) {
-    user.street = req.body.street;
-    user.city = req.body.city;
-    user.province = req.body.province;
-    user.zip = req.body.zip;
-    user.country = req.body.country;
-    user.registerStep = req.body.registerStep;
+  User.findOne({ email: req.body.email }, async function (err, user) {
+    const {street, city, province, zip, country, registerStep} = req.body;
+    const latlng = await getLatLng(`${street}, ${city}, ${province}, ${country}, ${zip}`);
+    user.street = street;
+    user.city = city;
+    user.province = province;
+    user.zip = zip;
+    user.country = country;
+    user.registerStep = registerStep;
+    user.latitude = latlng.lat || 0;
+    user.longitude = latlng.lng || 0;
     user.save(function (err) {
       if (err) {
         console.error("ERROR!");
@@ -164,7 +171,7 @@ var upload = multer({ dest: "./upload/" });
 
 const { uploadFile } = require("../public/s3");
 
-router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
+router.post("/addPhoto", upload_to_s3.array("photo", 10), async (req, res) => {
   // router.post("/addPhoto", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
@@ -183,6 +190,17 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
   }
 });
 
+router.get('/get_photo/:photoKey', (req, res) => {
+  // respond back with the image from AWS-3 
+  const key = req.params.photoKey;
+  try {
+    const imgStream = getFileStream(key);
+    imgStream.pipe(res);
+  } catch(err) {
+    res.send('No image found');
+  }
+});
+
 //sign In
 
 router.post("/signIn", async (req, res) => {
@@ -194,8 +212,12 @@ router.post("/signIn", async (req, res) => {
     req.session.user = req.body.email;
     req.session.username = user.first_name;
     req.session.userId = user.id;
+    req.session.latitude = user.latitude || 0;
+    req.session.longitude = user.longitude || 0;
+    req.session.profilePic = user.photo.length > 0 ? user.photo[0] : '';
     res.redirect("/main");
   } else {
+    console.log('Invalid login details.');
     throw new Error("No");
   }
 });
@@ -211,10 +233,15 @@ router.get("/main", async (req, res) => {
 router.get("/user", async (req, res) => {
   console.log(req.session);
   User.findOne({ email: req.session.user }, function (err, obj) {
-    if (err) {
+    if (err || !obj) {
       console.log(err);
+      res.redirect('/signin');
     } else {
+      console.log('user profile loading');
       console.log({ user: obj });
+      if (obj.photo.length >= 1 && obj.photo[0]) {
+        obj.photo[0] = path.basename(obj.photo[0]);
+      }
       res.render("user", { user: obj });
     }
   });
@@ -310,12 +337,13 @@ router.get("/matchTab", async (req, res) => {
 
 const { randomUser } = require("../public/randomUser");
 const { LookoutEquipment } = require("aws-sdk");
+const { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } = require("constants");
 
 router.get("/userList", async (req, res) => {
   console.log("page hit");
   try {
     const user = await User.findById(req.session.userId)
-      .select("dislike like toSee")
+      .select("dislike like toSee minage maxage distance latitude longitude")
       .exec();
 
     console.log("Logging user...\n", user);
@@ -324,18 +352,19 @@ router.get("/userList", async (req, res) => {
 
     const result = await User.find({
       _id: { $ne: req.session.userId },
-      gender: gender,
-    })
-      .select("first_name age zodiac _id photo")
+        ...(gender !== 'everyone' && {gender: gender}),
+      })
+      .select("first_name age zodiac _id photo latitude longitude province street")
       .exec();
 
     console.log("Logging result... \n", result);
 
-    let second_user = randomUser(user.dislike, result);
+    let second_user = randomUser(user, result);
     console.log("Logging second user...\n", second_user);
     if (!second_user) {
-      res.render("error_no_user");
+      res.render("main", { message: "No Matching users could be found"});
     } else {
+      second_user.photo = second_user.photo.map(photo => photo && path.extname(photo) ? path.basename(photo) : ''); 
       res.render("userList", { secondUser: second_user });
     }
   } catch (ex) {
@@ -349,7 +378,9 @@ router.post("/dislike", async (req, res) => {
   try {
     const user = await User.findById(req.session.userId).exec();
     console.log(user);
-    user.dislike.push(req.body.rating);
+    const dislikes = user.dislike;
+    dislikes.push(req.body.secondUserId);
+    user.dislike = [...new Set(dislikes)]
     user.save();
     res.redirect("/userList");
   } catch (ex) {
@@ -362,9 +393,11 @@ router.post("/dislike", async (req, res) => {
 router.post("/like", async (req, res) => {
   try {
     let userId = req.session.userId;
-    let secondUserId = req.body.rating;
+    let secondUserId = req.body.secondUserId;
     const user = await User.findById(userId).exec();
-    user.like.push(secondUserId);
+    let likes = user.like;
+    likes.push(secondUserId);
+    user.like = [...new Set(likes)];
     user.save();
     console.log(user);
     const secondUser = await User.findById(secondUserId)
@@ -402,6 +435,31 @@ router.post("/like", async (req, res) => {
 router.get("/info", async (req, res) => {
   console.log("page hit");
   res.render("info");
+});
+
+router.get("/filters", async (req, res) => {
+  console.log("page hit");
+  const userId = req.session.userId;
+  User.findOne({ _id: userId }, (err, user) => {
+    if (err) {
+      res.render('/user');
+    }
+    res.render("filters", user);
+  })
+});
+router.post("/filters", (req, res) => {
+  const email = req.session.user;
+  const { minage, maxage, distance, toSee } = req.body;
+  console.log('Updated info');
+  console.log(req.body);
+  User.updateOne({ email: email }, { ...req.body }).then((err, data) => {
+    res.redirect("/user");
+  });
+});
+router.get("/logout", (req, res) => {
+  delete req.session.user;
+  // delete req.session.userId;
+  res.redirect("/");
 });
 
 router.get("/like", async (req, res) => {
