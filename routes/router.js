@@ -58,7 +58,7 @@ router.post("/addUser", async (req, res, next) => {
 
   if (isUser) {
     console.log("error?");
-    req.flash("error", "Email is already used.");
+    req.flash("error", "Your email is already used.");
     res.redirect("/register");
   } else {
     var newUser = new User();
@@ -156,6 +156,7 @@ router.get("/register_photo", async (req, res) => {
 
 router.get("/signIn", async (req, res) => {
   console.log("page hit");
+  res.locals.message = req.flash();
   res.render("signIn");
 });
 
@@ -196,7 +197,9 @@ router.post("/signIn", async (req, res) => {
     req.session.userId = user.id;
     res.redirect("/main");
   } else {
-    throw new Error("No");
+    console.log("Login Failed");
+    req.flash("error", "Incorrect email or password.");
+    res.redirect("/signIn");
   }
 });
 

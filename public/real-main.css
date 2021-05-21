@@ -772,9 +772,16 @@ body {
 }
 
 /* register_orientation section */
-.error {
+.error,
+.error-message {
   font-weight: 300;
   font-size: 13px;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  margin-top: 20px;
 }
 
 .content-wrapper input {
