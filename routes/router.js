@@ -165,7 +165,6 @@ var upload = multer({ dest: "./upload/" });
 const { uploadFile } = require("../public/s3");
 
 router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
-  // router.post("/addPhoto", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
     // upload_to_S3("photo", 10)
@@ -174,6 +173,7 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
     for (let file of req.files) {
       user.photo.push(file.location);
     }
+    user.bio = req.body.bio;
     user.save();
     res.render("signIn");
   } catch (err) {
@@ -326,12 +326,12 @@ router.get("/userList", async (req, res) => {
       _id: { $ne: req.session.userId },
       gender: gender,
     })
-      .select("first_name age zodiac _id photo")
+      .select("first_name age zodiac _id photo city bio")
       .exec();
 
     console.log("Logging result... \n", result);
 
-    let second_user = randomUser(user.dislike, result);
+    let second_user = randomUser(user.dislike, user.like, result);
     console.log("Logging second user...\n", second_user);
     if (!second_user) {
       res.render("error_no_user");
@@ -427,5 +427,93 @@ router.get("/register_verify", async (req, res) => {
   console.log("page hit");
   res.render("register_verify");
 });
+
+//edit profile 
+//---------edit orientation
+router.get("/edit_orientation", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // get the user from the database using the id
+  const user = await User.findById(userId).exec();
+  console.log("page hit");
+  res.render("edit_orientation", {user: user});
+});
+
+
+
+router.post("/edit_orientation", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // Get the new data from req.body
+  const toSee = req.body.toSee //i want to see women,man,everyone
+  const gender= req.body.gender //i identify as women, man, none
+  const sex = req.body.orientation //my sexual-orientation is straight....
+ 
+  // Mongoose find user and update 
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(userId, 
+    {toSee: req.body.toSee, gender: req.body.gender, sex: req.body.orientation
+    }).exec()
+  // res.redirect to the profile page 
+  //  res.send({toSee, gender, sex});
+   res.redirect(`info?email=${req.body.email}`);
+})
+
+
+//---------edit address
+router.get("/edit_address", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // get the user from the database using the id
+  const user = await User.findById(userId).exec();
+  console.log("page hit");
+  res.render("edit_address", {user: user});
+});
+
+router.post("/edit_address", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // Get the new data from req.body
+  const street = req.body.street
+  const city = req.body.city
+  const province = req.body.province
+  const zip = req.body.zip
+  const country = req.body.country
+
+  // Mongoose find user and update 
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(userId, {street:req.body.street, city:req.body.city, province:req.body.province, zip:req.body.zip, country:req.body.country}).exec()
+  // res.redirect to the profile page 
+  res.redirect(`info?email=${req.body.email}`);
+})
+
+
+//edit_photo page
+router.get("/edit_photo", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // get the user from the database using the id
+  const user = await User.findById(userId).exec();
+
+  console.log("page hit");
+   res.render("edit_photo", {user: user});
+});
+
+
+
+router.post("/edit_photo", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // Get the new data from req.body
+  const photo = req.body.user.photo[0]
+  const bio = req.body.bio
+
+
+  // Mongoose find user and update 
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(userId, {photo: req.body.user.photo[0], bio: req.body.bio}).exec()
+  // res.redirect to the profile page 
+  res.redirect(`info?email=${req.body.email}`);
+})
 
 module.exports = router;

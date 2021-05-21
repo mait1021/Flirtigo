@@ -898,9 +898,14 @@ body {
   padding: 5%;
 }
 
+.photo-container p {
+  font-size: 13px;
+}
+
 .photo-container h2 {
-  line-height: 100%;
-  font-size: 20px;
+  line-height: 0.5;
+  font-size: 19px;
+  font-weight: 500;
 }
 
 .photo-wrapper {
@@ -1745,9 +1750,7 @@ body {
   /* height:10vh; */
   text-align: center;
   padding-bottom: 1vh;
-  background-color: wheat;
-  border-radius: 20px;
-  /* overflow-y:auto; */
+  background-color: RGB(246, 246, 246);
 
 }
 
@@ -1759,11 +1762,11 @@ body {
   border-radius: 15px;
   border: 2px solid #8d99ae;
   width: 80vw;
-  height:max-content;
+  height: max-content;
   font-weight: bold;
   align-items: center;
   display: inline-flex;
- justify-content: space-around; 
+  justify-content: space-around;
   font-size: 12px;
   color: black;
 }
