@@ -195,6 +195,7 @@ router.post("/signIn", async (req, res) => {
     req.session.user = req.body.email;
     req.session.username = user.first_name;
     req.session.userId = user.id;
+    req.session.zodiac = user.zodiac;
     res.redirect("/main");
   } else {
     console.log("Login Failed");
@@ -213,12 +214,13 @@ router.get("/main", async (req, res) => {
 
 router.get("/user", async (req, res) => {
   console.log(req.session);
-  User.findOne({ email: req.session.user }, function (err, obj) {
+  User.findOne({ _id: req.session.userId }, function (err, obj) {
     if (err) {
       console.log(err);
     } else {
       console.log({ user: obj });
-      res.render("user", { user: obj });
+      const zodiac = req.session.zodiac;
+      res.render("user", { user: obj, zodiac });
     }
   });
 });
@@ -231,18 +233,17 @@ router.get("/chat_main", async (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log({ user: obj });
+      // console.log({ user: obj });
       userList = obj.map((match) => match._secondUser);
-      console.log(userList);
-
+      // console.log(userList);
       User.find()
         .where("_id")
         .in(userList)
         .exec((err, data) => {
           if (err) {
-            console.log("no");
+            // console.log("no");
           } else {
-            console.log({ newUser: data, user: obj });
+            // console.log({ newUser: data, user: obj });
             res.render("chat_main", { newUser: data, user: obj });
           }
         });
@@ -253,14 +254,18 @@ router.get("/chat_main", async (req, res) => {
 router.get("/chat/:userId?", async (req, res) => {
   try {
     //This one is real database
+    const zodiac = req.session.zodiac;
     const match = await Rating.findOne({
       _user: req.session.userId,
       _secondUser: req.params.userId,
     })
       .select("room _user _secondUser")
       .exec();
+    const secondUser = await User.findOne({
+      _id: req.params.userId,
+    }).select("photo first_name");
     console.log(match);
-    res.render("chat", { match: match });
+    res.render("chat", { match: match, user: secondUser, zodiac });
   } catch {
     console.error("ERROR!");
   }
@@ -413,24 +418,26 @@ router.post("/like", async (req, res) => {
 
 router.get("/info", async (req, res) => {
   console.log("page hit");
-  res.render("info");
+  const zodiac = req.session.zodiac;
+  res.render("info", { zodiac });
 });
 
 router.get("/filters", async (req, res) => {
   console.log("page hit");
   const userId = req.session.userId;
+  const zodiac = req.session.zodiac;
   User.findOne({ _id: userId }, (err, user) => {
     if (err) {
-      res.render('/user');
+      res.render("/user");
     }
-    res.render("filters", user);
-  })
+    res.render("filters", { user: user, zodiac });
+  });
 });
 
 router.post("/filters", (req, res) => {
   const email = req.session.user;
   const { minage, maxage, distance, toSee } = req.body;
-  console.log('Updated info');
+  console.log("Updated info");
   console.log(req.body);
   User.updateOne({ email: email }, { ...req.body }).then((err, data) => {
     res.redirect("/user");
@@ -466,7 +473,7 @@ router.get("/register_verify", async (req, res) => {
   res.render("register_verify");
 });
 
-//edit profile 
+//edit profile
 //---------edit orientation
 router.get("/edit_orientation", async (req, res) => {
   // Get the userid from the cookie
@@ -474,29 +481,28 @@ router.get("/edit_orientation", async (req, res) => {
   // get the user from the database using the id
   const user = await User.findById(userId).exec();
   console.log("page hit");
-  res.render("edit_orientation", {user: user});
+  res.render("edit_orientation", { user: user });
 });
-
-
 
 router.post("/edit_orientation", async (req, res) => {
   // Get the userid from the cookie
   let userId = req.session.userId;
   // Get the new data from req.body
-  const toSee = req.body.toSee //i want to see women,man,everyone
-  const gender= req.body.gender //i identify as women, man, none
-  const sex = req.body.orientation //my sexual-orientation is straight....
- 
-  // Mongoose find user and update 
-  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
-  await User.findByIdAndUpdate(userId, 
-    {toSee: req.body.toSee, gender: req.body.gender, sex: req.body.orientation
-    }).exec()
-  // res.redirect to the profile page 
-  //  res.send({toSee, gender, sex});
-   res.redirect(`info?email=${req.body.email}`);
-})
+  const toSee = req.body.toSee; //i want to see women,man,everyone
+  const gender = req.body.gender; //i identify as women, man, none
+  const sex = req.body.orientation; //my sexual-orientation is straight....
 
+  // Mongoose find user and update
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(userId, {
+    toSee: req.body.toSee,
+    gender: req.body.gender,
+    sex: req.body.orientation,
+  }).exec();
+  // res.redirect to the profile page
+  //  res.send({toSee, gender, sex});
+  res.redirect(`info?email=${req.body.email}`);
+});
 
 //---------edit address
 router.get("/edit_address", async (req, res) => {
@@ -505,26 +511,31 @@ router.get("/edit_address", async (req, res) => {
   // get the user from the database using the id
   const user = await User.findById(userId).exec();
   console.log("page hit");
-  res.render("edit_address", {user: user});
+  res.render("edit_address", { user: user });
 });
 
 router.post("/edit_address", async (req, res) => {
   // Get the userid from the cookie
   let userId = req.session.userId;
   // Get the new data from req.body
-  const street = req.body.street
-  const city = req.body.city
-  const province = req.body.province
-  const zip = req.body.zip
-  const country = req.body.country
+  const street = req.body.street;
+  const city = req.body.city;
+  const province = req.body.province;
+  const zip = req.body.zip;
+  const country = req.body.country;
 
-  // Mongoose find user and update 
+  // Mongoose find user and update
   // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
-  await User.findByIdAndUpdate(userId, {street:req.body.street, city:req.body.city, province:req.body.province, zip:req.body.zip, country:req.body.country}).exec()
-  // res.redirect to the profile page 
+  await User.findByIdAndUpdate(userId, {
+    street: req.body.street,
+    city: req.body.city,
+    province: req.body.province,
+    zip: req.body.zip,
+    country: req.body.country,
+  }).exec();
+  // res.redirect to the profile page
   res.redirect(`info?email=${req.body.email}`);
-})
-
+});
 
 //edit_photo page
 router.get("/edit_photo", async (req, res) => {
@@ -534,24 +545,24 @@ router.get("/edit_photo", async (req, res) => {
   const user = await User.findById(userId).exec();
 
   console.log("page hit");
-   res.render("edit_photo", {user: user});
+  res.render("edit_photo", { user: user });
 });
-
-
 
 router.post("/edit_photo", async (req, res) => {
   // Get the userid from the cookie
   let userId = req.session.userId;
   // Get the new data from req.body
-  const photo = req.body.user.photo[0]
-  const bio = req.body.bio
+  const photo = req.body.user.photo[0];
+  const bio = req.body.bio;
 
-
-  // Mongoose find user and update 
+  // Mongoose find user and update
   // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
-  await User.findByIdAndUpdate(userId, {photo: req.body.user.photo[0], bio: req.body.bio}).exec()
-  // res.redirect to the profile page 
+  await User.findByIdAndUpdate(userId, {
+    photo: req.body.user.photo[0],
+    bio: req.body.bio,
+  }).exec();
+  // res.redirect to the profile page
   res.redirect(`info?email=${req.body.email}`);
-})
+});
 
 module.exports = router;
