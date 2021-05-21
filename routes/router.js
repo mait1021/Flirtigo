@@ -416,6 +416,32 @@ router.get("/info", async (req, res) => {
   res.render("info");
 });
 
+router.get("/filters", async (req, res) => {
+  console.log("page hit");
+  const userId = req.session.userId;
+  User.findOne({ _id: userId }, (err, user) => {
+    if (err) {
+      res.render('/user');
+    }
+    res.render("filters", user);
+  })
+});
+
+router.post("/filters", (req, res) => {
+  const email = req.session.user;
+  const { minage, maxage, distance, toSee } = req.body;
+  console.log('Updated info');
+  console.log(req.body);
+  User.updateOne({ email: email }, { ...req.body }).then((err, data) => {
+    res.redirect("/user");
+  });
+});
+router.get("/logout", (req, res) => {
+  delete req.session.user;
+  // delete req.session.userId;
+  res.redirect("/");
+});
+
 router.get("/like", async (req, res) => {
   console.log("page hit");
   console.log(req.session.userId);

@@ -6,6 +6,7 @@
     <div class="profile-container">
       <div class="img-container-profile mt-2">
         <div class="user-profile-image" style="background-image: url(<%= user.photo[0] %>);"> </div>
+      
       </div>  
 
       <div class="profile-detail">
@@ -13,12 +14,12 @@
         <p><strong> <%= user.zodiac %> </strong></p>
       </div>
       <div class="btn-container">        
-        <a class="btn-profile btn-rounded" href="">Filters</a>
+        <a class="btn-profile btn-rounded" href="filters">Filters</a>
         <a class="btn-profile btn-rounded" href="info">Edit Info</a>
         <a class="btn-profile btn-rounded" href="">FAQ</a>
       
         <div class="logout-container">
-          <button class="btn-rounded btn-danger btn-logout">Logout</button>
+          <a href="/logout" class="btn-rounded btn-danger btn-logout" style="text-decoration: none;">Logout</a>
         </div> 
     </div>
     </div>
