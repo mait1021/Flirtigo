@@ -176,7 +176,7 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
     }
     user.bio = req.body.bio;
     user.save();
-    res.render("signIn");
+    res.render("register_verify");
   } catch (err) {
     res.render("error", { message: "Error" });
     console.log("Error");
