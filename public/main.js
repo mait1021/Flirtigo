@@ -240,8 +240,12 @@ function heightCalculation(id, num) {
   });
 }
 
-//Kailin: add ice breaking functions
+//Kailin: add ice breaking functions + show Qs randomly
 function showIceBreak() {
+  //randomly shows Qs
+  var random = Math.floor(Math.random() * $('.showQ').length);
+    $('.showQ').hide().eq(random).show();
+
   var questonList = document.getElementById("iceBreak");
   if (questonList.style.display === "none") {
     questonList.style.display = "block";

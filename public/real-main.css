@@ -1776,9 +1776,8 @@ body {
   /* height:10vh; */
   text-align: center;
   padding-bottom: 1vh;
-  background-color: wheat;
-  border-radius: 20px;
-  /* overflow-y:auto; */
+  background-color: RGB(246, 246, 246);
+
 }
 
 /* kailin change here on May 19th*/
