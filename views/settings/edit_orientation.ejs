@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <%- include('_header.ejs') %>
+  <body>
+    <%- include('_nav_bar.ejs') %>
+
+    <div class="orientation-container">
+
+      <form action="edit_orientation" method="post">
+        <h2>My sexual orientation is...</h2>
+          <div class="orientation-wrapper">
+            <label class="orientation"><p>Straight</p>
+              <input type="radio" name="sex" value="straight" <%= user.orientation === "straight" ? "checked" : "" %> >
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="orientation"><p>Gay</p>
+              <input type="radio" name="sex" value ="gay"<%= user.orientation === "gay" ? "checked" : "" %> >
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="orientation"><p>Queer</p>
+              <input type="radio" name="sex" value="queer" <%= user.orientation === "queer" ? "checked" : "" %>>
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>Asexual</p>
+              <input type="radio" name="sex" value="Asexual"  <%= user.orientation === "Asexual" ? "checked" : "" %> >
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="orientation"><p>Bisexual</p>
+              <input type="radio" name="sex" value="Bisexual" <%= user.orientation === "Bisexual" ? "checked" : "" %>>
+              <span class="checkmark"></span>
+            </label>
+
+          </div>
+
+          <h2>I identify as...</h2>
+          <div class="orientation-wrapper">
+            <label class="orientation"><p>Women</p>
+              <input type="radio" name="gender" value="women" <%= user.gender === "women" ? "checked" : "" %> >
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>Men</p>
+              <input type="radio" name="gender" value="men" <%= user.gender === "men" ? "checked" : "" %> >
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>None</p>
+              <input type="radio" name="gender" value="None" <%= user.gender === "None" ? "checked" : "" %>>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <h2>I want to see...</h2>
+          <div class="orientation-wrapper">
+            <label class="orientation"><p>Women</p>
+              <input type="radio" name="toSee" value="women" <%= user.toSee === "women" ? "checked" : "" %> >
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>Men</p>
+              <input type="radio" name="toSee" value="men" <%= user.toSee === "men" ? "checked" : "" %> >
+              <span class="checkmark"></span>
+            </label>
+            <label class="orientation"><p>Everyone</p>
+              <input type="radio" name="toSee" value="everyone" <%= user.toSee === "everyone" ? "checked" : "" %>>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+        
+          <input type="hidden" name="registerStep" value="4">
+          <div class="nextBtn-wrapper">
+            <button class ="nextBtn">Confirm</button>
+          </div> 
+         
+      </form> 
+    </div>
+
+    
+  </body> 
+  
+</html>

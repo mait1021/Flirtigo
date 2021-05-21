@@ -428,4 +428,92 @@ router.get("/register_verify", async (req, res) => {
   res.render("register_verify");
 });
 
+//edit profile 
+//---------edit orientation
+router.get("/edit_orientation", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // get the user from the database using the id
+  const user = await User.findById(userId).exec();
+  console.log("page hit");
+  res.render("edit_orientation", {user: user});
+});
+
+
+
+router.post("/edit_orientation", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // Get the new data from req.body
+  const toSee = req.body.toSee //i want to see women,man,everyone
+  const gender= req.body.gender //i identify as women, man, none
+  const sex = req.body.orientation //my sexual-orientation is straight....
+ 
+  // Mongoose find user and update 
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(userId, 
+    {toSee: req.body.toSee, gender: req.body.gender, sex: req.body.orientation
+    }).exec()
+  // res.redirect to the profile page 
+  //  res.send({toSee, gender, sex});
+   res.redirect(`info?email=${req.body.email}`);
+})
+
+
+//---------edit address
+router.get("/edit_address", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // get the user from the database using the id
+  const user = await User.findById(userId).exec();
+  console.log("page hit");
+  res.render("edit_address", {user: user});
+});
+
+router.post("/edit_address", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // Get the new data from req.body
+  const street = req.body.street
+  const city = req.body.city
+  const province = req.body.province
+  const zip = req.body.zip
+  const country = req.body.country
+
+  // Mongoose find user and update 
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(userId, {street:req.body.street, city:req.body.city, province:req.body.province, zip:req.body.zip, country:req.body.country}).exec()
+  // res.redirect to the profile page 
+  res.redirect(`info?email=${req.body.email}`);
+})
+
+
+//edit_photo page
+router.get("/edit_photo", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // get the user from the database using the id
+  const user = await User.findById(userId).exec();
+
+  console.log("page hit");
+   res.render("edit_photo", {user: user});
+});
+
+
+
+router.post("/edit_photo", async (req, res) => {
+  // Get the userid from the cookie
+  let userId = req.session.userId;
+  // Get the new data from req.body
+  const photo = req.body.user.photo[0]
+  const bio = req.body.bio
+
+
+  // Mongoose find user and update 
+  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
+  await User.findByIdAndUpdate(userId, {photo: req.body.user.photo[0], bio: req.body.bio}).exec()
+  // res.redirect to the profile page 
+  res.redirect(`info?email=${req.body.email}`);
+})
+
 module.exports = router;
