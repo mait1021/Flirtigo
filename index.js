@@ -55,11 +55,18 @@ io.on("connection", (socket) => {
     console.log("joining room", room);
     socket.join(room);
 
+    // const chatHistory = await Chats.findOne({ room: room })
+    //   .select("chats")
+    //   .exec();
+
+    // io.to(room).emit("load message", chatHistory);
+  });
+
+  socket.on("load room", async (room) => {
     const chatHistory = await Chats.findOne({ room: room })
       .select("chats")
       .exec();
-
-    io.to(room).emit("load message", chatHistory);
+    io.to(socket.id).emit("load message", chatHistory);
   });
 
   socket.emit("publicMessage", {
