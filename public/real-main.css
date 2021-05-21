@@ -721,7 +721,13 @@ body {
 .content-wrapper p {
   color: #666666;
 }
-
+#verifyText p {
+  color: black;
+  position: relative;
+  font-size: 14px;
+  margin: 0px;
+  text-align: center;
+}
 .intro-container {
   text-align: center;
 }
@@ -915,22 +921,19 @@ body {
   text-align: left;
   line-height: 100%;
   margin: 0px 35px;
+  font-size: 14px;
+}
+
+.photo-text p {
+  top: 14%;
+  line-height: 1.5;
 }
 
 .photo-container {
   text-align: center;
   font-family: "Poppins", sans-serif;
-  padding: 5%;
-}
-
-.photo-container p {
-  font-size: 13px;
-}
-
-.photo-container h2 {
-  line-height: 0.5;
-  font-size: 19px;
-  font-weight: 500;
+  padding: 0px 10px;
+  overflow-y: scroll;
 }
 
 .photo-wrapper {
@@ -990,7 +993,7 @@ body {
 }
 
 .image-preview {
-  height: 135px;
+  height: 140px;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -1016,7 +1019,6 @@ body {
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 10px;
-  background-color: #f8f8f8;
   resize: none;
   margin: auto;
   font-family: "Poppins", sans-serif;
@@ -1025,8 +1027,8 @@ body {
 }
 
 .bio-container {
-  font-size: 15px;
-  margin: 15px;
+  font-size: 14px;
+  padding: 10px;
 }
 
 .login-container {
@@ -1040,7 +1042,6 @@ body {
   text-align: center;
   font-family: "Poppins", sans-serif;
   overflow-y: scroll;
-  height: 100vhb;
 }
 
 .profile-container .user-profile-image {
