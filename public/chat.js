@@ -18,6 +18,7 @@ var _secondUser = $("#_secondUser").val();
 var room = $("#room").val();
 
 socket.emit("join room", room);
+socket.emit("load room", room);
 
 socket.on("publicMessage", function (message) {
   console.log("publicMessage", message);
@@ -48,10 +49,10 @@ socket.on("chat message", function (data) {
   scrollToBottom();
 });
 
-$(document).ready(function () {
-  console.log("chat data ready");
-  $(".chats").empty();
-  socket.on("load message", (data) => {
+socket.on("load message", (data) => {
+  $(document).ready(function () {
+    console.log("chat data ready");
+    // $(".chats").empty();
     if (data) {
       const chatHistory = data.chats;
       chatHistory.forEach((obj, i) => {
