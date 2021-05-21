@@ -54,12 +54,6 @@ io.on("connection", (socket) => {
   socket.on("join room", async (room) => {
     console.log("joining room", room);
     socket.join(room);
-
-    // const chatHistory = await Chats.findOne({ room: room })
-    //   .select("chats")
-    //   .exec();
-
-    // io.to(room).emit("load message", chatHistory);
   });
 
   socket.on("load room", async (room) => {
