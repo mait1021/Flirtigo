@@ -10,7 +10,8 @@
 
       <script>
         setTimeout(function(){
-          location.href="javascript:openSite()"
+          document.location.assign("javascript:openSite()")
+         
         },3000)
         var links = [
               "omikuji1",
@@ -25,7 +26,7 @@
             randIdx = parseInt(randIdx, 10);
             // construct the link to be opened
             var link = links[randIdx];
-            return location.href=link
+            return location.assign(link)
           }; 
       </script>
   </div>
