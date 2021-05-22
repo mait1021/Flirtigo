@@ -718,7 +718,7 @@ body {
 .chat-nav-bar {
   background-color: #2b2d42;
   /* padding: 7px; */
-  position: fixed;
+  position: sticky;
   top: 0;
   height: 16%;
   max-width: 480px;

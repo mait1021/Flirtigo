@@ -2,7 +2,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const moment = require("moment");
-require('dotenv').config();
+require("dotenv").config();
 const Chats = require("./models/chat");
 
 global.base_dir = __dirname;
