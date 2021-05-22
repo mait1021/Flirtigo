@@ -709,13 +709,50 @@ body {
   height: 23%;
 }
 .bold-nav-bar img,
-.nav-bar img {
+.nav-bar img,
+.chat-nav-bar img {
   margin: 15px;
+  margin-bottom: 0px;
 }
 
+.chat-nav-bar {
+  background-color: #2b2d42;
+  padding: 7px;
+  position: sticky;
+  top: 0;
+  height: 16%;
+  max-width: 480px;
+}
+.z-index a {
+  z-index: 4;
+}
+
+.chat-user-info {
+  text-align: center;
+  position: fixed;
+  top: 3%;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.chat-user-info .user-profile-image {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #fdda7f;
+  z-index: 1;
+}
+.chat-user-info p {
+  color: white;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  margin: 0;
+}
 .content-wrapper {
   font-family: "Poppins", sans-serif;
   padding: 0% 10%;
+  z-index: 0;
 }
 
 .content-wrapper p {
@@ -1105,15 +1142,17 @@ body {
   max-width: 480px;
   width: 100%;
   font-family: "Poppins", sans-serif;
-  height: 110px;
+  height: 85px;
 }
 
 .footer a {
-  padding: 10px 15px;
+  padding: 7px 9px;
   width: 20%;
+  font-size: 14px;
 }
 .footer img {
-  width: 75%;
+  width: 57px;
+  height: 57px;
   margin-top: 10%;
   padding: 0px;
 }
@@ -1132,6 +1171,13 @@ body {
 .footer-img {
   padding: 0px;
   text-align: center;
+}
+
+.zodiac-img img {
+  border: 2px solid #fdda7f;
+  border-radius: 50%;
+  width: 57px;
+  height: 57px;
 }
 
 /* ??? */
@@ -1170,31 +1216,40 @@ body {
 /* Chat Room */
 
 .msgsend-container {
-  background-color: #8d99ae;
+  background-color: #c9c8c5;
   max-width: 480px;
   margin: auto;
   text-align: center;
   position: fixed;
-  bottom: 108px;
+  bottom: 0;
   width: 100%;
+  height: 156px;
 }
 
 .msgsend-container form {
   display: flex;
-  padding: 10px;
-  justify-content: space-between;
+  padding: 18px 0px;
+  justify-content: space-evenly;
 }
 
 .msgsend-container input {
-  width: 60%;
-  margin: 5px;
+  width: 67%;
   border: none;
   padding: 5px;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+}
+
+.msgsend-container button {
+  border: 0;
+  background: transparent url("/public/images/send.png") no-repeat;
+  width: 10%;
+  margin-top: 5px;
 }
 
 .chat {
   font-family: "Poppins", sans-serif;
-  background: #8d99ae;
   border-radius: 20px;
   display: inline-block;
   padding: 10px;
@@ -1204,6 +1259,7 @@ body {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   margin: 5px;
   position: relative;
+  font-weight: 300;
 }
 
 .chats {
@@ -1217,6 +1273,8 @@ body {
   clear: both;
   border-top-left-radius: 0px;
   margin-left: 20px;
+  background-color: white;
+  color: black;
 }
 .chat.u1:before {
   content: "";
@@ -1224,8 +1282,8 @@ body {
   height: 0px;
   display: block;
   border-left: 5px solid transparent;
-  border-right: 5px solid #8d99ae;
-  border-top: 5px solid #8d99ae;
+  border-right: 5px solid white;
+  border-top: 5px solid white;
   border-bottom: 5px solid transparent;
   position: absolute;
   top: 0px;
@@ -1250,7 +1308,7 @@ body {
   float: right;
   clear: both;
   border-top-right-radius: 0px;
-  background: rgb(187, 166, 117);
+  background: #60648a;
   margin-right: 20px;
 }
 .chat.u2:before {
@@ -1258,9 +1316,9 @@ body {
   width: 0px;
   height: 0px;
   display: block;
-  border-left: 5px solid rgb(187, 166, 117);
+  border-left: 5px solid #60648a;
   border-right: 5px solid transparent;
-  border-top: 5px solid rgb(187, 166, 117);
+  border-top: 5px solid #60648a;
   border-bottom: 5px solid transparent;
   position: absolute;
   top: 0px;
@@ -1773,23 +1831,21 @@ body {
 
 /* ice break question buttons */
 #iceBreak {
-  /* height:10vh; */
   text-align: center;
-  padding-bottom: 1vh;
-  background-color: RGB(246, 246, 246);
-
+  background-color: RGB(246, 246, 246, 0.5);
+  position: fixed;
+  bottom: 163px;
+  max-width: 480px;
 }
 
 /* kailin change here on May 19th*/
 .iceBreak input {
   padding: 5px 40px;
-  /* margin: 10px; */
+  margin: 3px;
   background-color: white;
   border-radius: 15px;
-  border: 2px solid #8d99ae;
-  width: 80vw;
+  border: 1px solid #8d99ae;
   height: max-content;
-  font-weight: bold;
   align-items: center;
   display: inline-flex;
   justify-content: space-around;

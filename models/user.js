@@ -21,6 +21,11 @@ const userSchema = new Schema(
     dislike: { type: Array, required: false },
     like: { type: Array, required: false },
     bio: { type: String, required: false },
+    minage: { type: Number, required: false },
+    maxage: { type: Number, required: false },
+    distance: { type: Number, required: false },
+    latitude: { type: Number, required: false },
+    longitude: { type: Number, required: false }
   },
   { collection: "users", timestamps: true }
 );

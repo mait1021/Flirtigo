@@ -38,8 +38,8 @@
         </h2>
         <span class="info">
           <p><%= secondUser.bio %></p>
-          <p>19km away</p>
-          <p>Lives in <%= secondUser.city %></p>
+          <p><%= secondUser.calculatedDistance %> km away!</p>
+          <p>Lives in <%= secondUser.city %>, <%= secondUser.province %></p>
         </span>
       </div>   
 

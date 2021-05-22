@@ -2,7 +2,14 @@
 <html>
   <%- include('_header.ejs') %>
   <body>
-    <%- include('_nav_bar.ejs') %>
+    <div class="chat-nav-bar">
+      <a href="javascript:history.back()"><img src="../public/images/backbtn.png" width="12" height="12"></a></div>
+      <div class="chat-user-info">
+        <div class="user-profile-image" style="background-image: url(<%= user.photo[0] %>);"> </div>
+        <p><%= user.first_name %></p>
+      </div>
+    </div>
+    
     <div class="container">
       <div id="chats" class="chats"></div>
 
@@ -43,23 +50,23 @@
         </div>
 
         <form id="message-form">        
-          <img src="/public/images/Blocks.png" onclick="showIceBreak()">
-          <input type="text" name="message" placeholder="message" id= "textbox">
+          <img src="/public/images/Blocks.svg" onclick="showIceBreak()">
+          <input type="text" name="message" placeholder="Type a message" id= "textbox">
           <!-- <input type="hidden" name="user" value=" user.first_name %>"> -->
           <input id="_user" type="hidden" value="<%= match._user %>">
           <input id="_secondUser" type="hidden" value="<%= match._secondUser %>">
           <input id="room" type="hidden" value="<%= match.room %>">
-          <button type="submit" id="submit-btn">Submit</button>
+          <button type="submit" id="submit-btn"></button>
         </form>
       </div>
     </div>
     <script>
-      heightCalculation("#chats",253)
+      heightCalculation("#chats",330)
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src ="/chat.js"></script>
     <script type="text/javascript" src ="/moment.js"></script>
 
   </body> 
-    <%- include('_footer.ejs') %>  
+    <%- include('_footer_zodiac.ejs') %>  
 </html>

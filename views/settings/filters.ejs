@@ -12,19 +12,24 @@
       crossorigin="anonymous"
     />
 
+    <%- include('_header.ejs') %>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="../stylesheets/style.css" />
-    <link rel="stylesheet" href="../vendor/nouislider.min.css" />
+    <link rel="stylesheet" href="vendor/nouislider.min.css" />
+    <style>
+      .personal-chars {
+        margin-top: 150px;
+      }
+    </style>
   </head>
   <body>
     <%- include('_nav_bar.ejs') %>
 
     <div class="container container-edit d-flex align-items-center flex-column">
       
-      <form action="/update" method="post">
+      <form action="/filters" method="post">
       <div class="btn-container d-flex flex-column">
         <h3>Who do you want to see?</h3>
-          <input type="hidden" name="profileid" value="<%= profileid %>">
           <div class="age-container">
             <label for="age">AGE</label>
             <input type="hidden" name="minage" id="range-age-min">
@@ -36,49 +41,39 @@
             <input type="hidden" name="distance" id="range-distance">
             <div id="distance-range"></div>
           </div>
-          <div class="personal-chars">
+          <!-- <div class="personal-chars">
             <div>
-              <input type="radio" name="characteristics" id="Straight" value="Straight" />
-              <label for="Straight">Straight</label>
+              <input type="radio" name="toSee" id="women" value="women" <%= (user.toSee === 'women') ? 'checked' : ''  %> />
+              <label for="women">Women</label>
             </div>
             <div>
-              <input type="radio" name="characteristics" id="Gay" value="Gay" />
-              <label for="Gay">Gay</label>
+              <input type="radio" name="toSee" id="men" value="men"  <%= (user.toSee === 'men') ? 'checked' : ''  %> />
+              <label for="men">Men</label>
             </div>
             <div>
-              <input type="radio" name="characteristics" id="Queer" value="Queer" />
-              <label for="Queer">Queer</label>
+              <input type="radio" name="toSee" id="everyone" value="everyone"  <%= (user.toSee === 'everyone') ? 'checked' : ''  %> />
+              <label for="everyone">Everyone</label>
             </div>
-            <div>
-              <input type="radio" name="characteristics" id="Asexual" value="Asexual" />
-              <label for="Asexual">Asexual</label>
-            </div>
-            <div>
-              <input type="radio" name="characteristics" id="Bisexual" value="Bisexual" />
-              <label for="Bisexual">Bisexual</label>
-            </div>
-          </div>
+          </div> -->
           <button type="submit" class="btn-profile btn mt-2 btn-rounded">Confirm</a>
           </div>
         </form>
     </div>
 
-    <div class="footer footer-container">
-      <button class="btn btn-footer btn-light-yellow btn-rounded">Account</button>
-      <button class="btn btn-footer btn-horoscope-icon btn-light-yellow rounded-square rounded-circle btn-rounded">
-        <img width="30px" height="30px" src="../images/horoscope/aries.svg" />
-      </button>
-      <button class="btn btn-footer btn-light-yellow btn-rounded">Matches</button>
-    </div>
-    <script src="../vendor/nouislider.min.js"></script>
+      <%- include('_footer.ejs') %>
+    <script src="vendor/nouislider.min.js"></script>
     <script>
+
       var ageMinInp = document.getElementById('range-age-min');
       var ageMaxInp = document.getElementById('range-age-max');
       var distanceInp = document.getElementById('range-distance');
       var sliderRangeAge = document.getElementById("slider-range-age");
+      var minage = <%= user.minage || 0 %>;
+      var maxage = <%= user.maxage || 1000000 %>;
+      var distance = <%= user.distance || 1000000 %>;
 
       noUiSlider.create(sliderRangeAge, {
-        start: [25, 45],
+        start: [minage, maxage],
         tooltips: [true, true],
         connect: true,
         step: 1,
@@ -92,11 +87,11 @@
       noUiSlider.create(bigValueSlider, {
         range: {
           min: 0,
-          max: 100,
+          max: 500,
         },
         step: 1,
         tooltips: [true],
-        start: [50],
+        start: [distance],
         pips: { mode: "count", values: 5 },
       });
 
@@ -116,3 +111,4 @@
     </script>
   </body>
 </html>
+
