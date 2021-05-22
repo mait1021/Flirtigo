@@ -63,7 +63,13 @@
   </body>     
   
   <script>
-      heightCalculation("#chats",330)
+    $(window).on("load resize", function () {
+      let windowHeight = $(window).height();
+      let nav_bar_height = $('.chat-nav-bar').outerHeight( true );
+      let footer_height = $('.footer').outerHeight( true );
+      let choices_height = $('#message-form').outerHeight( true );
+      $('.chats').outerHeight( windowHeight - nav_bar_height - footer_height - choices_height);
+    });
   </script>
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src ="/chat.js"></script>
