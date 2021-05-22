@@ -752,6 +752,7 @@ body {
 .content-wrapper {
   font-family: "Poppins", sans-serif;
   padding: 0% 10%;
+  z-index: 0;
 }
 
 .content-wrapper p {
