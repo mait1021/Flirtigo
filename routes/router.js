@@ -4,7 +4,7 @@ const User = include("models/user");
 const Rating = include("models/rating");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
-var { getLatLng, calculateDistance } = require('./helpers');
+var { getLatLng, calculateDistance } = require("./helpers");
 const { randomUser } = require("../public/randomUser");
 const { LookoutEquipment } = require("aws-sdk");
 const moment = require("moment");
@@ -114,9 +114,11 @@ router.get("/register_address", async (req, res) => {
 router.post("/addAddress", async (req, res) => {
   console.log("add");
   console.log(req.body);
-  User.findOne({ email: req.body.email }, async function (err, user) {    
-    const {street, city, province, zip, country, registerStep} = req.body;
-    const latlng = await getLatLng(`${street}, ${city}, ${province}, ${country}, ${zip}`);
+  User.findOne({ email: req.body.email }, async function (err, user) {
+    const { street, city, province, zip, country, registerStep } = req.body;
+    const latlng = await getLatLng(
+      `${street}, ${city}, ${province}, ${country}, ${zip}`
+    );
     user.street = req.body.street;
     user.city = req.body.city;
     user.province = req.body.province;
@@ -202,7 +204,7 @@ router.post("/signIn", async (req, res) => {
     req.session.user = req.body.email;
     req.session.username = user.first_name;
     req.session.userId = user.id;
-    req.session.zodiac = user.zodiac;
+    req.session.zodiac = user.zodiac.toLowerCase();
     res.redirect("/main");
   } else {
     console.log("Login Failed");
@@ -358,7 +360,12 @@ router.get("/userList", async (req, res) => {
     if (!second_user) {
       res.render("error_no_user");
     } else {
-      second_user.calculatedDistance = calculateDistance(user.latitude, user.longitude, second_user.latitude, second_user.longitude);
+      second_user.calculatedDistance = calculateDistance(
+        user.latitude,
+        user.longitude,
+        second_user.latitude,
+        second_user.longitude
+      );
       res.render("userList", { secondUser: second_user });
     }
   } catch (ex) {
@@ -436,7 +443,7 @@ router.get("/filters", async (req, res) => {
     if (err) {
       res.render("/user");
     }
-    res.render("filters", { user: user, zodiac});
+    res.render("filters", { user: user, zodiac });
   });
 });
 
