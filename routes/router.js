@@ -58,7 +58,7 @@ router.post("/addUser", async (req, res, next) => {
 
   if (isUser) {
     console.log("error?");
-    req.flash("error", "Email is already used.");
+    req.flash("error", "Your email is already used.");
     res.redirect("/register");
   } else {
     var newUser = new User();
@@ -156,6 +156,7 @@ router.get("/register_photo", async (req, res) => {
 
 router.get("/signIn", async (req, res) => {
   console.log("page hit");
+  res.locals.message = req.flash();
   res.render("signIn");
 });
 
@@ -175,7 +176,7 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
     }
     user.bio = req.body.bio;
     user.save();
-    res.render("signIn");
+    res.render("register_verify");
   } catch (err) {
     res.render("error", { message: "Error" });
     console.log("Error");
@@ -196,7 +197,9 @@ router.post("/signIn", async (req, res) => {
     req.session.userId = user.id;
     res.redirect("/main");
   } else {
-    throw new Error("No");
+    console.log("Login Failed");
+    req.flash("error", "Incorrect email or password.");
+    res.redirect("/signIn");
   }
 });
 
@@ -321,13 +324,22 @@ router.get("/userList", async (req, res) => {
     console.log("Logging user...\n", user);
 
     const gender = user.toSee;
-
-    const result = await User.find({
-      _id: { $ne: req.session.userId },
-      gender: gender,
-    })
-      .select("first_name age zodiac _id photo city bio")
-      .exec();
+    if (gender == "everyone") {
+      var result = await User.find({
+        _id: { $ne: req.session.userId },
+      })
+        .select("first_name age zodiac _id photo city bio")
+        .exec();
+    } else {
+      var result = await User.find({
+        $and: [
+          { _id: { $ne: req.session.userId } },
+          { $or: [{ gender: gender }, { gender: "none" }] },
+        ],
+      })
+        .select("first_name age zodiac _id photo city bio")
+        .exec();
+    }
 
     console.log("Logging result... \n", result);
 
