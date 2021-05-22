@@ -10,7 +10,7 @@ function randomUser(dislike, like, users) {
     while (dislike.includes(second_user.id) || like.includes(second_user.id)) {
       second_user = users[Math.floor(Math.random() * users.length)];
     }
-    return second_user;
+    return second_user;    
   }
 }
 
