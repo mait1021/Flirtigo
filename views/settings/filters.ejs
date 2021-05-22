@@ -43,15 +43,15 @@
           </div>
           <!-- <div class="personal-chars">
             <div>
-              <input type="radio" name="toSee" id="women" value="women" <%= (toSee === 'women') ? 'checked' : ''  %> />
+              <input type="radio" name="toSee" id="women" value="women" <%= (user.toSee === 'women') ? 'checked' : ''  %> />
               <label for="women">Women</label>
             </div>
             <div>
-              <input type="radio" name="toSee" id="men" value="men"  <%= (toSee === 'men') ? 'checked' : ''  %> />
+              <input type="radio" name="toSee" id="men" value="men"  <%= (user.toSee === 'men') ? 'checked' : ''  %> />
               <label for="men">Men</label>
             </div>
             <div>
-              <input type="radio" name="toSee" id="everyone" value="everyone"  <%= (toSee === 'everyone') ? 'checked' : ''  %> />
+              <input type="radio" name="toSee" id="everyone" value="everyone"  <%= (user.toSee === 'everyone') ? 'checked' : ''  %> />
               <label for="everyone">Everyone</label>
             </div>
           </div> -->
@@ -68,9 +68,9 @@
       var ageMaxInp = document.getElementById('range-age-max');
       var distanceInp = document.getElementById('range-distance');
       var sliderRangeAge = document.getElementById("slider-range-age");
-      var minage = <%= minage || 0 %>;
-      var maxage = <%= maxage || 1000000 %>;
-      var distance = <%= distance || 1000000 %>;
+      var minage = <%= user.minage || 0 %>;
+      var maxage = <%= user.maxage || 1000000 %>;
+      var distance = <%= user.distance || 1000000 %>;
 
       noUiSlider.create(sliderRangeAge, {
         start: [minage, maxage],
@@ -111,3 +111,4 @@
     </script>
   </body>
 </html>
+
