@@ -64,8 +64,8 @@
   </body>     
   
   <script>
-    $(window).on("load resize", function () {
-      let windowHeight = $(window).height();
+    $(window).on("load resize touchmove", function () {
+      let windowHeight = document.documentElement.clientHeight
       let nav_bar_height = $('.chat-nav-bar').outerHeight( true );
       let footer_height = $('.footer').outerHeight( true );
       let choices_height = $('#message-form').outerHeight( true );
