@@ -5,11 +5,12 @@
     <div class="chat-nav-bar">
       <a href="javascript:history.back()"><img src="../public/images/backbtn.png" width="12" height="12"></a>
       <div class="chat-user-info">
-        <div class="user-profile-image" style="background-image: url(<%= user.photo[0] %>);"> </div>
+        <a href="/profile/<%=user._id%>">
+          <div class="user-profile-image" style="background-image: url(<%=user.photo[0]%>);"> </div>
+        </a>
         <p><%= user.first_name %></p>
       </div>
     </div>
-    
     <div class="container">
       <div id="chats" class="chats"></div>
 
