@@ -714,22 +714,26 @@ body {
   margin: 15px;
   margin-bottom: 0px;
 }
+.flex {
+  display: flex;
+  flex-direction: column;
+}
 
 .chat-nav-bar {
-  background-color: #2b2d42;
-  /* padding: 7px; */
-  position: sticky;
-  top: 0;
-  height: 16%;
+  background-color: #2b2d40;
+  /* position: fixed;
+  display: flex; */
+  justify-content: space-evenly;
   max-width: 480px;
-  z-index: 4;
   width: 100%;
+  font-family: "Poppins", sans-serif;
+  height: 15%;
+  z-index: 1;
 }
-.z-index a {
-  z-index: 4;
-}
-.chat-nav-bar img {
-  margin: 20px;
+
+@media only screen and (max-height: 600px) {
+  body {
+  }
 }
 
 .chat-user-info {
@@ -737,15 +741,17 @@ body {
   position: fixed;
   top: 3%;
   left: 0;
+  width: max-content;
   right: 0;
-  pointer-events: none;
+  margin: auto;
+  /* pointer-events: none; */
 }
 
 .chat-user-info .user-profile-image {
   width: 60px;
   height: 60px;
   border: 1px solid #fdda7f;
-  z-index: 1;
+  display: inline-block;
 }
 .chat-user-info p {
   color: white;
@@ -1084,6 +1090,9 @@ body {
   text-align: center;
   font-family: "Poppins", sans-serif;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .profile-container .user-profile-image {
@@ -1132,6 +1141,27 @@ body {
 }
 .btn-rounded {
   border-radius: 30px;
+}
+
+@media only screen and (max-height: 680px) {
+  .profile-container .user-profile-image {
+    width: 120px;
+    height: 120px;
+  }
+  .btn-container {
+    margin: 0px;
+  }
+  .profile-detail p {
+    margin: 0;
+  }
+
+  .profile-detail h2 {
+    font-size: 20px;
+  }
+
+  .btn-container a {
+    padding: 6px 30px;
+  }
 }
 
 /* footer */
@@ -1512,26 +1542,57 @@ body {
 }
 
 /* omikuji page */
-.match {
+.omikuji {
   text-align: center;
   font-family: "Poppins", sans-serif;
+  border: 8px solid #bdbbb6;
+  margin: 15px;
 }
 
+.omikuji h1 {
+  font-family: "Noto Serif", serif;
+}
+
+.heart {
+  border-bottom: 1px solid #bdbbb6;
+  margin: auto;
+  width: 90%;
+}
 .compBox {
-  background-color: white;
   max-height: 90vh;
   width: 80%;
-  text-align: center;
+
   margin: auto;
   border-radius: 15px;
   box-sizing: border-box;
   position: relative;
   margin-bottom: 20px;
   padding: 10px;
+  text-align: initial;
 }
-#compatibility-text {
-  font-size: 1.2em;
-  /* line-height: 30px; */
+
+#compatibility-text h1 {
+  font-size: 19px;
+  font-family: "Poppins", sans-serif;
+}
+#compatibility-text p {
+  font-size: 18px;
+}
+
+@media only screen and (max-height: 600px) {
+  #compatibility-text h1 {
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+  }
+  #compatibility-text p {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-height: 800px) {
+  .compBox {
+    padding: 40px 10px;
+  }
 }
 
 /* --------------match tab page */
@@ -1671,38 +1732,41 @@ body {
 
 /* Mai Match page Merge */
 
-.match-container {
-  border: 2px solid white;
-  border-radius: 30px;
-  padding: 20px;
+.background-night .nav-bar {
+  background-color: RGB(43, 45, 64, 0);
 }
+
+.background-night {
+  background-image: url(/public/images/loading_background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .profile-like-container {
   margin: auto;
   width: -webkit-fill-available;
 }
 .profile-like-container h2 {
-  font-family: "Shrikhand", cursive;
-  font-size: 29px;
+  font-family: "Noto Serif", serif;
+  font-size: 30px;
   line-height: 80%;
+  color: #fdda7f;
 }
 .match-title {
   margin: 0px;
   padding: 10px;
   text-align: center;
   color: white;
+  font-size: 22px;
 }
-.match-like-pics {
+.profile-like-container .img-container-profile {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 10px;
+  margin: 20px 0px;
 }
-.match-like-pics img {
-  width: 120px;
-  height: 120px;
-  border: 3px solid white;
-}
+
 .match-btn-container {
-  margin-top: 30px;
+  margin-top: 50px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1711,34 +1775,44 @@ body {
 .match-btn {
   background-color: #fdda7f;
   border-radius: 50px;
-  border: 6px solid rgb(187, 166, 117);
   margin: auto;
   width: 70%;
   height: 40px;
-  font-weight: bold;
   align-items: center;
   display: inline-flex;
   justify-content: space-around;
   font-size: 15px;
   text-decoration: none;
-  color: white;
+  color: black;
   margin-bottom: 10px;
 }
 
 .match-wrapper {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url(/public/images/horoscope_final.gif);
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
   background-position: center;
-  padding: 19px;
+  padding: 0px x19px;
   font-family: "Poppins", sans-serif;
   overflow-y: scroll;
   display: flex;
+  flex-direction: column;
   text-align: center;
-  align-items: center;
   justify-content: space-around;
+}
+
+.match-wrapper .user-profile-image {
+  margin: 0px;
+}
+
+@media only screen and (max-height: 644px) {
+  .profile-like-container h2 {
+    font-size: 24px;
+  }
+  .match-title {
+    font-size: 16px;
+    padding: 5px;
+  }
+  .match-wrapper {
+    padding: 0px 19px;
+  }
 }
 
 /* Report Part */

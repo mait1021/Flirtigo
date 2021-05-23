@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('_header.ejs') %>
-<body class="background-yellow">
+<body class="background-night">
   <%- include('_nav_bar.ejs') %>
 
 <div id = "match-wrapper" class = "match-wrapper">
@@ -10,16 +10,16 @@
         <!-- Full-width images with number and caption text -->
         <div class="profile-like-container">
             <!-- information -->
-            <h2 class="match-title" >Congratulations !</h2>
+            <h2 class="match-title" >Congratulations!</h2>
             <h2 class="match-title" >It's A Match</h2>
-            <h4 class="match-title">You and <%= secondUser.first_name %> like each other</h4>
-            <div class="match-like-pics">
-                <img class="profile-image"  src=<%= user.photo[0] %> >
-                <img class="profile-image"  src=<%= secondUser.photo[0] %> >
-            </div>
+            <div class="img-container-profile">
+                <div class="user-profile-image" style="background-image: url(<%= user.photo[0] %>);"> </div>
+                <div class="user-profile-image" style="background-image: url(<%= secondUser.photo[0] %>);"> </div>
+            </div>            
+            <p class="match-title">You and <%= secondUser.first_name %> <br> like each other</p>
             <div class="match-btn-container">
-                <a class="match-btn dislike">Send Message</a> 
-                <a href="/userList" button class="match-btn like">Keep Swiping</a>
+                <a href="/chat/<%= secondUser._id%>" class="match-btn">Send Message</a> 
+                <a href="/userList" button class="match-btn">Keep Swiping</a>
             </div>
         </div>
     </div>
