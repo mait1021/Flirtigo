@@ -571,4 +571,9 @@ router.post("/edit_photo", async (req, res) => {
   res.redirect(`info?email=${req.body.email}`);
 });
 
+router.get("/faq", async (req, res) => {
+  console.log("page hit");
+  res.render("faq");
+});
+
 module.exports = router;

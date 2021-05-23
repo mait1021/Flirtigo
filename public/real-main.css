@@ -1869,3 +1869,12 @@ body {
   text-align: center;
   margin-top: 0;
 }
+
+/* FAQ Page */
+.FAQ-title{
+  text-align: center;
+
+}
+.FAQ h3:hover{
+  color:red;
+}
