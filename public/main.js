@@ -199,7 +199,7 @@ function showMatch() {
   if (x.style.display === "none") {
     x.style.display = "block";
     y.style.display = "none";
-  } 
+  }
 }
 
 function showChat() {
@@ -208,16 +208,15 @@ function showChat() {
   if (x.style.display === "none") {
     x.style.display = "block";
     y.style.display = "none";
-  } 
+  }
 }
 
 //chat_main: click on three dots, buttons shows
 
 $(document).ready(function () {
   $(".dots").click(function () {
-    $(this).next().toggle()
-    
-  })
+    $(this).next().toggle();
+  });
 
   $(".report").click(function () {
     $(".pageReport").show();
@@ -243,37 +242,34 @@ function heightCalculation(id, num) {
 //Kailin: add ice breaking functions + show Qs randomly
 function showIceBreak() {
   //randomly shows Qs
-  var random = Math.floor(Math.random() * $('.showQ').length);
-    $('.showQ').hide().eq(random).show();
+  var random = Math.floor(Math.random() * $(".showQ").length);
+  $(".showQ").hide().eq(random).show();
 
   var questonList = document.getElementById("iceBreak");
   if (questonList.style.display === "none") {
     questonList.style.display = "block";
-  } else{
-    questonList.style.display = "none"
+  } else {
+    questonList.style.display = "none";
   }
 }
 
 $(document).ready(function () {
   $(".iceQ").click(function () {
-   
-    var cursorPos = $('#textbox').prop('selectionStart');
-    var v = $('#textbox').val();
-    var textBefore = v.substring(0,  cursorPos );
-    var textAfter  = v.substring( cursorPos, v.length );
-    $('#textbox').val( textBefore+ $(this).val() +textAfter );
+    var cursorPos = $("#textbox").prop("selectionStart");
+    var v = $("#textbox").val();
+    var textBefore = v.substring(0, cursorPos);
+    var textAfter = v.substring(cursorPos, v.length);
+    $("#textbox").val(textBefore + $(this).val() + textAfter);
 
-   $(".iceBreak").hide();
+    $(".iceBreak").hide();
 
     // text =$(".iceQ").html();
     // console.log(text);
- 
+
     // text =$(".iceQ").html();
     // console.log(text);
-  
   });
-
-})
+});
 
 // FAQ click on questions, answers shows
 $(document).ready(function () {
