@@ -2,80 +2,82 @@
 <html>
   <%- include('_header.ejs') %>
   <body>
-    <%- include('_nav_bar.ejs') %>
+    <%- include('_bold_nav_bar.ejs') %>
 
-    <div class="photo-container">
+      <div class="intro-container photo-text">
+        <form action="edit_photo" method="post" enctype="multipart/form-data" >      
+        <h1>Photo</h1>
+        <p>Let me see that smile!<br> Add a minimum of 3 pictures</p>  
+      </div>  
 
-      <form action="edit_photo" method="post" enctype="multipart/form-data" >      
-      <h2>Let me see that smile!</h2>
-      <p>Add a minimum of 3 pictures </p>    
+      <div class="photo-container"> 
         <div class = "photo-wrapper">
           <div class="box">
-            <div class="image-preview"></div>
+            <div class="image-preview" style="background-image:url(<%=user.photo[0]%>);"></div>
             <div class="upload-options">
               <label>
-                <input name="photo" type="file" class="image-upload" value="<%= user.photo[0] %>" accept="image/*" required />
+                <input name="photo" type="file" class="image-upload" accept="image/*" required />
               </label>
             </div>
           </div>
 
           <div class="box">
-            <div class="image-preview"></div>
+            <div class="image-preview" style="background-image:url(<%=user.photo[1]%>);"></div>
             <div class="upload-options">
               <label>
-                <input name="photo" type="file" class="image-upload" value="<%= user.photo[1] %>" accept="image/*" required  />
+                <input name="photo" type="file" class="image-upload" accept="image/*"   />
               </label>
             </div>
           </div>
 
           <div class="box">
-            <div class="image-preview"></div>
+            <div class="image-preview" style="background-image:url(<%=user.photo[2]%>);"></div>
             <div class="upload-options">
               <label>
-                <input name="photo" type="file" class="image-upload" value="<%= user.photo[2] %>" accept="image/*" required  />
+                <input name="photo" type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
 
           <div class="box">
-            <div class="image-preview"></div>
+            <div class="image-preview" style="background-image:url(<%=user.photo[3]%>);"></div>
             <div class="upload-options">
               <label>
-                <input type="file" class="image-upload" value="<%= user.photo[3] %>" accept="image/*" />
+                <input type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
 
           <div class="box">
-            <div class="image-preview"></div>
+            <div class="image-preview" style="background-image:url(<%=user.photo[4]%>);"></div>
             <div class="upload-options">
               <label>
-                <input type="file" class="image-upload" value="<%= user.photo[4] %>" accept="image/*" />
+                <input type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
 
           <div class="box">
-            <div class="image-preview"></div>
+            <div class="image-preview" style="background-image:url(<%=user.photo[5]%>);"></div>
             <div class="upload-options">
               <label>
-                <input type="file" class="image-upload" value="<%= user.photo[5] %>" accept="image/*" />
+                <input type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
         </div>
-
         <div class = "bio-container">
-          <p>Add a bio to compliment those <br>amazing photos!</p>
-          <textarea id="bio" name="bio" placeholder="Enter here..." > <%= user.bio %></textarea>
+          <p>Add a bio to compliment <br> those amazing photos!</p>
+          <textarea id="bio" name="bio">Enter here..</textarea>
         </div>
+      </div>
 
-        <input type="hidden" name="registerStep" value="done">
+      <input type="hidden" name="registerStep" value="done">
         <div class="nextBtn-wrapper">
-          <button class="nextBtn">Confirm</button>
+          <button class="nextBtn">Next</button>
         </div>
       </form> 
-    </div>
+
 
   <script type="text/javascript" src="/photo.js"></script>
   <script>
@@ -83,6 +85,9 @@
       $("#bio").val("");
     });
   </script>
+    <script>
+      heightCalculation(".photo-container",320)
+    </script>
   </body> 
   
 </html>
