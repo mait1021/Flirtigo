@@ -1,7 +1,3 @@
-html {
-  overscroll-behavior: none;
-}
-
 body {
   max-width: 480px;
   background-color: RGB(246, 246, 246);
