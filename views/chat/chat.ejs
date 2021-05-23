@@ -65,11 +65,15 @@
   
   <script>
     $(window).on("load resize touchmove", function () {
-      let windowHeight = document.documentElement.clientHeight
-      let nav_bar_height = $('.chat-nav-bar').outerHeight( true );
-      let footer_height = $('.footer').outerHeight( true );
-      let choices_height = $('#message-form').outerHeight( true );
-      $('.chats').outerHeight( windowHeight - nav_bar_height - footer_height - choices_height);
+      // let windowHeight = document.documentElement.clientHeight
+      // let nav_bar_height = $('.chat-nav-bar').outerHeight( true );
+      // let footer_height = $('.footer').outerHeight( true );
+      // let choices_height = $('#message-form').outerHeight( true );
+      // $('.chats').outerHeight( windowHeight - nav_bar_height - footer_height - choices_height);
+      
+      let container_y_position = $('.container').offset().top;
+      let msg_form_y_position = $('#message-form').offset().top;
+      $('.chats').outerHeight( msg_form_y_position - container_y_position);
     });
   </script>
   <script src="/socket.io/socket.io.js"></script>
