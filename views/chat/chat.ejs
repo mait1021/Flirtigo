@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <%- include('_header.ejs') %>
-  <body>
+  <body class ="flex">
     <div class="chat-nav-bar">
-      <a href="javascript:history.back()"><img src="../public/images/backbtn.png" width="12" height="12"></a></div>
+      <a href="javascript:history.back()"><img src="../public/images/backbtn.png" width="12" height="12"></a>
       <div class="chat-user-info">
         <div class="user-profile-image" style="background-image: url(<%= user.photo[0] %>);"> </div>
         <p><%= user.first_name %></p>
@@ -14,8 +14,6 @@
       <div id="chats" class="chats"></div>
 
       <div class = "msgsend-container">
-   
-
         <!-- only appear if click on report -->
         <div id ="iceBreak" class ="iceBreak" style="display: none;">
             <div class = "showQ">
@@ -60,13 +58,21 @@
         </form>
       </div>
     </div>
-    <script>
-      heightCalculation("#chats",330)
-    </script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src ="/chat.js"></script>
-    <script type="text/javascript" src ="/moment.js"></script>
-
-  </body> 
     <%- include('_footer_zodiac.ejs') %>  
+  
+  </body>     
+  
+  <script>
+    $(window).on("load resize", function () {
+      let windowHeight = $(window).height();
+      let nav_bar_height = $('.chat-nav-bar').outerHeight( true );
+      let footer_height = $('.footer').outerHeight( true );
+      let choices_height = $('#message-form').outerHeight( true );
+      $('.chats').outerHeight( windowHeight - nav_bar_height - footer_height - choices_height);
+    });
+  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src ="/chat.js"></script>
+  <script type="text/javascript" src ="/moment.js"></script>
+
 </html>

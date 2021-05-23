@@ -1,30 +1,27 @@
+</html>
 <!DOCTYPE html>
 <html lang="en">
   <%- include('_header.ejs') %>
 <body>
   <%- include('_nav_bar.ejs') %>
 
-<div class = "match intro-container-profile">
-    <div style="text-align:center">
-           <h1> Compatibility</h1>
-    </div>
- 
-    <!-- information -->
-    <div class="compBox">
-      <div id="compatibility-text">
-        <p>Based on your compatibility algorithm,</p>
-        <p>The two Zodiac signs compliment each other perfectly.</p>
-        <p> Good Luck!</p>
+  <div class = "omikuji">
+    <h1> Compatibility</h1>
+      <!-- information -->          
+      <div class="heart">
+        <img src="../public/images/heart 1.svg" >  
       </div>
-
-        <div class="heart">
-            <img src="../public/images/heart.png" >  
+      <div class="compBox">
+        <div id="compatibility-text">
+          <h1>Based on your compatibility algorithm,</h1>
+          <p>The two Zodiac signs compliment each other perfectly.
+          <br>Give a try! Good luck!</p>
           </div>
-    </div>
-</div>    
-
-
+      </div>
+  </div>    
   <%- include('_footer_cross.ejs') %>
+
 </body>
+<script>heightCalculation(".omikuji",206)</script>
 <script type="text/javascript" src="/main.js"></script>
 </html>

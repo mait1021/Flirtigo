@@ -4,9 +4,8 @@ const User = include("models/user");
 const Rating = include("models/rating");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
-var { getLatLng, calculateDistance } = require('./helpers');
+var { getLatLng, calculateDistance } = require("./helpers");
 const { randomUser } = require("../public/randomUser");
-const { LookoutEquipment } = require("aws-sdk");
 const moment = require("moment");
 const { v4: uuidv4 } = require("uuid");
 const upload_to_S3 = require("../public/s3.js");
@@ -114,9 +113,11 @@ router.get("/register_address", async (req, res) => {
 router.post("/addAddress", async (req, res) => {
   console.log("add");
   console.log(req.body);
-  User.findOne({ email: req.body.email }, async function (err, user) {    
-    const {street, city, province, zip, country, registerStep} = req.body;
-    const latlng = await getLatLng(`${street}, ${city}, ${province}, ${country}, ${zip}`);
+  User.findOne({ email: req.body.email }, async function (err, user) {
+    const { street, city, province, zip, country, registerStep } = req.body;
+    const latlng = await getLatLng(
+      `${street}, ${city}, ${province}, ${country}, ${zip}`
+    );
     user.street = req.body.street;
     user.city = req.body.city;
     user.province = req.body.province;
@@ -202,7 +203,7 @@ router.post("/signIn", async (req, res) => {
     req.session.user = req.body.email;
     req.session.username = user.first_name;
     req.session.userId = user.id;
-    req.session.zodiac = user.zodiac;
+    req.session.zodiac = user.zodiac.toLowerCase();
     res.redirect("/main");
   } else {
     console.log("Login Failed");
@@ -358,7 +359,12 @@ router.get("/userList", async (req, res) => {
     if (!second_user) {
       res.render("error_no_user");
     } else {
-      second_user.calculatedDistance = calculateDistance(user.latitude, user.longitude, second_user.latitude, second_user.longitude);
+      second_user.calculatedDistance = calculateDistance(
+        user.latitude,
+        user.longitude,
+        second_user.latitude,
+        second_user.longitude
+      );
       res.render("userList", { secondUser: second_user });
     }
   } catch (ex) {
@@ -436,7 +442,7 @@ router.get("/filters", async (req, res) => {
     if (err) {
       res.render("/user");
     }
-    res.render("filters", { user: user, zodiac});
+    res.render("filters", { user: user, zodiac });
   });
 });
 
@@ -507,7 +513,7 @@ router.post("/edit_orientation", async (req, res) => {
   }).exec();
   // res.redirect to the profile page
   //  res.send({toSee, gender, sex});
-  res.redirect(`info?email=${req.body.email}`);
+  res.redirect("info");
 });
 
 //---------edit address
@@ -540,7 +546,7 @@ router.post("/edit_address", async (req, res) => {
     country: req.body.country,
   }).exec();
   // res.redirect to the profile page
-  res.redirect(`info?email=${req.body.email}`);
+  res.redirect("info");
 });
 
 //edit_photo page
@@ -551,24 +557,31 @@ router.get("/edit_photo", async (req, res) => {
   const user = await User.findById(userId).exec();
 
   console.log("page hit");
+
   res.render("edit_photo", { user: user });
 });
 
-router.post("/edit_photo", async (req, res) => {
-  // Get the userid from the cookie
-  let userId = req.session.userId;
-  // Get the new data from req.body
-  const photo = req.body.user.photo[0];
-  const bio = req.body.bio;
+router.post(
+  "/edit_photo",
+  upload_to_S3.array("photo", 10),
+  async (req, res) => {
+    // Get the userid from the cookie
+    console.log(req.files);
 
-  // Mongoose find user and update
-  // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
-  await User.findByIdAndUpdate(userId, {
-    photo: req.body.user.photo[0],
-    bio: req.body.bio,
-  }).exec();
-  // res.redirect to the profile page
-  res.redirect(`info?email=${req.body.email}`);
-});
+    for (let file of req.files) {
+      await User.findOneAndUpdate(
+        {
+          _id: req.session.userId,
+        },
+        {
+          $push: { photo: { $each: [file.location], $slice: 6 } },
+        }
+      );
+    }
+
+    // res.redirect to the profile page
+    res.redirect("info");
+  }
+);
 
 module.exports = router;
