@@ -1,3 +1,7 @@
+html {
+  overscroll-behavior: none;
+}
+
 body {
   max-width: 480px;
   background-color: RGB(246, 246, 246);
@@ -1300,6 +1304,7 @@ body {
   padding-bottom: 20px;
   overflow-y: scroll;
   padding-top: 10px;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .chat.u1 {
