@@ -584,4 +584,9 @@ router.post(
   }
 );
 
+router.get("/faq", async (req, res) => {
+  console.log("page hit");
+  res.render("faq");
+});
+
 module.exports = router;
