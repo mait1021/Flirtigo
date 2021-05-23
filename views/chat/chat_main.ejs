@@ -23,8 +23,8 @@
             <div class = "roundProfile-wrapper">
                 <% for (var key in newUser) { %>
                    <div class = "photo">
-                        <a href="/chat/<%= newUser[key]._id%>">
-                            <div class="user-profile-image" style="background-image: url(<%= newUser[key].photo[0] %>);"></div>
+                        <a href="/chat/<%=newUser[key]._id%>">
+                            <div class="user-profile-image" style="background-image: url(<%=newUser[key].photo[0]%>);"></div>
                         </a>
                         <div class = "name"><%= newUser[key].first_name %></div> 
                     </div>
@@ -36,7 +36,7 @@
           <div class = "userList-container">
             <% for (var key in newUser) { %>
               <div class = "content-wrapper user-wrapper">
-                <div class="user-profile-image" style="background-image: url(<%= newUser[key].photo[0] %>);"> </div>
+                <div class="user-profile-image" style="background-image: url(<%=newUser[key].photo[0]%>);"> </div>
                     <a href="/chat/<%= newUser[key]._id%>"> <%= newUser[key].first_name %> </a>
                         <div class = "load_chat">
                             <div class = "dots">
