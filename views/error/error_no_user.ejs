@@ -8,7 +8,13 @@
       <h2>No users</h2>
       <p> Sorry, There is no more profile to check now. <br></p>
     </div>
-    <%- include('_footer.ejs') %>
+    <div class="footer">
+      <a class="footer-btn" href="/user">Account</a>
+      <a style="pointer-events: none;" class="footer-img" href = "loadingScreen" >
+        <img  height="75%" src="../public/images/star_button.svg" />
+      </a>
+      <a class="footer-btn" href="/chat_main">Matches</a>
+    </div>
     <script>
       heightCalculation(".error-container",200)
     </script>

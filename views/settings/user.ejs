@@ -5,13 +5,13 @@
     <%- include('_nav_bar.ejs') %>
     <div class="profile-container">
       <div class="img-container-profile mt-2">
-        <div class="user-profile-image" style="background-image: url(<%= user.photo[0] %>);"> </div>
+        <div class="user-profile-image" style="background-image: url(<%=user.photo[0]%>);"> </div>
       
       </div>  
 
       <div class="profile-detail">
         <h2><strong> <%= user.first_name %> , <%= user.age %>  </strong></h2>
-        <p><strong> <%= user.zodiac %> </strong></p>
+        <p><%= user.zodiac %> </p>
       </div>
       <div class="btn-container">        
         <a class="btn-profile btn-rounded" href="filters">Filters</a>
@@ -23,9 +23,7 @@
         </div> 
     </div>
     </div>
-    <script>
-      heightCalculation(".profile-container",206)
-    </script>
+      <script>heightCalculation(".profile-container",180)</script>
     <%- include('_footer_zodiac.ejs') %>
   </body>
 </html>
