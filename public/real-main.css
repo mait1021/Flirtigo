@@ -1090,6 +1090,9 @@ body {
   text-align: center;
   font-family: "Poppins", sans-serif;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .profile-container .user-profile-image {
@@ -1138,6 +1141,27 @@ body {
 }
 .btn-rounded {
   border-radius: 30px;
+}
+
+@media only screen and (max-height: 680px) {
+  .profile-container .user-profile-image {
+    width: 120px;
+    height: 120px;
+  }
+  .btn-container {
+    margin: 0px;
+  }
+  .profile-detail p {
+    margin: 0;
+  }
+
+  .profile-detail h2 {
+    font-size: 20px;
+  }
+
+  .btn-container a {
+    padding: 6px 30px;
+  }
 }
 
 /* footer */
