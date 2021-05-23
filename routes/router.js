@@ -271,7 +271,7 @@ router.get("/chat/:userId?", async (req, res) => {
       .exec();
     const secondUser = await User.findOne({
       _id: req.params.userId,
-    }).select("photo first_name");
+    }).select("photo first_name _id");
     console.log(match);
     res.render("chat", { match: match, user: secondUser, zodiac });
   } catch {
@@ -622,6 +622,21 @@ router.post(
     res.redirect("info");
   }
 );
+
+router.get("/profile/:userId?", async (req, res) => {
+  try {
+    const zodiac = req.session.zodiac;
+    const secondUser = await User.findOne({
+      _id: req.params.userId,
+    }).select(
+      "first_name age zodiac _id photo city bio latitude longitude gender"
+    );
+    console.log(secondUser);
+    res.render("profile", { secondUser: secondUser, zodiac });
+  } catch {
+    console.error("ERROR!");
+  }
+});
 
 router.get("/faq", async (req, res) => {
   console.log("page hit");
