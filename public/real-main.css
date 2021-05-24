@@ -714,21 +714,26 @@ body {
   margin: 15px;
   margin-bottom: 0px;
 }
+
 .flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .chat-nav-bar {
+  box-sizing: border-box;
   background-color: #2b2d40;
-  /* position: fixed;
-  display: flex; */
   justify-content: space-evenly;
   max-width: 480px;
   width: 100%;
   font-family: "Poppins", sans-serif;
-  height: 15%;
   z-index: 1;
+  padding: 7px;
 }
 
 @media only screen and (max-height: 600px) {
@@ -737,14 +742,8 @@ body {
 }
 
 .chat-user-info {
-  text-align: center;
-  position: fixed;
-  top: 3%;
-  left: 0;
   width: max-content;
-  right: 0;
-  margin: auto;
-  /* pointer-events: none; */
+  margin: -20px auto 5px;
 }
 
 .chat-user-info .user-profile-image {
@@ -1301,6 +1300,7 @@ body {
   padding-bottom: 20px;
   overflow-y: scroll;
   padding-top: 10px;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .chat.u1 {
@@ -1950,10 +1950,9 @@ body {
 }
 
 /* FAQ Page */
-.FAQ-title{
+.FAQ-title {
   text-align: center;
-
 }
-.FAQ h3:hover{
-  color:red;
+.FAQ h3:hover {
+  color: red;
 }

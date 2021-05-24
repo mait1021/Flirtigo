@@ -5,11 +5,12 @@
     <div class="chat-nav-bar">
       <a href="javascript:history.back()"><img src="../public/images/backbtn.png" width="12" height="12"></a>
       <div class="chat-user-info">
-        <div class="user-profile-image" style="background-image: url(<%= user.photo[0] %>);"> </div>
+        <a href="/profile/<%=user._id%>">
+          <div class="user-profile-image" style="background-image: url(<%=user.photo[0]%>);"> </div>
+        </a>
         <p><%= user.first_name %></p>
       </div>
     </div>
-    
     <div class="container">
       <div id="chats" class="chats"></div>
 
@@ -63,12 +64,16 @@
   </body>     
   
   <script>
-    $(window).on("load resize", function () {
-      let windowHeight = $(window).height();
-      let nav_bar_height = $('.chat-nav-bar').outerHeight( true );
-      let footer_height = $('.footer').outerHeight( true );
-      let choices_height = $('#message-form').outerHeight( true );
-      $('.chats').outerHeight( windowHeight - nav_bar_height - footer_height - choices_height);
+    $(window).on("load resize touchmove", function () {
+      // let windowHeight = document.documentElement.clientHeight
+      // let nav_bar_height = $('.chat-nav-bar').outerHeight( true );
+      // let footer_height = $('.footer').outerHeight( true );
+      // let choices_height = $('#message-form').outerHeight( true );
+      // $('.chats').outerHeight( windowHeight - nav_bar_height - footer_height - choices_height);
+      
+      let container_y_position = $('.container').offset().top;
+      let msg_form_y_position = $('#message-form').offset().top;
+      $('.chats').outerHeight( msg_form_y_position - container_y_position);
     });
   </script>
   <script src="/socket.io/socket.io.js"></script>

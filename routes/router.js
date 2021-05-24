@@ -271,7 +271,7 @@ router.get("/chat/:userId?", async (req, res) => {
       .exec();
     const secondUser = await User.findOne({
       _id: req.params.userId,
-    }).select("photo first_name");
+    }).select("photo first_name _id");
     console.log(match);
     res.render("chat", { match: match, user: secondUser, zodiac });
   } catch {
@@ -324,8 +324,57 @@ router.get("/matchTab", async (req, res) => {
 
 // Match function
 
+// router.get("/userList", async (req, res) => {
+//   console.log("page hit");
+//   try {
+//     const user = await User.findById(req.session.userId)
+//       .select("dislike like toSee latitude longitude province street")
+//       .exec();
+
+//     console.log("Logging user...\n", user);
+
+//     const gender = user.toSee;
+//     if (gender == "everyone") {
+//       var result = await User.find({
+//         _id: { $ne: req.session.userId },
+//       })
+//         .select("first_name age zodiac _id photo city bio latitude longitude")
+//         .exec();
+//     } else {
+//       var result = await User.find({
+//         $and: [
+//           { _id: { $ne: req.session.userId } },
+//           { $or: [{ gender: gender }, { gender: "none" }] },
+//         ],
+//       })
+//         .select("first_name age zodiac _id photo city latitude longitude bio ")
+//         .exec();
+//     }
+
+//     console.log("Logging result... \n", result);
+
+//     let second_user = randomUser(user.dislike, user.like, result);
+
+//     console.log("Logging second user...\n", second_user);
+//     if (!second_user) {
+//       res.render("error_no_user");
+//     } else {
+//       second_user.calculatedDistance = calculateDistance(
+//         user.latitude,
+//         user.longitude,
+//         second_user.latitude,
+//         second_user.longitude
+//       );
+//       res.render("userList", { secondUser: second_user });
+//     }
+//   } catch (ex) {
+//     res.render("error", { message: "Error" });
+//     console.log("Error");
+//     console.log(ex);
+//   }
+// });
+
 router.get("/userList", async (req, res) => {
-  console.log("page hit");
   try {
     const user = await User.findById(req.session.userId)
       .select("dislike like toSee latitude longitude province street")
@@ -333,27 +382,17 @@ router.get("/userList", async (req, res) => {
 
     console.log("Logging user...\n", user);
 
-    const gender = user.toSee;
-    if (gender == "everyone") {
-      var result = await User.find({
-        _id: { $ne: req.session.userId },
-      })
-        .select("first_name age zodiac _id photo city bio latitude longitude")
-        .exec();
-    } else {
-      var result = await User.find({
-        $and: [
-          { _id: { $ne: req.session.userId } },
-          { $or: [{ gender: gender }, { gender: "none" }] },
-        ],
-      })
-        .select("first_name age zodiac _id photo city latitude longitude bio ")
-        .exec();
-    }
+    var result = await User.find({
+      _id: { $ne: req.session.userId },
+    })
+      .select(
+        "first_name age zodiac _id photo city bio latitude longitude gender"
+      )
+      .exec();
 
     console.log("Logging result... \n", result);
 
-    let second_user = randomUser(user.dislike, user.like, result);
+    let second_user = randomUser(user.dislike, user.like, user.toSee, result);
 
     console.log("Logging second user...\n", second_user);
     if (!second_user) {
@@ -502,14 +541,14 @@ router.post("/edit_orientation", async (req, res) => {
   // Get the new data from req.body
   const toSee = req.body.toSee; //i want to see women,man,everyone
   const gender = req.body.gender; //i identify as women, man, none
-  const sex = req.body.orientation; //my sexual-orientation is straight....
+  const orientation = req.body.orientation; //my sexual-orientation is straight....
 
   // Mongoose find user and update
   // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
   await User.findByIdAndUpdate(userId, {
     toSee: req.body.toSee,
     gender: req.body.gender,
-    sex: req.body.orientation,
+    orientation: req.body.orientation,
   }).exec();
   // res.redirect to the profile page
   //  res.send({toSee, gender, sex});
@@ -583,6 +622,21 @@ router.post(
     res.redirect("info");
   }
 );
+
+router.get("/profile/:userId?", async (req, res) => {
+  try {
+    const zodiac = req.session.zodiac;
+    const secondUser = await User.findOne({
+      _id: req.params.userId,
+    }).select(
+      "first_name age zodiac _id photo city bio latitude longitude gender"
+    );
+    console.log(secondUser);
+    res.render("profile", { secondUser: secondUser, zodiac });
+  } catch {
+    console.error("ERROR!");
+  }
+});
 
 router.get("/faq", async (req, res) => {
   console.log("page hit");
