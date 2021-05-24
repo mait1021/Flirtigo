@@ -643,4 +643,31 @@ router.get("/faq", async (req, res) => {
   res.render("faq");
 });
 
+router.get("/faqContact", async (req, res) => {
+  console.log("page hit");
+  res.render("faqContact");
+});
+
+
+router.get("/faqGuide", async (req, res) => {
+  console.log("page hit");
+  const zodiac = req.session.zodiac;
+  res.render("faqGuide", { zodiac });
+ 
+});
+
+router.get("/faqTrouble", async (req, res) => {
+  console.log("page hit");
+  res.render("faqTrouble");
+});
+
+router.get("/faqSecurity", async (req, res) => {
+  console.log("page hit");
+  res.render("faqSecurity");
+});
+
+router.get("/faqAddress", async (req, res) => {
+  console.log("page hit");
+  res.render("faqAddress");
+});
 module.exports = router;

@@ -1953,6 +1953,46 @@ body {
 .FAQ-title {
   text-align: center;
 }
-.FAQ h3:hover {
+.FAQ a:hover {
   color: red;
+}
+
+
+
+/* .FAQ{
+width:fit-content;
+margin:3vh;
+height:10vh;
+border: none;
+font-family: "Poppins", sans-serif;
+font-weight: 500;
+color: black;
+font-size: 18px;
+text-decoration: none;
+background-color: #fdda7f;
+border-radius: 15px;
+text-align: center;
+vertical-align:middle;
+}  */
+
+.btn-faq {
+  background-color: #fdda7f;
+  color: black;
+  display: block;
+  margin: 15px auto;
+  width:80%;
+  line-height: 10vh;
+  text-decoration: none;
+  border-radius: 15px;
+  text-align: center;
+}
+#Guideh1 {
+  font-family: "Noto Serif", serif;
+  font-size: 30px;
+  margin: 0px 35px;
+  position: fixed;
+  top: 8%;
+  color: #fdda7f;
+  text-align: left;
+  line-height: 100%;
 }

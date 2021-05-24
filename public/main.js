@@ -272,7 +272,7 @@ $(document).ready(function () {
 });
 // FAQ click on questions, answers shows
 $(document).ready(function () {
-  $(".FAQ h3").click(function () {
+  $(".FAQ a").click(function () {
     $(this).next().toggle()
   }) 
 })
