@@ -541,14 +541,14 @@ router.post("/edit_orientation", async (req, res) => {
   // Get the new data from req.body
   const toSee = req.body.toSee; //i want to see women,man,everyone
   const gender = req.body.gender; //i identify as women, man, none
-  const sex = req.body.orientation; //my sexual-orientation is straight....
+  const orientation = req.body.orientation; //my sexual-orientation is straight....
 
   // Mongoose find user and update
   // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
   await User.findByIdAndUpdate(userId, {
     toSee: req.body.toSee,
     gender: req.body.gender,
-    sex: req.body.orientation,
+    orientation: req.body.orientation,
   }).exec();
   // res.redirect to the profile page
   //  res.send({toSee, gender, sex});
