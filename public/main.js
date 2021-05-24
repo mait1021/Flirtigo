@@ -200,6 +200,9 @@ function showMatch() {
     x.style.display = "block";
     y.style.display = "none";
   }
+  var searchInput = document.getElementById('searchInput');
+  searchInput.placeholder = "Search Matches"
+
 }
 
 function showChat() {
@@ -209,6 +212,8 @@ function showChat() {
     x.style.display = "block";
     y.style.display = "none";
   }
+  var searchInput = document.getElementById('searchInput');
+  searchInput.placeholder = "Search Chats";
 }
 
 //chat_main: click on three dots, buttons shows

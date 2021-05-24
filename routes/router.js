@@ -322,6 +322,35 @@ router.get("/matchTab", async (req, res) => {
   res.render("matchTab");
 });
 
+router.post('/unmatch', (req, res) => {
+  const { userId } = req.body;
+  const loginId = req.session.userId;
+  try {
+    Rating.findOneAndRemove({ _user: loginId, _secondUser: userId }, (err, data) => {
+      if (err) {
+        res.status(500).send('Error occured');
+      }
+      User.findOne({ _id: loginId }, (err, user) => {        
+        if (err) {
+          res.status(500).send('Error occured');
+        }
+        const likes = user.like;      
+        const userIdx = likes.indexOf(userId);
+        if (userIdx >= 0) {
+          likes.splice(userIdx, 1);
+          user.dislike.push(userId);
+        }
+        user.like = likes;
+        user.save();
+        res.send('User removed.');
+      });
+    })
+  } catch(err) {
+    res.send(500);
+    res.send('Error');
+  }
+});
+
 // Match function
 
 // router.get("/userList", async (req, res) => {
