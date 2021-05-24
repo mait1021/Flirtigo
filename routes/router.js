@@ -2,6 +2,7 @@ const router = require("express").Router();
 const database = include("databaseConnection");
 const User = include("models/user");
 const Rating = include("models/rating");
+const Quiz = include("models/quiz");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
 var { getLatLng, calculateDistance } = require("./helpers");
@@ -13,12 +14,12 @@ const upload_to_S3 = require("../public/s3.js");
 router.get("/", async (req, res) => {
   console.log("page hit");
   try {
-    const result = await User.find({})
-      .select("first_name last_name email id")
-      .exec();
-    console.log(result);
-    console.log(req.session.user);
-    res.render("index", { allUsers: result });
+    // const result = await User.find({})
+    //   .select("first_name last_name email id")
+    //   .exec();
+    // console.log(result);
+    // console.log(req.session.user);
+    res.render("index");
   } catch (ex) {
     res.render("error", { message: "Error" });
     console.log("Error");
@@ -172,6 +173,7 @@ var upload = multer({ dest: "./upload/" });
 //save file in upload folder
 
 const { uploadFile } = require("../public/s3");
+const { quizMatch } = require("../public/quiz");
 
 router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
   try {
@@ -216,6 +218,23 @@ router.get("/main", async (req, res) => {
   console.log(req.session);
   console.log("page hit");
   res.render("main");
+});
+
+router.post("/main", async (req, res) => {
+  const user = await Quiz.findOne({ _user: req.session.userId })
+    .select("updatedAt")
+    .exec();
+  if (user) {
+    var dataDate = moment(user.updatedAt).format("YYYY-MM-DD");
+    var now = moment().format("YYYY-MM-DD");
+    console.log(dataDate, now);
+    if (dataDate == now) {
+      res.redirect("userList");
+    }
+    res.render("quiz");
+  } else {
+    res.render("quiz");
+  }
 });
 
 //User profile
@@ -386,15 +405,16 @@ router.get("/userList", async (req, res) => {
       _id: { $ne: req.session.userId },
     })
       .select(
-        "first_name age zodiac _id photo city bio latitude longitude gender"
+        "first_name age zodiac _id photo city bio latitude province longitude gender"
       )
       .exec();
 
-    console.log("Logging result... \n", result);
+    // console.log("Logging result... \n", result);
 
     let second_user = randomUser(user.dislike, user.like, user.toSee, result);
 
-    console.log("Logging second user...\n", second_user);
+    // console.log("Logging second user...\n", second_user);
+
     if (!second_user) {
       res.render("error_no_user");
     } else {
@@ -404,7 +424,26 @@ router.get("/userList", async (req, res) => {
         second_user.latitude,
         second_user.longitude
       );
-      res.render("userList", { secondUser: second_user });
+
+      const user_quiz = await Quiz.find({
+        _user: req.session.userId,
+      })
+        .select("answer updatedAt")
+        .exec();
+
+      const isUser = await Quiz.exists({ _user: second_user._id });
+      let soulmate = 0;
+      if (isUser) {
+        const secondUser_quiz = await Quiz.find({
+          _user: second_user._id,
+        })
+          .select("answer updatedAt")
+          .exec();
+
+        soulmate = quizMatch(user_quiz, secondUser_quiz);
+      }
+
+      res.render("userList", { secondUser: second_user, soulmate });
     }
   } catch (ex) {
     res.render("error", { message: "Error" });
@@ -670,4 +709,33 @@ router.get("/faqAddress", async (req, res) => {
   console.log("page hit");
   res.render("faqAddress");
 });
+router.get("/quiz", async (req, res) => {
+  console.log(req.session.userId);
+  console.log("page hit");
+  res.render("quiz");
+});
+
+router.post("/quiz_answer", async (req, res, next) => {
+  console.log("page hit");
+  const answer = req.body.answer;
+  const isUser = await Quiz.exists({ _user: req.session.userId });
+
+  if (isUser) {
+    await Quiz.findOneAndUpdate(
+      { _user: req.session.userId },
+      {
+        answer: answer,
+        updated: Date.now,
+      }
+    ).exec();
+    res.redirect("/main");
+  } else {
+    var newUser = new Quiz();
+    newUser._user = req.session.userId;
+    newUser.answer = answer;
+    await newUser.save();
+    res.redirect("/main");
+  }
+});
+
 module.exports = router;
