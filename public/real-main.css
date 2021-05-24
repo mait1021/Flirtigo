@@ -24,6 +24,7 @@ body {
 .background-white {
   background-color: white;
 }
+
 .sign-btn {
   margin-top: 20%;
 }
@@ -696,7 +697,7 @@ body {
   padding: 7px;
   position: sticky;
   top: 0;
-  height: 55px;
+  height: 45px;
   z-index: 1;
 }
 
@@ -1088,7 +1089,7 @@ body {
   margin-bottom: 10px;
   text-align: center;
   font-family: "Poppins", sans-serif;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1180,8 +1181,7 @@ body {
 }
 
 .footer a {
-  padding: 7px 9px;
-  width: 20%;
+  padding: 7px 12px;
   font-size: 14px;
 }
 .footer img {
@@ -1365,7 +1365,7 @@ body {
 /* Carsoule */
 
 .user-container {
-  padding: 20px 10px;
+  padding: 10px 35px;
   overflow-y: scroll;
 }
 
@@ -1373,6 +1373,7 @@ body {
   background-color: #bdbbb6;
   position: relative;
   padding: 0 0 6% 0;
+  border-radius: 8px;
 }
 
 .slideshow-container {
@@ -1383,7 +1384,7 @@ body {
 .mySlides {
   display: none;
   text-align: center;
-  padding: 5%;
+  padding: 15px 15px 0px 15px;
 }
 
 .prev,
@@ -1461,7 +1462,9 @@ body {
 
 .mySlides img {
   width: 100%;
-  border: 3px solid white;
+  border: 1px solid white;
+  box-sizing: border-box;
+  border-radius: 8px;
 }
 
 .nameBox {
@@ -1471,11 +1474,15 @@ body {
   flex-direction: column;
   width: 90%;
   margin: auto;
+  border-radius: 8px;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .nameBox h2 {
   color: #454344;
   margin: 5px;
+  font-size: 23px;
 }
 
 .info {
@@ -1486,6 +1493,7 @@ body {
 .info p {
   margin: 5px;
   color: RGB(126, 125, 125);
+  font-size: 14px;
 }
 .info h3 {
   margin: 5px;
@@ -1691,6 +1699,7 @@ body {
   font-weight: 300;
   display: flex;
   align-items: center;
+  margin: 10px;
 }
 
 .profile_footer {
@@ -1878,6 +1887,7 @@ body {
   position: relative;
   margin-bottom: 20px;
   padding-top: 20px;
+  font-size: 15px;
 }
 
 .reportBtn {
@@ -1886,7 +1896,7 @@ body {
 }
 
 .reportBtn a {
-  padding: 10px 30px;
+  padding: 10px 25px;
   margin: 10px;
   background-color: #2b2d42;
   border-radius: 50px;
@@ -1894,7 +1904,7 @@ body {
   align-items: center;
   display: inline-flex;
   justify-content: space-around;
-  font-size: 18px;
+  font-size: 13px;
   color: white;
   font-weight: 300;
   font-family: "Poppins", sans-serif;
@@ -1904,8 +1914,9 @@ body {
 #closeX {
   float: left;
   display: inline-block;
-  padding: 2px 5px;
-  background: #ccc;
+  padding: 10px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
 }
 
 /* ice break question buttons */
@@ -1955,4 +1966,58 @@ body {
 }
 .FAQ h3:hover {
   color: red;
+}
+
+@media only screen and (max-height: 680px) {
+  .main-container {
+    padding: 0;
+  }
+  .main-container h1 {
+    font-size: 50px;
+  }
+  .main-container #signIn {
+    margin-top: 0px;
+  }
+
+  .sign-btn a {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 25px;
+  }
+  .logo-container img {
+    width: 80px;
+  }
+  .intro-container h1 {
+    font-size: 24px;
+  }
+
+  .image-preview {
+    height: 100px;
+  }
+
+  .nextBtn {
+    padding: 8px 45px;
+    font-size: 15px;
+  }
+
+  .nameBox h2 {
+    font-size: 19px;
+  }
+
+  .info p {
+    font-size: 11px;
+  }
+
+  #luckyMatch p {
+    font-size: 14px;
+  }
+
+  .roundProfile-wrapper {
+    -webkit-transform: scale(0.9);
+  }
+
+  .profile-container {
+    -webkit-transform: scale(0.9);
+  }
 }

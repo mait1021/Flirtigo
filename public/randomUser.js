@@ -18,7 +18,7 @@ function randomUser(dislike, like, toSee, user) {
   var genderSelectedUser = user.filter(
     (user) => user.gender == toSee || user.gender == "none"
   );
-  console.log("We are selected", genderSelectedUser);
+  // console.log("We are selected", genderSelectedUser);
   if (toSee == "everyone") {
     for (var key of user) {
       likeSelectedUser.push(key);
