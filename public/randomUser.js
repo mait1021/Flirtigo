@@ -12,7 +12,7 @@
 
 // exports.randomUser = randomUser;
 
-function randomUser(dislike, like, toSee, user) {
+function randomUser(dislike, like, toSee, toSeeOrientation, user) {
   var genderSelectedUser = [];
   var likeSelectedUser = [];
   var genderSelectedUser = user.filter(
@@ -29,6 +29,10 @@ function randomUser(dislike, like, toSee, user) {
         likeSelectedUser.push(key);
       }
     }
+  }
+  
+  if (toSeeOrientation) {
+    likeSelectedUser = likeSelectedUser.filter(selectedUser => selectedUser.orientation === toSeeOrientation);
   }
 
   if (likeSelectedUser.length == 0) {
