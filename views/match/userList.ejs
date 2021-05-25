@@ -15,22 +15,21 @@
         <% for (var key in secondUser.photo) { %>
           <div class="mySlides fade">
             <img src=<%= secondUser.photo[key] %> >
+            <div class="quiz-match">
+              <% switch (soulmate) {
+                case 0 : %>
+                <p>No answer</p>
+                <% break;
+ 
+                case 1 : %>
+                <p id="daily-match">Match</p>
+                <% break;
+                  } %>
+                    
+            </div>
           </div>  
         <% } %>
       </div>
-      <% switch (soulmate) {
-        case 0 : %>
-          <h1></h1>
-          <% break;
-  
-        case 1 : %>
-          <h1></h1>
-          <% break;
-  
-        case 2 : %>
-          <h1></h1>
-          <% break;
-        } %>
 
 
       <div style="text-align:center; margin: 10px 0px;">

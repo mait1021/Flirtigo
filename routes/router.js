@@ -3,6 +3,7 @@ const database = include("databaseConnection");
 const User = include("models/user");
 const Rating = include("models/rating");
 const Quiz = include("models/quiz");
+const Question = include("models/question");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
 var { getLatLng, calculateDistance } = require("./helpers");
@@ -231,9 +232,9 @@ router.post("/main", async (req, res) => {
     if (dataDate == now) {
       res.redirect("userList");
     }
-    res.render("quiz");
+    res.redirect("quiz");
   } else {
-    res.render("quiz");
+    res.redirect("quiz");
   }
 });
 
@@ -687,12 +688,10 @@ router.get("/faqContact", async (req, res) => {
   res.render("faqContact");
 });
 
-
 router.get("/faqGuide", async (req, res) => {
   console.log("page hit");
   const zodiac = req.session.zodiac;
   res.render("faqGuide", { zodiac });
- 
 });
 
 router.get("/faqTrouble", async (req, res) => {
@@ -709,10 +708,19 @@ router.get("/faqAddress", async (req, res) => {
   console.log("page hit");
   res.render("faqAddress");
 });
+
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
+  var now = moment().format("D");
+  console.log(now);
+  const quiz = await Question.findOne({ date: now })
+    .select("question answers")
+    .exec();
+
+  console.log(quiz);
+
   console.log("page hit");
-  res.render("quiz");
+  res.render("quiz", { quiz: quiz });
 });
 
 router.post("/quiz_answer", async (req, res, next) => {
