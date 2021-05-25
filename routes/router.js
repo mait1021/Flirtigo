@@ -580,14 +580,14 @@ router.post("/edit_orientation", async (req, res) => {
   // Get the new data from req.body
   const toSee = req.body.toSee; //i want to see women,man,everyone
   const gender = req.body.gender; //i identify as women, man, none
-  const sex = req.body.orientation; //my sexual-orientation is straight....
+  const orientation = req.body.orientation; //my sexual-orientation is straight....
 
   // Mongoose find user and update
   // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
   await User.findByIdAndUpdate(userId, {
     toSee: req.body.toSee,
     gender: req.body.gender,
-    sex: req.body.orientation,
+    orientation: req.body.orientation,
   }).exec();
   // res.redirect to the profile page
   //  res.send({toSee, gender, sex});
@@ -682,6 +682,33 @@ router.get("/faq", async (req, res) => {
   res.render("faq");
 });
 
+router.get("/faqContact", async (req, res) => {
+  console.log("page hit");
+  res.render("faqContact");
+});
+
+
+router.get("/faqGuide", async (req, res) => {
+  console.log("page hit");
+  const zodiac = req.session.zodiac;
+  res.render("faqGuide", { zodiac });
+ 
+});
+
+router.get("/faqTrouble", async (req, res) => {
+  console.log("page hit");
+  res.render("faqTrouble");
+});
+
+router.get("/faqSecurity", async (req, res) => {
+  console.log("page hit");
+  res.render("faqSecurity");
+});
+
+router.get("/faqAddress", async (req, res) => {
+  console.log("page hit");
+  res.render("faqAddress");
+});
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
   console.log("page hit");
