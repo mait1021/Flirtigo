@@ -440,7 +440,7 @@ router.get("/userList", async (req, res) => {
 
     // console.log("Logging result... \n", result);
 
-    let second_user = randomUser(user.dislike, user.like, user.toSee, user.toSeeOrientation, result);
+    let second_user = randomUser(user.dislike, user.like, user.toSee, result);
 
     // console.log("Logging second user...\n", second_user);
 
