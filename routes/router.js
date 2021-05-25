@@ -342,32 +342,35 @@ router.get("/matchTab", async (req, res) => {
   res.render("matchTab");
 });
 
-router.post('/unmatch', (req, res) => {
+router.post("/unmatch", (req, res) => {
   const { userId } = req.body;
   const loginId = req.session.userId;
   try {
-    Rating.findOneAndRemove({ _user: loginId, _secondUser: userId }, (err, data) => {
-      if (err) {
-        res.status(500).send('Error occured');
-      }
-      User.findOne({ _id: loginId }, (err, user) => {        
+    Rating.findOneAndRemove(
+      { _user: loginId, _secondUser: userId },
+      (err, data) => {
         if (err) {
-          res.status(500).send('Error occured');
+          res.status(500).send("Error occured");
         }
-        const likes = user.like;      
-        const userIdx = likes.indexOf(userId);
-        if (userIdx >= 0) {
-          likes.splice(userIdx, 1);
-          user.dislike.push(userId);
-        }
-        user.like = likes;
-        user.save();
-        res.send('User removed.');
-      });
-    })
-  } catch(err) {
+        User.findOne({ _id: loginId }, (err, user) => {
+          if (err) {
+            res.status(500).send("Error occured");
+          }
+          const likes = user.like;
+          const userIdx = likes.indexOf(userId);
+          if (userIdx >= 0) {
+            likes.splice(userIdx, 1);
+            user.dislike.push(userId);
+          }
+          user.like = likes;
+          user.save();
+          res.send("User removed.");
+        });
+      }
+    );
+  } catch (err) {
     res.send(500);
-    res.send('Error');
+    res.send("Error");
   }
 });
 
@@ -426,7 +429,9 @@ router.post('/unmatch', (req, res) => {
 router.get("/userList", async (req, res) => {
   try {
     const user = await User.findById(req.session.userId)
-      .select("dislike like toSee latitude longitude province street toSeeOrientation")
+      .select(
+        "dislike like toSee latitude longitude province street toSeeOrientation"
+      )
       .exec();
 
     console.log("Logging user...\n", user);
@@ -646,7 +651,7 @@ router.post("/edit_address", async (req, res) => {
   const province = req.body.province;
   const zip = req.body.zip;
   const country = req.body.country;
-  
+
   const latlng = await getLatLng(
     `${street}, ${city}, ${province}, ${country}, ${zip}`
   );
@@ -659,7 +664,7 @@ router.post("/edit_address", async (req, res) => {
     zip: req.body.zip,
     country: req.body.country,
     latitude: latlng.lat || 0,
-    longitude: latlng.lng || 0
+    longitude: latlng.lng || 0,
   }).exec();
   // res.redirect to the profile page
   res.redirect("info");
