@@ -1,45 +1,62 @@
 <!DOCTYPE html>
 <html>
   <%- include('_header.ejs') %>
-  <body>
+  <body class="background-quiz">
     <%- include('_nav_bar.ejs') %>
 
-    <div class="orientation-container">
-
+    <div class="quiz-container">
+      <div class ="quiz-text-wrapper">
       <form action="quiz_answer" method="post">
-        <h2>My sexual orientation is...</h2>
-          <div class="orientation-wrapper">
-            <label class="orientation"><p>First</p>
-              <input type="radio" name="answer" value="1">
-              <span class="checkmark"></span>
-            </label>
+        <p><em>Quiz.</em></p>
+        <h1><%= quiz.question %></h1>
+      </div> 
 
-            <label class="orientation"><p>Second</p>
-              <input type="radio" name="answer" value ="2">
-              <span class="checkmark"></span>
-            </label>
+      <div class="quiz-wrapper">
+        <div class="quiz"> 
+          <label class="orientation"><p><%= quiz.answers[0] %></p>
+            <input type="radio" name="answer" value="1">
+            <span class="checkmark"></span>
+          </label>
+        </div>
 
-            <label class="orientation"><p>Third</p>
-              <input type="radio" name="answer" value="3">
-              <span class="checkmark"></span>
-            </label>
-            <label class="orientation"><p>Fourth</p>
-              <input type="radio" name="answer" value="4">
-              <span class="checkmark"></span>
-            </label>
 
-          </div>
+        <div class="quiz"> 
+          <label class="orientation"><p> <%= quiz.answers[1] %></p>
+            <input type="radio" name="answer" value="2">
+            <span class="checkmark"></span>
+          </label>
+        </div>
 
+        <div class="quiz"> 
+          <label class="orientation"><p><%= quiz.answers[2] %></p>
+            <input type="radio" name="answer" value="3">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+
+        <div class="quiz"> 
+          <label class="orientation"><p><%= quiz.answers[3] %></p>
+            <input type="radio" name="answer" value="4">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>
+    </div>
           <div class="nextBtn-wrapper">
-            <button class="nextBtn">Next</button>
+            <button class="nextBtn">Submit</button>
           </div>
 
       </form> 
     </div>
     <script>
-      heightCalculation(".orientation-container",200)
+      $(document).ready(function(){
+          $("input:radio").click(function(){
+             if ($(this).is(":checked")){
+             $(".quiz").css({"background-color": "RGB(255, 255, 255, 0.35)"}) && $(this).closest(".quiz").css({"background-color":"white"});
+             }
+          });
+      });
     </script>
     
   </body> 
-  
 </html>
