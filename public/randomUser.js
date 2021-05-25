@@ -1,18 +1,4 @@
-// function randomUser(dislike, like, users) {
-//   let second_user = users[Math.floor(Math.random() * users.length)];
-//   if (like.length + dislike.length >= users.length) {
-//     return false;
-//   } else {
-//     while (dislike.includes(second_user.id) || like.includes(second_user.id)) {
-//       second_user = users[Math.floor(Math.random() * users.length)];
-//     }
-//     return second_user;
-//   }
-// }
-
-// exports.randomUser = randomUser;
-
-function randomUser(dislike, like, toSee, toSeeOrientation, user) {
+function randomUser(dislike, like, toSee, user) {
   var genderSelectedUser = [];
   var likeSelectedUser = [];
   var genderSelectedUser = user.filter(
@@ -29,10 +15,6 @@ function randomUser(dislike, like, toSee, toSeeOrientation, user) {
         likeSelectedUser.push(key);
       }
     }
-  }
-  
-  if (toSeeOrientation) {
-    likeSelectedUser = likeSelectedUser.filter(selectedUser => selectedUser.orientation === toSeeOrientation);
   }
 
   if (likeSelectedUser.length == 0) {

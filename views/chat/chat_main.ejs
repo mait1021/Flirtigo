@@ -24,7 +24,8 @@
                 <% for (var key in newUser) { %>
                    <div class = "photo userdetails user-<%= newUser[key]._id%>">
                         <a href="/chat/<%= newUser[key]._id%>">
-                            <div class="user-profile-image" style="background-image: url(<%= newUser[key].photo[0] %>);"></div>
+                            <div class="user-profile-image"
+                             style="background-image: url(<%=newUser[key].photo[0]%>);"></div>
                         </a>
                         <div class = "name"><%= newUser[key].first_name %></div> 
                     </div>
