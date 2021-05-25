@@ -425,7 +425,7 @@ router.post('/unmatch', (req, res) => {
 router.get("/userList", async (req, res) => {
   try {
     const user = await User.findById(req.session.userId)
-      .select("dislike like toSee latitude longitude province street")
+      .select("dislike like toSee latitude longitude province street toSeeOrientation")
       .exec();
 
     console.log("Logging user...\n", user);
@@ -434,13 +434,13 @@ router.get("/userList", async (req, res) => {
       _id: { $ne: req.session.userId },
     })
       .select(
-        "first_name age zodiac _id photo city bio latitude province longitude gender"
+        "first_name age zodiac _id photo city bio latitude province longitude gender orientation"
       )
       .exec();
 
     // console.log("Logging result... \n", result);
 
-    let second_user = randomUser(user.dislike, user.like, user.toSee, result);
+    let second_user = randomUser(user.dislike, user.like, user.toSee, user.toSeeOrientation, result);
 
     // console.log("Logging second user...\n", second_user);
 
@@ -558,7 +558,7 @@ router.get("/filters", async (req, res) => {
 
 router.post("/filters", (req, res) => {
   const email = req.session.user;
-  const { minage, maxage, distance, toSee } = req.body;
+  const { minage, maxage, distance, toSeeOrientation } = req.body;
   console.log("Updated info");
   console.log(req.body);
   User.updateOne({ email: email }, { ...req.body }).then((err, data) => {
