@@ -500,7 +500,10 @@ router.post("/like", async (req, res) => {
     let userId = req.session.userId;
     let secondUserId = req.body.rating;
     const user = await User.findById(userId).exec();
-    user.like.push(secondUserId);
+    let likes = user.like;
+    likes.push(secondUserId);
+    likes = [...new Set(likes)];
+    user.like = likes;
     user.save();
     console.log(user);
     const secondUser = await User.findById(secondUserId)
@@ -642,7 +645,10 @@ router.post("/edit_address", async (req, res) => {
   const province = req.body.province;
   const zip = req.body.zip;
   const country = req.body.country;
-
+  
+  const latlng = await getLatLng(
+    `${street}, ${city}, ${province}, ${country}, ${zip}`
+  );
   // Mongoose find user and update
   // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
   await User.findByIdAndUpdate(userId, {
@@ -651,6 +657,8 @@ router.post("/edit_address", async (req, res) => {
     province: req.body.province,
     zip: req.body.zip,
     country: req.body.country,
+    latitude: latlng.lat || 0,
+    longitude: latlng.lng || 0
   }).exec();
   // res.redirect to the profile page
   res.redirect("info");

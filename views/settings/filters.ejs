@@ -41,20 +41,28 @@
             <input type="hidden" name="distance" id="range-distance">
             <div id="distance-range"></div>
           </div>
-          <!-- <div class="personal-chars">
+          <div class="personal-chars">
             <div>
               <input type="radio" name="toSee" id="women" value="women" <%= (user.toSee === 'women') ? 'checked' : ''  %> />
-              <label for="women">Women</label>
+              <label for="women">Straight</label>
             </div>
             <div>
               <input type="radio" name="toSee" id="men" value="men"  <%= (user.toSee === 'men') ? 'checked' : ''  %> />
-              <label for="men">Men</label>
+              <label for="men">Gay</label>
             </div>
             <div>
               <input type="radio" name="toSee" id="everyone" value="everyone"  <%= (user.toSee === 'everyone') ? 'checked' : ''  %> />
-              <label for="everyone">Everyone</label>
+              <label for="everyone">Queer</label>
             </div>
-          </div> -->
+            <div>
+              <input type="radio" name="toSee" id="everyone" value="everyone"  <%= (user.toSee === 'everyone') ? 'checked' : ''  %> />
+              <label for="everyone">Asexual</label>
+            </div>
+            <div>
+              <input type="radio" name="toSee" id="everyone" value="everyone"  <%= (user.toSee === 'everyone') ? 'checked' : ''  %> />
+              <label for="everyone">Bisexual</label>
+            </div>
+          </div> 
           <button type="submit" class="btn-profile btn mt-2 btn-rounded">Confirm</a>
           </div>
         </form>
