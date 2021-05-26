@@ -760,7 +760,10 @@ router.get("/faqAddress", async (req, res) => {
 });
 
 const momentzone = require("moment-timezone");
-const dateCanada = momentzone.tz(Date.now(), "Canada/Pacific");
+const { date } = require("joi");
+var dateCanada = momentzone
+  .tz(Date.now(), "Canada/Pacific")
+  .format("YYYY-MM-DD HH:mm");
 
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
@@ -781,6 +784,7 @@ router.post("/quiz_answer", async (req, res, next) => {
   console.log("page hit");
   const answer = req.body.answer;
   const isUser = await Quiz.exists({ _user: req.session.userId });
+  console.log(dateCanada);
 
   if (isUser) {
     await Quiz.findOneAndUpdate(
@@ -795,7 +799,7 @@ router.post("/quiz_answer", async (req, res, next) => {
   } else {
     var newUser = new Quiz();
     newUser._user = req.session.userId;
-    newUser.createdAt = dateCanada;
+    newUser.updatedAt = dateCanada;
     newUser.answer = answer;
     await newUser.save();
     res.redirect("userList");
