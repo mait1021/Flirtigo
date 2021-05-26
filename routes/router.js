@@ -181,6 +181,7 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
     const user = await User.findOne({ email: req.body.email }).exec();
     // upload_to_S3("photo", 10)
     // console.log(user);
+    user.registerStep = req.body.registerStep;
     console.log(req.files);
     for (let file of req.files) {
       user.photo.push(file.location);
@@ -438,6 +439,7 @@ router.get("/userList", async (req, res) => {
 
     var result = await User.find({
       _id: { $ne: req.session.userId },
+      registerStep: 5,
     })
       .select(
         "first_name age zodiac _id photo city bio latitude province longitude gender orientation"
@@ -757,6 +759,9 @@ router.get("/faqAddress", async (req, res) => {
   res.render("faqAddress");
 });
 
+const momentzone = require("moment-timezone");
+const { date } = require("joi");
+
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
   var now = moment().format("D");
@@ -773,21 +778,30 @@ router.get("/quiz", async (req, res) => {
 
 router.post("/quiz_answer", async (req, res, next) => {
   console.log("page hit");
+
+  let dateCanada = momentzone
+    .tz(Date.now(), "Canada/Pacific")
+    .format("YYYY-MM-DD HH:mm");
+  console.log(dateCanada);
+
   const answer = req.body.answer;
   const isUser = await Quiz.exists({ _user: req.session.userId });
+  console.log(dateCanada);
 
   if (isUser) {
     await Quiz.findOneAndUpdate(
       { _user: req.session.userId },
       {
         answer: answer,
-        updated: Date.now,
+        updatedAt: dateCanada,
       }
     ).exec();
+
     res.redirect("userList");
   } else {
     var newUser = new Quiz();
     newUser._user = req.session.userId;
+    newUser.updatedAt = dateCanada;
     newUser.answer = answer;
     await newUser.save();
     res.redirect("userList");
