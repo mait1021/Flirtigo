@@ -8,8 +8,7 @@ const QuizSchema = new Schema(
     _user: { type: String, ref: "User" },
     answer: { type: Number },
     updatedAt: {
-      type: Date,
-      default: dateCanada,
+      type: String,
     },
   }
   // { collection: "quizzes", timestamps: { default: dateCanada } }

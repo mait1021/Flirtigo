@@ -787,6 +787,7 @@ router.post("/quiz_answer", async (req, res, next) => {
       { _user: req.session.userId },
       {
         answer: answer,
+        updatedAt: dateCanada,
       }
     ).exec();
 
