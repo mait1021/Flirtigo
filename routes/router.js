@@ -761,14 +761,10 @@ router.get("/faqAddress", async (req, res) => {
 
 const momentzone = require("moment-timezone");
 const { date } = require("joi");
-var dateCanada = momentzone
-  .tz(Date.now(), "Canada/Pacific")
-  .format("YYYY-MM-DD HH:mm");
 
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
   var now = moment().format("D");
-  console.log(dateCanada);
   console.log(now);
   const quiz = await Question.findOne({ date: now })
     .select("question answers")
@@ -782,6 +778,12 @@ router.get("/quiz", async (req, res) => {
 
 router.post("/quiz_answer", async (req, res, next) => {
   console.log("page hit");
+
+  let dateCanada = momentzone
+    .tz(Date.now(), "Canada/Pacific")
+    .format("YYYY-MM-DD HH:mm");
+  console.log(dateCanada);
+
   const answer = req.body.answer;
   const isUser = await Quiz.exists({ _user: req.session.userId });
   console.log(dateCanada);
