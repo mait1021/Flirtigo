@@ -1,15 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const moment = require("moment-timezone");
+const dateCanada = moment.tz(Date.now(), "Canada/Pacific");
+
 const QuizSchema = new Schema(
   {
     _user: { type: String, ref: "User" },
     answer: { type: Number },
-    created: {
-      type: Date,
-      default: Date.now,
-    },
+    // updatedAt: {
+    //   type: Date,
+    //   default: dateCanada,
+    // },
   },
-  { collection: "quizzes", timestamps: true }
+  { collection: "quizzes", timestamps: { default: dateCanada } }
 );
 let Quiz = mongoose.model("quiz", QuizSchema);
 

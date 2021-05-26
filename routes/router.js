@@ -181,6 +181,7 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
     const user = await User.findOne({ email: req.body.email }).exec();
     // upload_to_S3("photo", 10)
     // console.log(user);
+    user.registerStep = req.body.registerStep;
     console.log(req.files);
     for (let file of req.files) {
       user.photo.push(file.location);
@@ -438,6 +439,7 @@ router.get("/userList", async (req, res) => {
 
     var result = await User.find({
       _id: { $ne: req.session.userId },
+      registerStep: 5,
     })
       .select(
         "first_name age zodiac _id photo city bio latitude province longitude gender orientation"
@@ -757,9 +759,13 @@ router.get("/faqAddress", async (req, res) => {
   res.render("faqAddress");
 });
 
+const momentzone = require("moment-timezone");
+const dateCanada = momentzone.tz(Date.now(), "Canada/Pacific");
+
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
   var now = moment().format("D");
+  console.log(dateCanada);
   console.log(now);
   const quiz = await Question.findOne({ date: now })
     .select("question answers")
@@ -781,9 +787,9 @@ router.post("/quiz_answer", async (req, res, next) => {
       { _user: req.session.userId },
       {
         answer: answer,
-        updated: Date.now,
       }
     ).exec();
+
     res.redirect("userList");
   } else {
     var newUser = new Quiz();
