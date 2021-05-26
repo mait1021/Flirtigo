@@ -3,6 +3,7 @@ const database = include("databaseConnection");
 const User = include("models/user");
 const Rating = include("models/rating");
 const Quiz = include("models/quiz");
+const Question = include("models/question");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
 var { getLatLng, calculateDistance } = require("./helpers");
@@ -231,9 +232,9 @@ router.post("/main", async (req, res) => {
     if (dataDate == now) {
       res.redirect("userList");
     }
-    res.render("quiz");
+    res.redirect("quiz");
   } else {
-    res.render("quiz");
+    res.redirect("quiz");
   }
 });
 
@@ -341,32 +342,35 @@ router.get("/matchTab", async (req, res) => {
   res.render("matchTab");
 });
 
-router.post('/unmatch', (req, res) => {
+router.post("/unmatch", (req, res) => {
   const { userId } = req.body;
   const loginId = req.session.userId;
   try {
-    Rating.findOneAndRemove({ _user: loginId, _secondUser: userId }, (err, data) => {
-      if (err) {
-        res.status(500).send('Error occured');
-      }
-      User.findOne({ _id: loginId }, (err, user) => {        
+    Rating.findOneAndRemove(
+      { _user: loginId, _secondUser: userId },
+      (err, data) => {
         if (err) {
-          res.status(500).send('Error occured');
+          res.status(500).send("Error occured");
         }
-        const likes = user.like;      
-        const userIdx = likes.indexOf(userId);
-        if (userIdx >= 0) {
-          likes.splice(userIdx, 1);
-          user.dislike.push(userId);
-        }
-        user.like = likes;
-        user.save();
-        res.send('User removed.');
-      });
-    })
-  } catch(err) {
+        User.findOne({ _id: loginId }, (err, user) => {
+          if (err) {
+            res.status(500).send("Error occured");
+          }
+          const likes = user.like;
+          const userIdx = likes.indexOf(userId);
+          if (userIdx >= 0) {
+            likes.splice(userIdx, 1);
+            user.dislike.push(userId);
+          }
+          user.like = likes;
+          user.save();
+          res.send("User removed.");
+        });
+      }
+    );
+  } catch (err) {
     res.send(500);
-    res.send('Error');
+    res.send("Error");
   }
 });
 
@@ -425,7 +429,9 @@ router.post('/unmatch', (req, res) => {
 router.get("/userList", async (req, res) => {
   try {
     const user = await User.findById(req.session.userId)
-      .select("dislike like toSee latitude longitude province street toSeeOrientation")
+      .select(
+        "dislike like toSee latitude longitude province street toSeeOrientation"
+      )
       .exec();
 
     console.log("Logging user...\n", user);
@@ -440,7 +446,13 @@ router.get("/userList", async (req, res) => {
 
     // console.log("Logging result... \n", result);
 
-    let second_user = randomUser(user.dislike, user.like, user.toSee, result);
+    let second_user = randomUser(
+      user.dislike,
+      user.like,
+      user.toSee,
+      user.toSeeOrientation,
+      result
+    );
 
     // console.log("Logging second user...\n", second_user);
 
@@ -645,7 +657,7 @@ router.post("/edit_address", async (req, res) => {
   const province = req.body.province;
   const zip = req.body.zip;
   const country = req.body.country;
-  
+
   const latlng = await getLatLng(
     `${street}, ${city}, ${province}, ${country}, ${zip}`
   );
@@ -658,7 +670,7 @@ router.post("/edit_address", async (req, res) => {
     zip: req.body.zip,
     country: req.body.country,
     latitude: latlng.lat || 0,
-    longitude: latlng.lng || 0
+    longitude: latlng.lng || 0,
   }).exec();
   // res.redirect to the profile page
   res.redirect("info");
@@ -724,12 +736,10 @@ router.get("/faqContact", async (req, res) => {
   res.render("faqContact");
 });
 
-
 router.get("/faqGuide", async (req, res) => {
   console.log("page hit");
   const zodiac = req.session.zodiac;
   res.render("faqGuide", { zodiac });
- 
 });
 
 router.get("/faqTrouble", async (req, res) => {
@@ -746,10 +756,19 @@ router.get("/faqAddress", async (req, res) => {
   console.log("page hit");
   res.render("faqAddress");
 });
+
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
+  var now = moment().format("D");
+  console.log(now);
+  const quiz = await Question.findOne({ date: now })
+    .select("question answers")
+    .exec();
+
+  console.log(quiz);
+
   console.log("page hit");
-  res.render("quiz");
+  res.render("quiz", { quiz: quiz });
 });
 
 router.post("/quiz_answer", async (req, res, next) => {
