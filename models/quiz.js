@@ -7,12 +7,12 @@ const QuizSchema = new Schema(
   {
     _user: { type: String, ref: "User" },
     answer: { type: Number },
-    // updatedAt: {
-    //   type: Date,
-    //   default: dateCanada,
-    // },
-  },
-  { collection: "quizzes", timestamps: { default: dateCanada } }
+    updatedAt: {
+      type: Date,
+      default: dateCanada,
+    },
+  }
+  // { collection: "quizzes", timestamps: { default: dateCanada } }
 );
 let Quiz = mongoose.model("quiz", QuizSchema);
 

@@ -794,6 +794,7 @@ router.post("/quiz_answer", async (req, res, next) => {
   } else {
     var newUser = new Quiz();
     newUser._user = req.session.userId;
+    newUser.createdAt = dateCanada;
     newUser.answer = answer;
     await newUser.save();
     res.redirect("userList");
