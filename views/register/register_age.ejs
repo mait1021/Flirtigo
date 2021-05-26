@@ -12,7 +12,7 @@
 
     <form action="addAge" method="post">
       <div class="content-wrapper">
-        <input type="date" id="birthday" name="birthday" required>        
+        <input type="date" id="birthday" name="birthday" required  pattern="\d{4}-\d{2}-\d{2}" max="2999-12-31">        
         
         <% if(locals.message){ %>
         <div class="error-message">

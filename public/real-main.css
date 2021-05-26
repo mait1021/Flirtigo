@@ -1834,7 +1834,7 @@ body {
   font-family: "Poppins", sans-serif;
   border: #e7e7e7 solid 1px;
   border-radius: 4px;
-  position: fixed;
+  position: absolute;
   background-color: white;
   z-index: 1;
 }
@@ -1885,8 +1885,11 @@ body {
 }
 
 .reportBtn {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  padding-bottom: 10vh;
+  align-items: center;
+  padding-bottom: 40px;
 }
 
 .reportBtn a {

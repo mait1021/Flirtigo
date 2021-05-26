@@ -784,13 +784,13 @@ router.post("/quiz_answer", async (req, res, next) => {
         updated: Date.now,
       }
     ).exec();
-    res.redirect("/main");
+    res.redirect("userList");
   } else {
     var newUser = new Quiz();
     newUser._user = req.session.userId;
     newUser.answer = answer;
     await newUser.save();
-    res.redirect("/main");
+    res.redirect("userList");
   }
 });
 
