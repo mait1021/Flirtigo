@@ -64,11 +64,11 @@ io.on("connection", (socket) => {
     io.to(socket.id).emit("load message", chatHistory);
   });
 
-  socket.emit("publicMessage", {
-    from: "Admin",
-    text: "Welcome to the chat!",
-    createdAt: moment().valueOf(),
-  });
+  // socket.emit("publicMessage", {
+  //   from: "Admin",
+  //   text: "Welcome to the chat!",
+  //   createdAt: moment().valueOf(),
+  // });
 
   socket.on("leave room", (room) => {
     console.log("leaving room", room);
