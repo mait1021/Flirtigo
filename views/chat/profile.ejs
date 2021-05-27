@@ -55,8 +55,7 @@
       let windowHeight = $(window).height();
       let nav_bar_height = $('.nav-bar').outerHeight( true );
       let footer_height = $('.footer').outerHeight( true );
-      let choices_height = $('.choice').outerHeight( true );
-      $('.user-container').outerHeight( windowHeight - nav_bar_height - footer_height - choices_height);
+      $('.user-container').outerHeight( windowHeight - nav_bar_height - footer_height);
     });
 
     $('.slideshow-container').onSwipe(function(results) {
