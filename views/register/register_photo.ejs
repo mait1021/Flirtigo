@@ -79,7 +79,7 @@
 
       <div class = "bio-container">
         <p>Add a bio to compliment <br> those amazing photos!</p>
-        <textarea id="bio" name="bio">Enter here..</textarea>
+        <textarea id="bio" name="bio" placeholder="Enter here..."></textarea>
       </div>
 
       <input type="hidden" name="email" value="<%= email %>">
@@ -91,10 +91,6 @@
 
 
   <script type="text/javascript" src="/photo.js"></script>
-  <script>
-    $("#bio").click(function (e) {
-      $("#bio").val("");
-    });
   </script>
     <script>
       heightCalculation(".photo-container",320)
