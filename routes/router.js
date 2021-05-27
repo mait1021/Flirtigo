@@ -721,7 +721,7 @@ router.get("/profile/:userId?", async (req, res) => {
     }).select(
       "first_name age zodiac _id photo city bio latitude longitude gender"
     );
-    console.log(secondUser);
+
     res.render("profile", { secondUser: secondUser, zodiac });
   } catch {
     console.error("ERROR!");
@@ -764,7 +764,7 @@ const { date } = require("joi");
 
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
-  var now = moment().format("D");
+  let now = momentzone.tz(Date.now(), "Canada/Pacific").format("D");
   console.log(now);
   const quiz = await Question.findOne({ date: now })
     .select("question answers")
