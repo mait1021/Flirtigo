@@ -161,6 +161,7 @@ router.post("/addOrientation", async (req, res) => {
 
 router.get("/register_photo", async (req, res) => {
   console.log("page hit");
+  res.locals.message = req.flash();
   res.render("register_photo", { email: req.query.email });
 });
 
@@ -180,7 +181,13 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
     // upload_to_S3("photo", 10)
-    // console.log(user);
+    // console.log(user);  if (age < 18) {
+    if (req.files.length < 3) {
+      req.flash("error", "Sorry, You need to upload a minimum of 3 photos.");
+      res.redirect("/register_photo");
+    }
+
+    user.registerStep = req.body.registerStep;
     console.log(req.files);
     for (let file of req.files) {
       user.photo.push(file.location);
@@ -227,7 +234,7 @@ router.post("/main", async (req, res) => {
     .exec();
   if (user) {
     var dataDate = moment(user.updatedAt).format("YYYY-MM-DD");
-    var now = moment().format("YYYY-MM-DD");
+    var now = momentzone.tz(Date.now(), "Canada/Pacific").format("YYYY-MM-DD");
     console.log(dataDate, now);
     if (dataDate == now) {
       res.redirect("userList");
@@ -438,6 +445,7 @@ router.get("/userList", async (req, res) => {
 
     var result = await User.find({
       _id: { $ne: req.session.userId },
+      registerStep: 5,
     })
       .select(
         "first_name age zodiac _id photo city bio latitude province longitude gender orientation"
@@ -713,7 +721,7 @@ router.get("/profile/:userId?", async (req, res) => {
     }).select(
       "first_name age zodiac _id photo city bio latitude longitude gender"
     );
-    console.log(secondUser);
+
     res.render("profile", { secondUser: secondUser, zodiac });
   } catch {
     console.error("ERROR!");
@@ -727,7 +735,8 @@ router.get("/faq", async (req, res) => {
 
 router.get("/faqContact", async (req, res) => {
   console.log("page hit");
-  res.render("faqContact");
+  const zodiac = req.session.zodiac;
+  res.render("faqContact", { zodiac });
 });
 
 router.get("/faqGuide", async (req, res) => {
@@ -738,22 +747,28 @@ router.get("/faqGuide", async (req, res) => {
 
 router.get("/faqTrouble", async (req, res) => {
   console.log("page hit");
-  res.render("faqTrouble");
+  const zodiac = req.session.zodiac;
+  res.render("faqTrouble", { zodiac });
 });
 
 router.get("/faqSecurity", async (req, res) => {
   console.log("page hit");
-  res.render("faqSecurity");
+  const zodiac = req.session.zodiac;
+  res.render("faqSecurity", { zodiac });
 });
 
 router.get("/faqAddress", async (req, res) => {
   console.log("page hit");
-  res.render("faqAddress");
+  const zodiac = req.session.zodiac;
+  res.render("faqAddress", { zodiac });
 });
+
+const momentzone = require("moment-timezone");
+const { date } = require("joi");
 
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
-  var now = moment().format("D");
+  let now = momentzone.tz(Date.now(), "Canada/Pacific").format("D");
   console.log(now);
   const quiz = await Question.findOne({ date: now })
     .select("question answers")
@@ -767,24 +782,33 @@ router.get("/quiz", async (req, res) => {
 
 router.post("/quiz_answer", async (req, res, next) => {
   console.log("page hit");
+
+  let dateCanada = momentzone
+    .tz(Date.now(), "Canada/Pacific")
+    .format("YYYY-MM-DD HH:mm");
+  console.log(dateCanada);
+
   const answer = req.body.answer;
   const isUser = await Quiz.exists({ _user: req.session.userId });
+  console.log(dateCanada);
 
   if (isUser) {
     await Quiz.findOneAndUpdate(
       { _user: req.session.userId },
       {
         answer: answer,
-        updated: Date.now,
+        updatedAt: dateCanada,
       }
     ).exec();
-    res.redirect("/main");
+
+    res.redirect("userList");
   } else {
     var newUser = new Quiz();
     newUser._user = req.session.userId;
+    newUser.updatedAt = dateCanada;
     newUser.answer = answer;
     await newUser.save();
-    res.redirect("/main");
+    res.redirect("userList");
   }
 });
 

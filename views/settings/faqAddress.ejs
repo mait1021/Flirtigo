@@ -17,7 +17,15 @@
         <p><h4>Email</h4>flirtigoltd@flirtigo.com</p>  
        </div>   
     </div>
+    <script>
+      $(window).on("load resize touchmove", function () {
+        let container_y_position = $('.intro-container').offset().top;
+        let msg_form_y_position = $('.footer').offset().top;
+        $('.guide-wrapper').outerHeight( msg_form_y_position - container_y_position);
+      });
+  </script>
+
+   <%- include('_footer_zodiac.ejs') %> 
   </body> 
-  
 </html>
 

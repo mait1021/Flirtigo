@@ -282,3 +282,10 @@ $(document).ready(function () {
   }) 
 })
 
+$(document).ready(function () {
+  $(".reportBtn a").click(function () {
+    $(".overlay").hide();
+    $(".user-wrapper").show();
+  }) 
+})
+

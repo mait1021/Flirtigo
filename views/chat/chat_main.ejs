@@ -37,7 +37,7 @@
           <div class = "userList-container">
             <% for (var key in newUser) { %>
               <div class = "content-wrapper user-wrapper userdetails user-<%= newUser[key]._id %>">
-                <div class="user-profile-image" style="background-image: url(<%= newUser[key].photo[0] %>);"> </div>
+                <div class="user-profile-image" style="background-image: url(<%=newUser[key].photo[0]%>);"> </div>
                     <a class="name" href="/chat/<%= newUser[key]._id %>"> <%= newUser[key].first_name %> </a>
                         <div class = "load_chat">
                             <div class = "dots">

@@ -1834,7 +1834,7 @@ body {
   font-family: "Poppins", sans-serif;
   border: #e7e7e7 solid 1px;
   border-radius: 4px;
-  position: fixed;
+  position: absolute;
   background-color: white;
   z-index: 1;
 }
@@ -1885,8 +1885,11 @@ body {
 }
 
 .reportBtn {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  padding-bottom: 10vh;
+  align-items: center;
+  padding-bottom: 40px;
 }
 
 .reportBtn a {
@@ -2093,6 +2096,14 @@ body {
   background-color: #53b3dc;
 }
 
+.verify-gif {
+  margin: 100px 0px;
+}
+
+.photo-container .error-message {
+  margin-top: 0;
+}
+
 @media only screen and (max-height: 680px) {
   .main-container {
     padding: 0;
@@ -2153,4 +2164,10 @@ body {
   .quiz .orientation p {
     font-size: 15px;
   }
+}
+
+
+/* kailin edit the faqTrouble page */
+.faq-text-wrapper ul {
+  padding: 0px 80px;
 }

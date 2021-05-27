@@ -3,7 +3,6 @@
   <%- include('_header.ejs') %>
   <body>
     <%- include('_bold_nav_bar.ejs') %>
-
       <div class="intro-container photo-text">
         <form action="edit_photo" method="post" enctype="multipart/form-data" >      
         <h1>Photo</h1>
@@ -43,7 +42,7 @@
             <div class="image-preview" style="background-image:url(<%=user.photo[3]%>);"></div>
             <div class="upload-options">
               <label>
-                <input type="file" class="image-upload" accept="image/*" />
+                <input name="photo" type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
@@ -52,7 +51,7 @@
             <div class="image-preview" style="background-image:url(<%=user.photo[4]%>);"></div>
             <div class="upload-options">
               <label>
-                <input type="file" class="image-upload" accept="image/*" />
+                <input name="photo" type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
@@ -61,7 +60,7 @@
             <div class="image-preview" style="background-image:url(<%=user.photo[5]%>);"></div>
             <div class="upload-options">
               <label>
-                <input type="file" class="image-upload" accept="image/*" />
+                <input name="photo" type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
