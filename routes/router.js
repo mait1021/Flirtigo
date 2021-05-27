@@ -7,7 +7,7 @@ const Question = include("models/question");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
 var { getLatLng, calculateDistance } = require("./helpers");
-const { randomUser } = require("../public/randomUser");
+const { randomUser, settingsFilters } = require("../public/randomUser");
 const moment = require("moment");
 const { v4: uuidv4 } = require("uuid");
 const upload_to_S3 = require("../public/s3.js");
@@ -430,7 +430,7 @@ router.get("/userList", async (req, res) => {
   try {
     const user = await User.findById(req.session.userId)
       .select(
-        "dislike like toSee latitude longitude province street toSeeOrientation"
+        "dislike like toSee latitude longitude province street minage maxage distance toSeeOrientation"
       )
       .exec();
 
@@ -445,14 +445,8 @@ router.get("/userList", async (req, res) => {
       .exec();
 
     // console.log("Logging result... \n", result);
-
-    let second_user = randomUser(
-      user.dislike,
-      user.like,
-      user.toSee,
-      user.toSeeOrientation,
-      result
-    );
+    let filteredUsers = settingsFilters(user, result);
+    let second_user = randomUser(user.dislike, user.like, user.toSee, filteredUsers);
 
     // console.log("Logging second user...\n", second_user);
 
