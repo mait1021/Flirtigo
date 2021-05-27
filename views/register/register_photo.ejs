@@ -12,8 +12,15 @@
         <p>Let me see that smile!<br> Add a minimum of 3 pictures</p>  
       </div>    
 
-      <div class="photo-container"> 
-        <div class = "photo-wrapper">
+      <div class="photo-container">
+         <% if(locals.message){ %>
+          <div class="error-message">
+              <%= message.error%>
+          </div>
+          <% } %>
+        <div class = "photo-wrapper">      
+          
+   
           <div class="box">
             <div class="image-preview"></div>
             <div class="upload-options">
@@ -27,7 +34,7 @@
           <div class="image-preview"></div>
           <div class="upload-options">
             <label>
-              <input name="photo" type="file" class="image-upload" accept="image/*" required  />
+              <input name="photo" type="file" class="image-upload" accept="image/*" />
             </label>
           </div>
         </div>
@@ -36,7 +43,7 @@
           <div class="image-preview"></div>
           <div class="upload-options">
             <label>
-              <input name="photo" type="file" class="image-upload" accept="image/*" required  />
+              <input name="photo" type="file" class="image-upload" accept="image/*" />
             </label>
           </div>
         </div>

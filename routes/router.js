@@ -161,6 +161,7 @@ router.post("/addOrientation", async (req, res) => {
 
 router.get("/register_photo", async (req, res) => {
   console.log("page hit");
+  res.locals.message = req.flash();
   res.render("register_photo", { email: req.query.email });
 });
 
@@ -180,7 +181,12 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
     // upload_to_S3("photo", 10)
-    // console.log(user);
+    // console.log(user);  if (age < 18) {
+    if (req.files.length < 3) {
+      req.flash("error", "Sorry, You need to upload a minimum of 3 photos.");
+      res.redirect("/register_photo");
+    }
+
     user.registerStep = req.body.registerStep;
     console.log(req.files);
     for (let file of req.files) {
