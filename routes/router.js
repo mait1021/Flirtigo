@@ -228,7 +228,7 @@ router.post("/main", async (req, res) => {
     .exec();
   if (user) {
     var dataDate = moment(user.updatedAt).format("YYYY-MM-DD");
-    var now = moment().format("YYYY-MM-DD");
+    var now = momentzone.tz(Date.now(), "Canada/Pacific").format("YYYY-MM-DD");
     console.log(dataDate, now);
     if (dataDate == now) {
       res.redirect("userList");
