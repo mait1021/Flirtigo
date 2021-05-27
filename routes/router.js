@@ -764,7 +764,7 @@ const { date } = require("joi");
 
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
-  var now = moment().format("D");
+  let now = momentzone.tz(Date.now(), "Canada/Pacific").format("D");
   console.log(now);
   const quiz = await Question.findOne({ date: now })
     .select("question answers")

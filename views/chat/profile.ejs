@@ -47,17 +47,6 @@
     </div>
   </div>
 
-  <div class="choice">
-    <form action="dislike" method="post">
-      <input type="hidden" name="rating" value="<%= secondUser._id %>">
-      <input type="submit" class="dislike" value="">
-    </form>
-    <form action="like" method="post">
-      <input type="hidden" name="rating" value="<%= secondUser._id %>">
-      <input type="submit" class="like" value="">
-    </form>
-  </div>
-
 
   <%- include('_footer_cross.ejs') %>
   <script src="/vendor/swipe.js"></script>
