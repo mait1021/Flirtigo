@@ -437,7 +437,7 @@ router.get("/userList", async (req, res) => {
   try {
     const user = await User.findById(req.session.userId)
       .select(
-        "dislike like toSee latitude longitude province street toSeeOrientation"
+        "dislike like toSee latitude longitude province street minage maxage distance toSeeOrientation"
       )
       .exec();
 
@@ -453,12 +453,12 @@ router.get("/userList", async (req, res) => {
       .exec();
 
     // console.log("Logging result... \n", result);
-
-    let second_user = randomUser(
+    const select = require("../public/randomUser");
+    result = select.filter(user, result);
+    let second_user = select.randomUser(
       user.dislike,
       user.like,
       user.toSee,
-      user.toSeeOrientation,
       result
     );
 
