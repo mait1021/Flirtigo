@@ -2096,6 +2096,10 @@ body {
   background-color: #53b3dc;
 }
 
+.verify-gif {
+  margin: 100px 0px;
+}
+
 @media only screen and (max-height: 680px) {
   .main-container {
     padding: 0;
