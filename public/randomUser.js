@@ -46,8 +46,7 @@ var { calculateDistance } = require("../routes/helpers");
 
 function filter(loginUser, users) {
   let filteredUsers = users;
-  var { toSeeOrientation, minage, maxage, distance, latitude, longitude } =
-    loginUser;
+  var { toSeeOrientation, minage, maxage, distance, latitude, longitude } = loginUser;
   console.log(
     "minage and maxage and distance :" +
       minage +
@@ -115,5 +114,5 @@ function randomUser(dislike, like, toSee, user) {
     return second_user;
   }
 }
-
 module.exports = { randomUser: randomUser, filter: filter };
+
