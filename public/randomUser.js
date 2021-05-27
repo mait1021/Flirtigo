@@ -33,6 +33,7 @@ function randomUser(dislike, like, toSee, user) {
 
 function settingsFilters(loginUser, users) {
   let filteredUsers = users;
+  // console.log('before filters: '+  users.length);
   var { toSeeOrientation, minage, maxage, distance, latitude, longitude} = loginUser;
   console.log('minage and maxage and distance :' + minage + ' : ' + maxage + ' : ' + distance);
   if (minage > 0) {
@@ -61,7 +62,9 @@ function settingsFilters(loginUser, users) {
       return (calculatedDistance <= distance);
     });
   }
+ //  console.log(filteredUsers);
   return filteredUsers;
+  
 }
 
 // function randomUser(dislike, like, toSee, user) {

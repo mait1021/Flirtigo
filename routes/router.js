@@ -441,11 +441,12 @@ router.get("/userList", async (req, res) => {
       )
       .exec();
 
-    console.log("Logging user...\n", user);
+    // console.log("Logging user...\n", user);
+    // console.log('session userid: ' + req.session.userId);
 
     var result = await User.find({
       _id: { $ne: req.session.userId },
-      registerStep: 5,
+      registerStep: 4,
     })
       .select(
         "first_name age zodiac _id photo city bio latitude province longitude gender orientation"
@@ -453,9 +454,10 @@ router.get("/userList", async (req, res) => {
       .exec();
 
     // console.log("Logging result... \n", result);
+
     let filteredUsers = settingsFilters(user, result);
     let second_user = randomUser(user.dislike, user.like, user.toSee, filteredUsers);
-
+   
     // console.log("Logging second user...\n", second_user);
 
     if (!second_user) {
@@ -573,9 +575,14 @@ router.get("/filters", async (req, res) => {
 router.post("/filters", (req, res) => {
   const email = req.session.user;
   const { minage, maxage, distance, toSeeOrientation } = req.body;
+  const data = {};
+  if (minage) data.minage = minage;
+  if (maxage) data.maxage = maxage;
+  if (distance) data.distance = distance;
+  if (toSeeOrientation) data.toSeeOrientation = toSeeOrientation;
   console.log("Updated info");
   console.log(req.body);
-  User.updateOne({ email: email }, { ...req.body }).then((err, data) => {
+  User.updateOne({ email: email }, { ...data }).then((err, data) => {
     res.redirect("/user");
   });
 });
@@ -583,6 +590,17 @@ router.get("/logout", (req, res) => {
   delete req.session.user;
   // delete req.session.userId;
   res.redirect("/");
+});
+
+router.delete('/filters', (req, res) => {
+  const email = req.session.user;
+  User.updateOne({ email: email }, { $unset: { minage:1, maxage: 1, distance: 1, toSeeOrientation: 1 } })
+    .then((err, data) => {
+      res.send("success");
+    })
+    .catch(err => {
+      res.status(500).send('Unable to reset filters');
+    })
 });
 
 router.get("/like", async (req, res) => {

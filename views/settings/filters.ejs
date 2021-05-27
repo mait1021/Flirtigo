@@ -27,7 +27,7 @@
 
     <div class="container container-edit d-flex align-items-center flex-column">
       
-      <form action="/filters" method="post">
+      <form action="/filters" method="post" id="filtersForm">
       <div class="btn-container d-flex flex-column">
         <h3>Who do you want to see?</h3>
           <div class="age-container">
@@ -63,12 +63,14 @@
               <label for="bisexual">Bisexual</label>
             </div>
           </div> 
-          <button type="submit" class="btn-profile btn mt-2 btn-rounded">Confirm</a>
+            <button type="submit" class="btn-profile btn mt-2 btn-rounded">Confirm</a>
+            <button type="reset" id="clearFilters" class="btn-profile btn mt-2 btn-rounded">Clear</a>
           </div>
         </form>
     </div>
 
       <%- include('_footer.ejs') %>
+    <script src="vendor/wNumb.min.js"></script>
     <script src="vendor/nouislider.min.js"></script>
     <script>
 
@@ -79,10 +81,14 @@
       var minage = <%= user.minage || 0 %>;
       var maxage = <%= user.maxage || 1000000 %>;
       var distance = <%= user.distance || 1000000 %>;
-
+      var updatedMin = null;
+      var updatedMax = null;
+      var updatedDistance = null;
+      var updatedOrientation = null;
+      
       noUiSlider.create(sliderRangeAge, {
         start: [minage, maxage],
-        tooltips: [true, true],
+        tooltips: [wNumb({ decimals: 0}), wNumb({ decimals: 0})],
         connect: true,
         step: 1,
         range: {
@@ -90,32 +96,96 @@
           max: 110,
         },
       });
+      
 
       var bigValueSlider = document.getElementById("distance-range");
+      
       noUiSlider.create(bigValueSlider, {
         range: {
           min: 0,
           max: 5000,
         },
         step: 1,
-        tooltips: [true],
+        tooltips: wNumb({ decimals: 0}),
         start: [distance],
         pips: { mode: "count", values: 5 },
       });
 
       sliderRangeAge.noUiSlider.on('update', function (values, handle) {
         var value = parseInt(values[handle]);
+        console.log('age update:', handle);
         if (handle) {
           ageMaxInp.value = value;
+          if (updatedMax === null) {
+            updatedMax = '';
+          } else {
+            updatedMax = value;
+          }
         } else {
           ageMinInp.value = value;
+          if (updatedMin === null) {
+            updatedMin = '';
+          } else {
+            updatedMin = value;
+          }
         }
       });
 
       bigValueSlider.noUiSlider.on('update', function (values, handle) {
         var value = parseInt(values[handle]);
+        console.log('distanace update:', handle);
         distanceInp.value = value;
+        if (updatedDistance === null) {
+          updatedDistance = '';
+        } else {
+          updatedDistance = value;
+        }
       });
+
+      $('input[name="toSeeOrientation"]').click(function(event) {
+        updatedOrientation = event.target.value;
+      });
+
+      $('#filtersForm').submit(function(event) {
+        event.preventDefault();
+        const data = {
+          minage: updatedMin,
+          maxage: updatedMax,
+          distance: updatedDistance,
+          toSeeOrientation: updatedOrientation
+        };
+        $.ajax({
+          type: 'POST',
+          url: '/filters',
+          data: data,
+          success: function (response ) {
+            window.location.href = '/user';
+          },
+          error: function(err) {
+            window.location.reload();
+          }
+        });
+      });
+
+      $('#clearFilters').click(function() {
+        $.ajax({
+          type: 'DELETE',
+          url: '/filters',
+          data: {
+            minage: '',
+            maxage: '',
+            distance: '',
+            toSeeOrientation: ''
+          },
+          success: function (response ) {
+            window.location.href = '/user';
+          },
+          error: function(err) {
+            window.location.reload();
+          }
+        });
+      })
+
     </script>
   </body>
 </html>
