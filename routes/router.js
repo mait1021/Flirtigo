@@ -3,6 +3,7 @@ const database = include("databaseConnection");
 const User = include("models/user");
 const Rating = include("models/rating");
 const Quiz = include("models/quiz");
+const Question = include("models/question");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
 var { getLatLng, calculateDistance } = require("./helpers");
@@ -231,9 +232,9 @@ router.post("/main", async (req, res) => {
     if (dataDate == now) {
       res.redirect("userList");
     }
-    res.render("quiz");
+    res.redirect("quiz");
   } else {
-    res.render("quiz");
+    res.redirect("quiz");
   }
 });
 
@@ -341,6 +342,38 @@ router.get("/matchTab", async (req, res) => {
   res.render("matchTab");
 });
 
+router.post("/unmatch", (req, res) => {
+  const { userId } = req.body;
+  const loginId = req.session.userId;
+  try {
+    Rating.findOneAndRemove(
+      { _user: loginId, _secondUser: userId },
+      (err, data) => {
+        if (err) {
+          res.status(500).send("Error occured");
+        }
+        User.findOne({ _id: loginId }, (err, user) => {
+          if (err) {
+            res.status(500).send("Error occured");
+          }
+          const likes = user.like;
+          const userIdx = likes.indexOf(userId);
+          if (userIdx >= 0) {
+            likes.splice(userIdx, 1);
+            user.dislike.push(userId);
+          }
+          user.like = likes;
+          user.save();
+          res.send("User removed.");
+        });
+      }
+    );
+  } catch (err) {
+    res.send(500);
+    res.send("Error");
+  }
+});
+
 // Match function
 
 // router.get("/userList", async (req, res) => {
@@ -396,7 +429,9 @@ router.get("/matchTab", async (req, res) => {
 router.get("/userList", async (req, res) => {
   try {
     const user = await User.findById(req.session.userId)
-      .select("dislike like toSee latitude longitude province street")
+      .select(
+        "dislike like toSee latitude longitude province street toSeeOrientation"
+      )
       .exec();
 
     console.log("Logging user...\n", user);
@@ -405,13 +440,19 @@ router.get("/userList", async (req, res) => {
       _id: { $ne: req.session.userId },
     })
       .select(
-        "first_name age zodiac _id photo city bio latitude province longitude gender"
+        "first_name age zodiac _id photo city bio latitude province longitude gender orientation"
       )
       .exec();
 
     // console.log("Logging result... \n", result);
 
-    let second_user = randomUser(user.dislike, user.like, user.toSee, result);
+    let second_user = randomUser(
+      user.dislike,
+      user.like,
+      user.toSee,
+      user.toSeeOrientation,
+      result
+    );
 
     // console.log("Logging second user...\n", second_user);
 
@@ -471,7 +512,10 @@ router.post("/like", async (req, res) => {
     let userId = req.session.userId;
     let secondUserId = req.body.rating;
     const user = await User.findById(userId).exec();
-    user.like.push(secondUserId);
+    let likes = user.like;
+    likes.push(secondUserId);
+    likes = [...new Set(likes)];
+    user.like = likes;
     user.save();
     console.log(user);
     const secondUser = await User.findById(secondUserId)
@@ -526,7 +570,7 @@ router.get("/filters", async (req, res) => {
 
 router.post("/filters", (req, res) => {
   const email = req.session.user;
-  const { minage, maxage, distance, toSee } = req.body;
+  const { minage, maxage, distance, toSeeOrientation } = req.body;
   console.log("Updated info");
   console.log(req.body);
   User.updateOne({ email: email }, { ...req.body }).then((err, data) => {
@@ -614,6 +658,9 @@ router.post("/edit_address", async (req, res) => {
   const zip = req.body.zip;
   const country = req.body.country;
 
+  const latlng = await getLatLng(
+    `${street}, ${city}, ${province}, ${country}, ${zip}`
+  );
   // Mongoose find user and update
   // Model.findByIdAndUpdate(id, { name: 'jason bourne' }, options, callback)
   await User.findByIdAndUpdate(userId, {
@@ -622,6 +669,8 @@ router.post("/edit_address", async (req, res) => {
     province: req.body.province,
     zip: req.body.zip,
     country: req.body.country,
+    latitude: latlng.lat || 0,
+    longitude: latlng.lng || 0,
   }).exec();
   // res.redirect to the profile page
   res.redirect("info");
@@ -684,35 +733,46 @@ router.get("/faq", async (req, res) => {
 
 router.get("/faqContact", async (req, res) => {
   console.log("page hit");
-  res.render("faqContact");
+  const zodiac = req.session.zodiac;
+  res.render("faqContact", { zodiac });
 });
-
 
 router.get("/faqGuide", async (req, res) => {
   console.log("page hit");
   const zodiac = req.session.zodiac;
   res.render("faqGuide", { zodiac });
- 
 });
 
 router.get("/faqTrouble", async (req, res) => {
   console.log("page hit");
-  res.render("faqTrouble");
+  const zodiac = req.session.zodiac;
+  res.render("faqTrouble", { zodiac });
 });
 
 router.get("/faqSecurity", async (req, res) => {
   console.log("page hit");
-  res.render("faqSecurity");
+  const zodiac = req.session.zodiac;
+  res.render("faqSecurity", { zodiac });
 });
 
 router.get("/faqAddress", async (req, res) => {
   console.log("page hit");
-  res.render("faqAddress");
+  const zodiac = req.session.zodiac;
+  res.render("faqAddress", { zodiac });
 });
+
 router.get("/quiz", async (req, res) => {
   console.log(req.session.userId);
+  var now = moment().format("D");
+  console.log(now);
+  const quiz = await Question.findOne({ date: now })
+    .select("question answers")
+    .exec();
+
+  console.log(quiz);
+
   console.log("page hit");
-  res.render("quiz");
+  res.render("quiz", { quiz: quiz });
 });
 
 router.post("/quiz_answer", async (req, res, next) => {

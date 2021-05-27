@@ -7,7 +7,7 @@
     <!-- input bar -->
     <form action="submit" method="post">
         <div class = "searchInput">
-            <input type="search"  name="search Matches" placeholder="Search Matches" >
+            <input type="search" onkeyup="searchUsers(event)" id="searchInput" name="search Matches" placeholder="Search Matches" >
         </div>
     </form>
 
@@ -22,9 +22,10 @@
             </div>
             <div class = "roundProfile-wrapper">
                 <% for (var key in newUser) { %>
-                   <div class = "photo">
-                        <a href="/chat/<%=newUser[key]._id%>">
-                            <div class="user-profile-image" style="background-image: url(<%=newUser[key].photo[0]%>);"></div>
+                   <div class = "photo userdetails user-<%= newUser[key]._id%>">
+                        <a href="/chat/<%= newUser[key]._id%>">
+                            <div class="user-profile-image"
+                             style="background-image: url(<%=newUser[key].photo[0]%>);"></div>
                         </a>
                         <div class = "name"><%= newUser[key].first_name %></div> 
                     </div>
@@ -35,9 +36,9 @@
         <div  id = "pageChat" class = "pageChat" style="display:none">
           <div class = "userList-container">
             <% for (var key in newUser) { %>
-              <div class = "content-wrapper user-wrapper">
-                <div class="user-profile-image" style="background-image: url(<%=newUser[key].photo[0]%>);"> </div>
-                    <a href="/chat/<%= newUser[key]._id%>"> <%= newUser[key].first_name %> </a>
+              <div class = "content-wrapper user-wrapper userdetails user-<%= newUser[key]._id %>">
+                <div class="user-profile-image" style="background-image: url(<%= newUser[key].photo[0] %>);"> </div>
+                    <a class="name" href="/chat/<%= newUser[key]._id %>"> <%= newUser[key].first_name %> </a>
                         <div class = "load_chat">
                             <div class = "dots">
                             <span class="dot"></span>
@@ -45,7 +46,7 @@
                             <span class="dot"></span>
                             </div>
                             <div class = "reportMatch" style="display: none;">
-                            <a button class="unmatch">Unmatch</a> 
+                            <a button class="unmatch" id="<%= newUser[key]._id %>" onclick="unMatch(event)">Unmatch</a> 
                             <a button class="report">Report</a>
                             </div>
                         </div>
@@ -73,5 +74,36 @@
                 <a button> Offline behavior </a>
             </div>
         </div>
+        <script>
+            function unMatch(e) {
+                e.preventDefault();
+                const unmatchUserId = e.target.id;
+                console.info('unmatch user id: ', unmatchUserId);
+                $.ajax({
+                    type: 'POST',
+                    url: '/unmatch',
+                    data: { userId : unmatchUserId},
+                    success: function(response) {
+                        console.log('UnMtach Success: ', response);
+                        $(".user-" + unmatchUserId).remove();
+                    },
+                    error: function(err) {
+                        console.log('Unmatch Error: ', err);
+                    }
+                });
+            }
+            function searchUsers(event) {
+                var searchText = event.target.value.toUpperCase();
+                $(".userdetails").each(function(idx, user) {
+                    var name = $(user).find('.name');
+                    var username = $(name).text().toUpperCase();
+                    if (username.indexOf(searchText) >= 0) {
+                        $(user).css('display', 'grid');
+                    } else {
+                        $(user).css('display', 'none');
+                    }
+                })
+            }
+        </script>
   </body> 
 </html>

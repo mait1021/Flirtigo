@@ -6,13 +6,14 @@
 
 
     <div class="content-wrapper">
-
         <h1 id="Guideh1">Troubleshooting</h1>
+    </div>
 
-        <div >        
-            <div class="FAQ">
+    <div class="guide-wrapper">
+
+            <div class="FAQ btn-container">
                 <a class="btn-faq"> Can't log in </a>
-                <div style="display: none;">
+                <div class= "faq-text-wrapper" style="display: none;">
                     <p>  If you can't sign into your account because your phone number has changed, use account recovery to regain access. 
 
                     </p>  
@@ -20,9 +21,9 @@
     
             </div>  
            
-            <div class = "FAQ">
+            <div class = "FAQ btn-container">
                 <a class="btn-faq"> Account is banned?</a>
-                <div style="display: none;">
+                <div class= "faq-text-wrapper" style="display: none;">
                     <p>
                         If you’ve been banned from Flirtigo, you’ll see a message letting you know when you try to log in. 
                         We ban accounts when we detect account activity that violates our code of conduct. 
@@ -35,9 +36,9 @@
     
             </div>
             
-            <div class = "FAQ">
+            <div class = "FAQ btn-container">
                 <a class="btn-faq">Age and Name is wrong</a>
-                <div style="display: none;">
+                <div class= "faq-text-wrapper" style="display: none;">
                 <p>
                     Your name and age are the only pieces of your profile you can't update once you've created an account.
                 </p>
@@ -50,7 +51,15 @@
             </div>
             
      </div>
+    <script>
+        $(window).on("load resize touchmove", function () {
+          let container_y_position = $('.intro-container').offset().top;
+          let msg_form_y_position = $('.footer').offset().top;
+          $('.guide-wrapper').outerHeight( msg_form_y_position - container_y_position);
+        });
+    </script>
 
+     <%- include('_footer_zodiac.ejs') %> 
   </body> 
   
 </html>

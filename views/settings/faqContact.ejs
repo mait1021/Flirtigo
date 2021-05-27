@@ -9,14 +9,26 @@
 
         <h1>Contact & FAQs </h1>
 
-        <div class="btn-container">        
+        <div class="faq-wrapper">
+          <div class="btn-container">        
             <a class="btn-faq" href="faqGuide"> A Guide to Flirtigo</a>
             <a class="btn-faq" href="faqTrouble">Troubleshooting</a>
             <a class="btn-faq" href="faqSecurity"> Security</a>
             <a class="btn-faq" href="faqAddress"> Contact</a>
-     </div>
+          </div>
+        </div>
+
 
   </body> 
+  <script>
+    $(window).on("load resize touchmove", function () {
+      let container_y_position = $('.intro-container').offset().top;
+      let msg_form_y_position = $('.footer').offset().top;
+      $('.guide-wrapper').outerHeight( msg_form_y_position - container_y_position);
+    });
+</script>
+
+ <%- include('_footer_zodiac.ejs') %> 
   
 </html>
 
