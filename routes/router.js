@@ -454,10 +454,15 @@ router.get("/userList", async (req, res) => {
       .exec();
 
     // console.log("Logging result... \n", result);
+    const select = require("../public/randomUser");
+    result = select.filter(user, result);
+    let second_user = select.randomUser(
+      user.dislike,
+      user.like,
+      user.toSee,
+      result
+    );
 
-    let filteredUsers = settingsFilters(user, result);
-    let second_user = randomUser(user.dislike, user.like, user.toSee, filteredUsers);
-   
     // console.log("Logging second user...\n", second_user);
 
     if (!second_user) {
