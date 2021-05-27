@@ -7,7 +7,7 @@ const Question = include("models/question");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
 var { getLatLng, calculateDistance } = require("./helpers");
-const { randomUser, settingsFilters } = require("../public/randomUser");
+const { randomUser } = require("../public/randomUser");
 const moment = require("moment");
 const { v4: uuidv4 } = require("uuid");
 const upload_to_S3 = require("../public/s3.js");
@@ -441,7 +441,7 @@ router.get("/userList", async (req, res) => {
       )
       .exec();
 
-    // console.log("Logging user...\n", user);
+    console.log("Logging user...\n", user);
     // console.log('session userid: ' + req.session.userId);
 
     var result = await User.find({

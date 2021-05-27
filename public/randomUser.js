@@ -113,9 +113,6 @@ function randomUser(dislike, like, toSee, user) {
       likeSelectedUser[Math.floor(Math.random() * likeSelectedUser.length)];
     return second_user;
   }
- //  console.log(filteredUsers);
-  return filteredUsers;
-  
 }
 module.exports = { randomUser: randomUser, filter: filter };
 
