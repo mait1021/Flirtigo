@@ -1215,26 +1215,29 @@ body {
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 }
 .personal-chars input[type="radio"] {
   width: 20px;
-  height: 20px;
+  height: 15px;
   margin-top: auto;
   margin-bottom: auto;
+  font-family: "Poppins", sans-serif;
 }
 
 .age-container,
 .distance-container {
-  margin-top: 20px;
+  margin: 25px 0px;
   font-weight: bold;
-  font-family: "Roboto", sans-serif;
+  font-family: "Poppins", sans-serif;
   text-align: center;
   vertical-align: middle;
 }
 .noUi-touch-area {
   background-color: #c4c4c4;
 }
-.noUi-connects {
+
+.filter .noUi-connects {
   background-color: #2b2d40;
 }
 .noUi-pips-horizontal {
@@ -2104,6 +2107,37 @@ body {
   margin-top: 0;
 }
 
+.filter .nav-bar {
+  box-sizing: content-box;
+  z-index: 4;
+}
+
+.filter h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+}
+
+.filter label {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+}
+#clearFilters {
+  background-color: #f54a3a;
+}
+
+#clearFilters:hover {
+  color: white;
+}
+
+.filter .container {
+  overflow-y: scroll;
+}
+
+.filter .btn-container button {
+  padding: 7px 30px;
+}
+
 @media only screen and (max-height: 680px) {
   .main-container {
     padding: 0;
@@ -2164,8 +2198,12 @@ body {
   .quiz .orientation p {
     font-size: 15px;
   }
-}
 
+  .filter .container {
+    overflow-y: scroll;
+    -webkit-transform: scale(0.9);
+  }
+}
 
 /* kailin edit the faqTrouble page */
 .faq-text-wrapper ul {
