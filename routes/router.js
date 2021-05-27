@@ -446,7 +446,7 @@ router.get("/userList", async (req, res) => {
 
     var result = await User.find({
       _id: { $ne: req.session.userId },
-      registerStep: 4,
+      registerStep: 5,
     })
       .select(
         "first_name age zodiac _id photo city bio latitude province longitude gender orientation"
