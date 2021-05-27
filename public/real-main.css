@@ -2165,3 +2165,9 @@ body {
     font-size: 15px;
   }
 }
+
+
+/* kailin edit the faqTrouble page */
+.faq-text-wrapper ul {
+  padding: 0px 80px;
+}
