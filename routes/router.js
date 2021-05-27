@@ -733,7 +733,8 @@ router.get("/faq", async (req, res) => {
 
 router.get("/faqContact", async (req, res) => {
   console.log("page hit");
-  res.render("faqContact");
+  const zodiac = req.session.zodiac;
+  res.render("faqContact", { zodiac });
 });
 
 router.get("/faqGuide", async (req, res) => {
@@ -744,17 +745,20 @@ router.get("/faqGuide", async (req, res) => {
 
 router.get("/faqTrouble", async (req, res) => {
   console.log("page hit");
-  res.render("faqTrouble");
+  const zodiac = req.session.zodiac;
+  res.render("faqTrouble", { zodiac });
 });
 
 router.get("/faqSecurity", async (req, res) => {
   console.log("page hit");
-  res.render("faqSecurity");
+  const zodiac = req.session.zodiac;
+  res.render("faqSecurity", { zodiac });
 });
 
 router.get("/faqAddress", async (req, res) => {
   console.log("page hit");
-  res.render("faqAddress");
+  const zodiac = req.session.zodiac;
+  res.render("faqAddress", { zodiac });
 });
 
 router.get("/quiz", async (req, res) => {
