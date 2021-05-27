@@ -33,9 +33,11 @@
 
 
       <div style="text-align:center; margin: 10px 0px;">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
+
+          <% for (let i =0 ; i<secondUser.photo.length; i++ ) { %>
+            <span class="dot" onclick="currentSlide(<% i%>)"></span>
+          
+          <% } %>
       </div>
 
       <div class="nameBox">

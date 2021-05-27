@@ -721,7 +721,7 @@ router.get("/profile/:userId?", async (req, res) => {
     }).select(
       "first_name age zodiac _id photo city bio latitude longitude gender"
     );
-    console.log(secondUser);
+
     res.render("profile", { secondUser: secondUser, zodiac });
   } catch {
     console.error("ERROR!");
