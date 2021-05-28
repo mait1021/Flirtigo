@@ -114,6 +114,21 @@
         });
       })
     </script>
+
+  <script>
+    $(window).on("load resize touchmove", function () {
+      // let windowHeight = document.documentElement.clientHeight
+      // let nav_bar_height = $('.chat-nav-bar').outerHeight( true );
+      // let footer_height = $('.footer').outerHeight( true );
+      // let choices_height = $('#message-form').outerHeight( true );
+      // $('.chats').outerHeight( windowHeight - nav_bar_height - footer_height - choices_height);
+    
+      let container_y_position = $('.photo-container').offset().top;
+      let msg_form_y_position = $('.footer').offset().top;
+      $('.photo-container').outerHeight( msg_form_y_position - container_y_position);
+    });
+  </script>
+
   </body> 
   
 </html>
