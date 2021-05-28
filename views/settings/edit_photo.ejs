@@ -10,56 +10,62 @@
       </div>  
 
       <div class="photo-container"> 
+        <% if(locals.message){ %>
+          <div class="error-message">
+              <%= message.error%>
+          </div>
+          <% } %>
+
         <div class = "photo-wrapper">
           <div class="box">
-            <div class="image-preview" style="background-image:url(<%=user.photo[0]%>);"></div>
+            <div class="image-preview" id="background1" style="background-image:url(<%=user.photo[0]%>);"></div>
             <div class="upload-options">
-              <label>
-                <input name="photo" type="file" class="image-upload" accept="image/*" required />
-              </label>
-            </div>
-          </div>
-
-          <div class="box">
-            <div class="image-preview" style="background-image:url(<%=user.photo[1]%>);"></div>
-            <div class="upload-options">
-              <label>
-                <input name="photo" type="file" class="image-upload" accept="image/*"   />
-              </label>
-            </div>
-          </div>
-
-          <div class="box">
-            <div class="image-preview" style="background-image:url(<%=user.photo[2]%>);"></div>
-            <div class="upload-options">
-              <label>
+              <label class="delete" name="delete" id="1">
                 <input name="photo" type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
 
           <div class="box">
-            <div class="image-preview" style="background-image:url(<%=user.photo[3]%>);"></div>
+            <div class="image-preview" id="background2" style="background-image:url(<%=user.photo[1]%>);"></div>
             <div class="upload-options">
-              <label>
+              <label class="delete" name="delete" id="2">
+                <input name="photo" type="file" class="image-upload" accept="image/*"/>
+              </label>
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="image-preview" id="background3" style="background-image:url(<%=user.photo[2]%>);"></div>
+            <div class="upload-options">
+              <label class="delete" name="delete" id="3">
                 <input name="photo" type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
 
           <div class="box">
-            <div class="image-preview" style="background-image:url(<%=user.photo[4]%>);"></div>
+            <div class="image-preview" id="background4" style="background-image:url(<%=user.photo[3]%>);"></div>
             <div class="upload-options">
-              <label>
+              <label class="delete" name="delete" id="4">
                 <input name="photo" type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
           </div>
 
           <div class="box">
-            <div class="image-preview" style="background-image:url(<%=user.photo[5]%>);"></div>
+            <div class="image-preview" id="background5" style="background-image:url(<%=user.photo[4]%>);"></div>
             <div class="upload-options">
-              <label>
+              <label class="delete" name="delete" id="5">
+                <input name="photo" type="file" class="image-upload" accept="image/*" />
+              </label>
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="image-preview" id="background6" style="background-image:url(<%=user.photo[5]%>);"></div>
+            <div class="upload-options">
+              <label class="delete" name="delete" id="6">
                 <input name="photo" type="file" class="image-upload" accept="image/*" />
               </label>
             </div>
@@ -73,7 +79,7 @@
 
       <input type="hidden" name="registerStep" value="done">
         <div class="nextBtn-wrapper">
-          <button class="nextBtn">Next</button>
+          <button class="nextBtn">Confirm</button>
         </div>
       </form> 
 
@@ -82,6 +88,31 @@
 
     <script>
       heightCalculation(".photo-container",320)
+    </script>
+
+    <script>
+    
+      $('.delete').click(function(e) {
+        e.preventDefault
+        var index = $(this).attr('id')
+        var background = "#background" + index;
+        console.log(background)
+        $(`${background}`).css("background-image","none");
+
+        $.ajax({
+          type: 'PUT',
+          url: '/edit_photo',
+          data: {index},
+          success: function (response ) {
+            console.log("Yes?")
+            window.location.href = '/edit_photo';
+          },
+          error: function(err) {
+            console.log("Np?")
+            window.location.reload();
+          }
+        });
+      })
     </script>
   </body> 
   

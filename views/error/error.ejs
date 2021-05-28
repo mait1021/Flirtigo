@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <%- include('_header.ejs') %>
+  <body class="background-white">
+    <div class="error-container">
+      <img src="/public/images/error.svg" width="91" height="91">
+      <h2>Error</h2>
+      <p> Sorry, Your connection was interrupted. <br> Please login again.</p>
+    </div>
+    <div class="nextBtn-wrapper">
+      <a href= "/" class="nextBtn"> Login</a>
+    </div>
+
+    <script>
+      heightCalculation(".error-container",200)
+    </script>
+  </body> 
+</html>
