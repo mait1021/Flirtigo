@@ -83,7 +83,7 @@ router.get("/register_age", async (req, res) => {
 
 router.post("/addAge", async (req, res) => {
   console.log("add");
-  console.log(req.body.email);
+  // console.log(req.body.email);
   let age = Math.floor(
     (new Date() - new Date(req.body.birthday).getTime()) / 3.15576e10
   );
@@ -114,7 +114,7 @@ router.get("/register_address", async (req, res) => {
 
 router.post("/addAddress", async (req, res) => {
   console.log("add");
-  console.log(req.body);
+  // console.log(req.body);
   User.findOne({ email: req.body.email }, async function (err, user) {
     const { street, city, province, zip, country, registerStep } = req.body;
     const latlng = await getLatLng(
@@ -144,7 +144,7 @@ router.get("/register_orientation", async (req, res) => {
 
 router.post("/addOrientation", async (req, res) => {
   console.log("add");
-  console.log(req.body);
+  // console.log(req.body);
   User.findOne({ email: req.body.email }, function (err, user) {
     user.orientation = req.body.orientation;
     user.gender = req.body.gender;
@@ -188,7 +188,7 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
     }
 
     user.registerStep = req.body.registerStep;
-    console.log(req.files);
+    // console.log(req.files);
     for (let file of req.files) {
       user.photo.push(file.location);
     }
@@ -198,7 +198,6 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
   } catch (err) {
     res.render("error", { message: "Error" });
     console.log("Error");
-    console.log(err);
   }
 });
 
@@ -223,7 +222,7 @@ router.post("/signIn", async (req, res) => {
 });
 
 router.get("/main", async (req, res) => {
-  console.log(req.session);
+  // console.log(req.session);
   console.log("page hit");
   res.render("main");
 });
@@ -235,7 +234,7 @@ router.post("/main", async (req, res) => {
   if (user) {
     var dataDate = moment(user.updatedAt).format("YYYY-MM-DD");
     var now = momentzone.tz(Date.now(), "Canada/Pacific").format("YYYY-MM-DD");
-    console.log(dataDate, now);
+    // console.log(dataDate, now);
     if (dataDate == now) {
       res.redirect("userList");
     }
@@ -248,12 +247,12 @@ router.post("/main", async (req, res) => {
 //User profile
 
 router.get("/user", async (req, res) => {
-  console.log(req.session);
+  // console.log(req.session);
   User.findOne({ _id: req.session.userId }, function (err, obj) {
     if (err) {
       console.log(err);
     } else {
-      console.log({ user: obj });
+      // console.log({ user: obj });
       const zodiac = req.session.zodiac;
       res.render("user", { user: obj, zodiac });
     }
@@ -299,7 +298,7 @@ router.get("/chat/:userId?", async (req, res) => {
     const secondUser = await User.findOne({
       _id: req.params.userId,
     }).select("photo first_name _id");
-    console.log(match);
+    // console.log(match);
     res.render("chat", { match: match, user: secondUser, zodiac });
   } catch {
     console.error("ERROR!");
@@ -441,7 +440,7 @@ router.get("/userList", async (req, res) => {
       )
       .exec();
 
-    console.log("Logging user...\n", user);
+    // console.log("Logging user...\n", user);
     // console.log('session userid: ' + req.session.userId);
 
     var result = await User.find({
@@ -505,7 +504,7 @@ router.get("/userList", async (req, res) => {
 router.post("/dislike", async (req, res) => {
   try {
     const user = await User.findById(req.session.userId).exec();
-    console.log(user);
+    // console.log(user);
     user.dislike.push(req.body.rating);
     user.save();
     res.redirect("/userList");
@@ -526,11 +525,11 @@ router.post("/like", async (req, res) => {
     likes = [...new Set(likes)];
     user.like = likes;
     user.save();
-    console.log(user);
+    // console.log(user);
     const secondUser = await User.findById(secondUserId)
       .select("like first_name photo")
       .exec();
-    console.log(secondUser);
+    // console.log(secondUser);
     if (secondUser.like.includes(userId)) {
       const room = uuidv4();
       var newRating = new Rating();
@@ -586,7 +585,7 @@ router.post("/filters", (req, res) => {
   if (distance) data.distance = distance;
   if (toSeeOrientation) data.toSeeOrientation = toSeeOrientation;
   console.log("Updated info");
-  console.log(req.body);
+  // console.log(req.body);
   User.updateOne({ email: email }, { ...data }).then((err, data) => {
     res.redirect("/user");
   });
@@ -597,20 +596,23 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-router.delete('/filters', (req, res) => {
+router.delete("/filters", (req, res) => {
   const email = req.session.user;
-  User.updateOne({ email: email }, { $unset: { minage:1, maxage: 1, distance: 1, toSeeOrientation: 1 } })
+  User.updateOne(
+    { email: email },
+    { $unset: { minage: 1, maxage: 1, distance: 1, toSeeOrientation: 1 } }
+  )
     .then((err, data) => {
       res.send("success");
     })
-    .catch(err => {
-      res.status(500).send('Unable to reset filters');
-    })
+    .catch((err) => {
+      res.status(500).send("Unable to reset filters");
+    });
 });
 
 router.get("/like", async (req, res) => {
   console.log("page hit");
-  console.log(req.session.userId);
+  // console.log(req.session.userId);
 
   res.render("like");
 });
@@ -705,34 +707,73 @@ router.post("/edit_address", async (req, res) => {
 router.get("/edit_photo", async (req, res) => {
   // Get the userid from the cookie
   let userId = req.session.userId;
+  res.locals.message = req.flash();
   // get the user from the database using the id
   const user = await User.findById(userId).exec();
-
-  console.log("page hit");
-
   res.render("edit_photo", { user: user });
+});
+
+router.put("/edit_photo", async (req, res) => {
+  try {
+    console.log("This is ", req.body.index);
+    let index = parseInt(req.body.index) - 1;
+    const user = await User.findOne({
+      _id: req.session.userId,
+    })
+      .select("photo")
+      .exec();
+    user.photo.set(index, "1");
+    user.photo.pull("1");
+    user.save();
+  } catch (ex) {
+    res.render("error", { message: "Error" });
+    console.log("Error");
+    console.log(ex);
+  }
 });
 
 router.post(
   "/edit_photo",
   upload_to_S3.array("photo", 10),
   async (req, res) => {
-    // Get the userid from the cookie
-    console.log(req.files);
+    try {
+      // Get the userid from the cookie
+      console.log(req.files);
+      const user = await User.findOne({
+        _id: req.session.userId,
+      })
+        .select("photo")
+        .exec();
 
-    for (let file of req.files) {
-      await User.findOneAndUpdate(
-        {
-          _id: req.session.userId,
-        },
-        {
-          $push: { photo: { $each: [file.location], $slice: 6 } },
-        }
-      );
+      for (let file of req.files) {
+        await User.findOneAndUpdate(
+          {
+            _id: req.session.userId,
+          },
+          {
+            $push: { photo: { $each: [file.location], $slice: -6 } },
+          }
+        );
+      }
+
+      if (req.body.bio) {
+        await User.findByIdAndUpdate(req.session.userId, {
+          bio: req.body.bio,
+        }).exec();
+      }
+
+      if (user.photo.length + req.files.length < 3) {
+        req.flash("error", "We recommend to display three more photos.");
+        res.redirect("/edit_photo");
+      } else {
+        // res.redirect to the profile page
+        res.redirect("info");
+      }
+    } catch (ex) {
+      res.render("error", { message: "Error" });
+      console.log("Error");
+      console.log(ex);
     }
-
-    // res.redirect to the profile page
-    res.redirect("info");
   }
 );
 
@@ -790,7 +831,7 @@ const momentzone = require("moment-timezone");
 const { date } = require("joi");
 
 router.get("/quiz", async (req, res) => {
-  console.log(req.session.userId);
+  // console.log(req.session.userId);
   let now = momentzone.tz(Date.now(), "Canada/Pacific").format("D");
   console.log(now);
   const quiz = await Question.findOne({ date: now })
@@ -813,7 +854,7 @@ router.post("/quiz_answer", async (req, res, next) => {
 
   const answer = req.body.answer;
   const isUser = await Quiz.exists({ _user: req.session.userId });
-  console.log(dateCanada);
+  // console.log(dateCanada);
 
   if (isUser) {
     await Quiz.findOneAndUpdate(
