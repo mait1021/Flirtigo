@@ -196,8 +196,7 @@ router.post("/addPhoto", upload_to_S3.array("photo", 10), async (req, res) => {
     user.save();
     res.render("register_verify");
   } catch (err) {
-    res.render("error", { message: "Error" });
-    console.log("Error");
+    res.render("error");
   }
 });
 
@@ -301,7 +300,7 @@ router.get("/chat/:userId?", async (req, res) => {
     // console.log(match);
     res.render("chat", { match: match, user: secondUser, zodiac });
   } catch {
-    console.error("ERROR!");
+    res.render("error");
   }
 });
 
@@ -356,11 +355,11 @@ router.post("/unmatch", (req, res) => {
       { _user: loginId, _secondUser: userId },
       (err, data) => {
         if (err) {
-          res.status(500).send("Error occured");
+          res.render("error");
         }
         User.findOne({ _id: loginId }, (err, user) => {
           if (err) {
-            res.status(500).send("Error occured");
+            res.render("error");
           }
           const likes = user.like;
           const userIdx = likes.indexOf(userId);
@@ -375,8 +374,7 @@ router.post("/unmatch", (req, res) => {
       }
     );
   } catch (err) {
-    res.send(500);
-    res.send("Error");
+    res.render("error");
   }
 });
 
@@ -495,9 +493,7 @@ router.get("/userList", async (req, res) => {
       res.render("userList", { secondUser: second_user, soulmate });
     }
   } catch (ex) {
-    res.render("error", { message: "Error" });
-    console.log("Error");
-    console.log(ex);
+    res.render("error");
   }
 });
 
@@ -509,9 +505,7 @@ router.post("/dislike", async (req, res) => {
     user.save();
     res.redirect("/userList");
   } catch (ex) {
-    res.render("error", { message: "Error" });
-    console.log("Error");
-    console.log(ex);
+    res.render("error");
   }
 });
 
@@ -550,9 +544,7 @@ router.post("/like", async (req, res) => {
       res.redirect("/userList");
     }
   } catch (ex) {
-    res.render("error", { message: "Error" });
-    console.log("Error");
-    console.log(ex);
+    res.render("error");
   }
 });
 
@@ -726,9 +718,7 @@ router.put("/edit_photo", async (req, res) => {
     user.photo.pull("1");
     user.save();
   } catch (ex) {
-    res.render("error", { message: "Error" });
-    console.log("Error");
-    console.log(ex);
+    res.render("error");
   }
 });
 
@@ -770,9 +760,7 @@ router.post(
         res.redirect("info");
       }
     } catch (ex) {
-      res.render("error", { message: "Error" });
-      console.log("Error");
-      console.log(ex);
+      res.render("error");
     }
   }
 );
@@ -874,6 +862,11 @@ router.post("/quiz_answer", async (req, res, next) => {
     await newUser.save();
     res.redirect("userList");
   }
+});
+
+router.get("/error", async (req, res) => {
+  console.log("page hit");
+  res.render("error");
 });
 
 module.exports = router;
