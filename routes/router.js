@@ -227,20 +227,20 @@ router.get("/main", async (req, res) => {
 });
 
 router.post("/main", async (req, res) => {
-  const user = await Quiz.findOne({ _user: req.session.userId })
-    .select("updatedAt")
-    .exec();
-  if (user) {
-    var dataDate = moment(user.updatedAt).format("YYYY-MM-DD");
-    var now = momentzone.tz(Date.now(), "Canada/Pacific").format("YYYY-MM-DD");
-    // console.log(dataDate, now);
-    if (dataDate == now) {
-      res.redirect("userList");
-    }
-    res.redirect("quiz");
-  } else {
-    res.redirect("quiz");
-  }
+  // const user = await Quiz.findOne({ _user: req.session.userId })
+  //   .select("updatedAt")
+  //   .exec();
+  // if (user) {
+  //   var dataDate = moment(user.updatedAt).format("YYYY-MM-DD");
+  //   var now = momentzone.tz(Date.now(), "Canada/Pacific").format("YYYY-MM-DD");
+  //   // console.log(dataDate, now);
+  //   if (dataDate == now) {
+  //     res.redirect("userList");
+  //   }
+  //   res.redirect("quiz");
+  // } else {
+  res.redirect("quiz");
+  // }
 });
 
 //User profile

@@ -8,12 +8,15 @@
       <div class ="quiz-text-wrapper">
       <form action="quiz_answer" method="post">
         <p><em>Quiz.</em></p>
-        <h1><%= quiz.question %></h1>
+            <h1>Which Hogwarts House would you be in?</h1>
       </div> 
 
       <div class="quiz-wrapper">
         <div class="quiz"> 
-          <label class="orientation"><p><%= quiz.answers[0] %></p>
+            <label class="orientation">
+              <p>
+                Gryffindor
+              </p>
             <input type="radio" name="answer" value="1">
             <span class="checkmark"></span>
           </label>
@@ -21,21 +24,21 @@
 
 
         <div class="quiz"> 
-          <label class="orientation"><p> <%= quiz.answers[1] %></p>
+          <label class="orientation"><p>Ravenclaw</p>
             <input type="radio" name="answer" value="2">
             <span class="checkmark"></span>
           </label>
         </div>
 
         <div class="quiz"> 
-          <label class="orientation"><p><%= quiz.answers[2] %></p>
+          <label class="orientation"><p>Slytherin</p>
             <input type="radio" name="answer" value="3">
             <span class="checkmark"></span>
           </label>
         </div>
 
         <div class="quiz"> 
-          <label class="orientation"><p><%= quiz.answers[3] %></p>
+          <label class="orientation"><p>Hufflepuff</p>
             <input type="radio" name="answer" value="4">
             <span class="checkmark"></span>
           </label>
